@@ -25,7 +25,7 @@ source $ZSH/oh-my-zsh.sh
 
 
 # navigate to client
-alias client='cd ~/code/client'
+alias client="cd ~/code/client"
 
 
 # NOTE: api throws this error if the proxy isn't running in the same shell as api
@@ -35,12 +35,20 @@ alias client='cd ~/code/client'
 # ```
 alias api='cd ~/code/api && cpd' 
 
+# search for a test with fzf and run the single test
+# should work in api and client
+alias test='yarn testSingle ./tests/$(cd ./tests && fzf && ..)'
+
+# fzf a branch
+alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
+
 # un-fuck cntlm proxy when you get a "Error: tunneling socket could not be established, statusCode=502" error on the app's login page
 # NOTE: I don't really use cntlm so I may be able to get rid of this.
 alias ufp="sudo pkill cntlm; source ~/.zprofile"
 
 # un-fuck xcode after doing any software update
-alias ufx="sudo rm -rf $(xcode-select --print-path)"
+# remove xcode-select then reinstall it
+alias ufx="sudo rm -rf $(xcode-select --print-path) && xcode-select --install"
 
 # COF root certificates for yarn
 export NODE_EXTRA_CA_CERTS=$HOME/.local/etc/ssl/certs/COF.pem
