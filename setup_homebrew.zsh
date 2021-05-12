@@ -38,4 +38,5 @@ brew install --cask brave-browser # browser
 brew install --cask firefox # browser
 brew install --cask flux # screen brightness utility
 brew install --cask rectangle # window manager
+brew install --cask postico # database GUI. United Income has a license for it... somewhere
 

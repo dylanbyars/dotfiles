@@ -1,4 +1,4 @@
-export PATH=$HOME/.bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:~/.emacs.d/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/nnb479/.oh-my-zsh"
@@ -20,6 +20,9 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
+# open scratch.md doc in vscode
+alias scratch="code ~/scratch.md"
+
 
 # NOTE: the proxy only applies to the shell it's running in
 
@@ -37,7 +40,7 @@ alias api='cd ~/code/api && cpd'
 
 # search for a test with fzf and run the single test
 # should work in api and client
-alias test='yarn testSingle ./tests/$(cd ./tests && fzf && ..)'
+alias test='yarn testSingle ./tests/$(cd ./tests && fzf)'
 
 # fzf a branch
 alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
