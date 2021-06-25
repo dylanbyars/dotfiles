@@ -18,6 +18,9 @@ alias client="cd ~/code/client"
 # ```
 alias api='cd ~/code/api && cpd'
 
+# git
+alias g='git'
+
 # fzf a branch
 alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
 
