@@ -1,7 +1,15 @@
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+
+
+alias nv='nvim'
 
 # open scratch.md doc in vscode
 alias scratch="code ~/scratch.md"
+
+# push ssh key to bastion host
+alias pk="~/bin/push-ssh-key.exp ~/.ssh/id_rsa.pu"
+# connect to the bastion host (enable DB connection)
+
 
 
 # NOTE: the proxy only applies to the shell it's running in
@@ -20,13 +28,13 @@ alias api='cd ~/code/api && cpd'
 
 # git
 alias g='git'
+# fzf git aliases
+alias ga="git aliases | fzf"
+# tab completion
+autoload -Uz compinit && compinit
 
 # fzf a branch
 alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
-
-# un-fuck cntlm proxy when you get a "Error: tunneling socket could not be established, statusCode=502" error on the app's login page
-# NOTE: I don't really use cntlm so I may be able to get rid of this.
-alias ufp="sudo pkill cntlm; source ~/.zprofile"
 
 # un-fuck xcode after doing any software update
 # remove xcode-select then reinstall it
