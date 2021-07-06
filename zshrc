@@ -50,6 +50,7 @@ export NODE_EXTRA_CA_CERTS=$HOME/.local/etc/ssl/certs/COF.pem
 # nvm stuff
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion # Activate tab completion for `nvm` commands
 
 # call `nvm use` on directory navigation
 autoload -U add-zsh-hook
