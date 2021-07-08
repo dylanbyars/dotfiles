@@ -30,8 +30,6 @@ alias api='cd ~/code/api && cpd'
 alias g='git'
 # fzf git aliases
 alias ga="git aliases | fzf"
-# tab completion
-autoload -Uz compinit && compinit
 
 # fzf a branch
 alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
@@ -74,10 +72,12 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-# awscli auto completion
-# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html
+# awscli
+alias awsToken="cloudsentry access get --ba ASVUNITEDINCOME --all --force"
+# auto completion -- https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+# TODO: learn about compinit
 compinit
 complete -C '/usr/local/bin/aws_completer' aws
 
