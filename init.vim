@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-commentary'
 Plug 'neovim/nvim-lspconfig'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
 " show the current line number on the current line and the relative line number on all other lines
@@ -9,6 +10,8 @@ set number relativenumber
 set ignorecase 
 " break lines between words at window's width
 set linebreak
+" tabs are 2 spaces wide (but still tabs)
+set tabstop=2
 
 " map j and k to gj and gk so that they move from visual line to visual line when j or k is
 " pressed but move from real line to real line when jumping some number of
