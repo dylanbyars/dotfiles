@@ -24,7 +24,7 @@ alias client="cd ~/code/client"
 # Caught an error: read ECONNRESET Error: read ECONNRESET
 #    at TLSWrap.onStreamRead (internal/stream_base_commons.js:111:27)
 # ```
-alias api='cd ~/code/api && cpd'
+alias api="cd ~/code/api && cpd && docker-compose up -d sessiondb"
 
 # git
 alias g='git'
