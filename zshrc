@@ -1,7 +1,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 
-alias nv='nvim'
+alias vim='nvim'
+
+export EDITOR=/usr/local/bin/nvim
 
 # open scratch.md doc in vscode
 alias scratch="code ~/scratch.md"
@@ -9,7 +11,6 @@ alias scratch="code ~/scratch.md"
 # push ssh key to bastion host
 alias pk="~/bin/push-ssh-key.exp ~/.ssh/id_rsa.pu"
 # connect to the bastion host (enable DB connection)
-
 
 
 # NOTE: the proxy only applies to the shell it's running in
