@@ -1,15 +1,28 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'neovim/nvim-lspconfig'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" telescope stuff
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+"
 call plug#end()
 
-" something's weird with my statusline config. Just shows a big empty white
-" box
-set laststatus=1
-hi statusline gui=NONE
+let mapleader = " "
 
 set termguicolors
+
+" statusline
+" left side
+set statusline=
+set statusline+=\ %f			" show relative path to current file
+" right side
+set statusline+=%=
+set statusline+=\ ·\ 		" interpunct
+set statusline+=%{FugitiveHead()} " show current branch 
+set statusline+=\ ·\ 		" interpunct
 
 " show the current line number on the current line and the relative line number on all other lines
 set number relativenumber
@@ -37,4 +50,15 @@ noremap <silent> K 10k
 set scrolloff=999
 set sidescrolloff=999
 
+" move between splits
+nmap <silent> <leader>k :wincmd k<CR>
+nmap <silent> <leader>j :wincmd j<CR>
+nmap <silent> <leader>h :wincmd h<CR>
+nmap <silent> <leader>l :wincmd l<CR>
+
+" telescope config
+" Find files using Telescope command-line sugar.
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <C-b> <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 

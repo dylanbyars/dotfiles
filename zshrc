@@ -19,13 +19,38 @@ alias pk="~/bin/push-ssh-key.exp ~/.ssh/id_rsa.pu"
 # navigate to client
 alias client="cd ~/code/client"
 
+# start the docker container for dyanmodb
+# if the docker daemon (i.e. Docker Desktop) is not running, start it then start the container
+function startDocker() {
+				function startContainer() {
+								# if the container's already running, move on. otherwise, start it
+								{docker ps --filter expose=3001-8000/tcp 1> /dev/null } || {
+												echo "Starting dyanamodb container..."
+												docker-compose up -d sessiondb 2> /dev/null && echo "Container started"
+								}
+				}
+  
+				startContainer
+
+				# if the `startContainer` command fails, try starting Docker Desktop then run `startContainer` again
+				if [[ $? -ne 0 ]]  {
+								{ docker ps -q 2> /dev/null } || {
+												echo "Docker is not running. Starting Docker Desktop..."
+												open -a Docker
+												echo "Press [ENTER} to continue once Docker Desktop is ready."
+												read
+												startContainer
+								}
+				}
+}
+
 
 # NOTE: api throws this error if the proxy isn't running in the same shell as api
 # ```
 # Caught an error: read ECONNRESET Error: read ECONNRESET
 #    at TLSWrap.onStreamRead (internal/stream_base_commons.js:111:27)
 # ```
-alias api="cd ~/code/api && cpd && docker-compose up -d sessiondb"
+alias api="cd ~/code/api && cpd && startDocker"
 
 # git
 alias g='git'
