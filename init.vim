@@ -1,24 +1,28 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'tpope/vim-commentary'
+" git
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'f-person/git-blame.nvim'
+" comments made easy
+Plug 'tpope/vim-commentary'
+" completion
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" completion
 Plug 'hrsh7th/nvim-compe'
 Plug 'windwp/nvim-autopairs'
+" prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" telescope stuff
+" telescope stuff (order matter I think)
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-"
 " linter
 Plug 'dense-analysis/ale'
 call plug#end()
 
 let mapleader = " "
 
-set termguicolors
+" set termguicolors
 
 " statusline
 " left side
@@ -64,6 +68,10 @@ nmap <silent> <leader>k :wincmd k<CR>
 nmap <silent> <leader>j :wincmd j<CR>
 nmap <silent> <leader>h :wincmd h<CR>
 nmap <silent> <leader>l :wincmd l<CR>
+
+" git gutter config
+set updatetime=10
+nmap <leader>b :GitBlameToggle<cr>
 
 " telescope config
 " Find files using Telescope command-line sugar.
