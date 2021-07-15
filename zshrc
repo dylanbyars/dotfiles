@@ -1,4 +1,3 @@
-# export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 
 alias vim='nvim'
@@ -21,29 +20,26 @@ alias client="cd ~/code/client"
 
 # navigate to api and get it ready to run
 function api() {
-				cd ~/code/api # go to project
+  cd ~/code/api # go to project
 
-				# confirm docker is setup to support the application OR set it up
-				local function startContainer() {
-								docker-compose up -d sessiondb 2> /dev/null 
-				}
-  
-				startContainer
+  # confirm docker is setup to support the application OR set it up
+  function startContainer() {
+    docker-compose up -d sessiondb 2> /dev/null
+  }
 
-				# if the `startContainer` command fails, try starting Docker Desktop then run `startContainer` again
-				if [[ $? -ne 0 ]]  {
-								{ docker ps -q 2> /dev/null } || {
-												echo "Docker is not running. Starting Docker Desktop..."
-												open -a Docker
-												echo "Press [ENTER} to continue once Docker Desktop is ready."
-												read
-												startContainer
-												if [[ $(docker ps --filter "expose=3001-8000/tcp" | wc -l) -eq 2 ]]
-												then
-																echo "dynamodb container started."
-												fi
-								}
-				}
+  startContainer
+
+  # if the `startContainer` command fails, try starting Docker Desktop then run `startContainer` again
+  if [[ $? -ne 0 ]]; then
+    echo "Docker is not running. Starting Docker Desktop..."
+    open -a Docker
+    echo "Press [ENTER} to continue once Docker Desktop is ready."
+    read
+    startContainer
+    if [[ $(docker ps --filter "name=api" | wc -l) -eq 2 ]]; then
+      echo "dynamodb container started."
+    fi
+  fi
 }
 
 # git
@@ -59,7 +55,7 @@ alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xarg
 alias ufx="sudo rm -rf $(xcode-select --print-path) && xcode-select --install"
 
 # ls
-alias l="ls -oGF" # long format, colorized, with item type info (symlink, directory, etc...)
+alias l="ls -oGF"   # long format, colorized, with item type info (symlink, directory, etc...)
 alias ll="ls -aoGF" # same as ^ but include hidden files
 
 # COF root certificates for yarn
