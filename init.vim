@@ -1,4 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
+" colorscheme
+Plug 'dracula/vim', { 'as': 'dracula' } 
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -20,9 +22,10 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'dense-analysis/ale'
 call plug#end()
 
-let mapleader = " "
+set termguicolors
+colorscheme dracula
 
-" set termguicolors
+let mapleader = " "
 
 " statusline
 " left side
