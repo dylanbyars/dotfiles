@@ -4,9 +4,6 @@ alias vim='nvim'
 
 export EDITOR=/usr/local/bin/nvim
 
-# open scratch.md doc in vscode
-alias scratch="code ~/scratch.md"
-
 # push ssh key to bastion host
 alias pk="~/bin/push-ssh-key.exp ~/.ssh/id_rsa.pu"
 # connect to the bastion host (enable DB connection)

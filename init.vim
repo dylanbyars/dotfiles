@@ -25,7 +25,7 @@ call plug#end()
 set termguicolors
 colorscheme dracula
 
-let mapleader = " "
+let mapleader=" "
 
 " statusline
 " left side
@@ -33,9 +33,8 @@ set statusline=
 set statusline+=\ %f			" show relative path to current file
 " right side
 set statusline+=%=
-set statusline+=\ ·\ 		" interpunct
-set statusline+=%{FugitiveHead()} " show current branch 
-set statusline+=\ ·\ 		" interpunct
+set statusline+=\ 
+set statusline+=%{FugitiveHead()}\  " show current branch
 
 " show the current line number on the current line and the relative line number on all other lines
 set number relativenumber
@@ -62,18 +61,24 @@ nmap = /<C-r><C-w>
 noremap <silent> J 10j
 noremap <silent> K 10k
 
-" always keep cursor in the center of the screen (except for at the top or bottom of a file)
-" set scrolloff=999
-" set sidescrolloff=999
+" keep 8 rows of text visible at the top and bottom of screen (if possible)
+set scrolloff=8
 
 " move between splits
-nmap <silent> <leader>k :wincmd k<CR>
-nmap <silent> <leader>j :wincmd j<CR>
-nmap <silent> <leader>h :wincmd h<CR>
-nmap <silent> <leader>l :wincmd l<CR>
+nnoremap <silent> <leader>k :wincmd k<CR>
+nnoremap <silent> <leader>j :wincmd j<CR>
+nnoremap <silent> <leader>h :wincmd h<CR>
+nnoremap <silent> <leader>l :wincmd l<CR>
+" make splits easier
+nnoremap <silent> <leader>\| <C-w>v
+nnoremap <silent> <leader>- <C-w>s
 
-" git gutter config
+" git
+" git gutter 
 set updatetime=10
+" git blame 
+" off by default
+let g:gitblame_enabled = 0
 nmap <leader>b :GitBlameToggle<cr>
 
 " telescope config
