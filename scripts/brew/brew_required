@@ -1,8 +1,4 @@
-tap "homebrew/bundle"
 
-tap "homebrew/cask"
-tap "homebrew/core"
-tap "homebrew/services"
 brew "awscli"
 brew "flyway"
 brew "jq"

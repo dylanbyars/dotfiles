@@ -7,16 +7,21 @@
 #
 
 function brewfileInfo() {
-  brewfile=$1
-
-  if [[ $(grep 'tap' $brewfile | wc -l) -gt 0 ]]; then
-    echo "Taps:"
-    awk '/^tap/ {gsub(/"|,/, ""); print "-",$2}' $brewfile
-  fi
-  echo "Packages:"
-  awk '/^brew/ {gsub(/"|,/, ""); print "-",$2}' $brewfile
-  echo "Casks:"
-  awk '/^cask/ {gsub(/"|,/, ""); print "-",$2}' $brewfile
+  awk '
+    BEGIN {lineType = ""}
+    {if (lineType != $1) {
+      lineType = $1
+      description = ""
+      if (lineType == "tap") {
+        description = "(additional sources for packages)"
+      } else if (lineType == "brew") {
+        description = "(packages that you use on the command line)" 
+      } else {
+        description = "(GUI applications)" 
+      }
+      print $1,description;
+    }}
+    {gsub(/"|,/, ""); print "  -",$2}' $1
 }
 
 function installPackages() {
