@@ -25,15 +25,15 @@ function brewfileInfo() {
 }
 
 function installPackages() {
-  brewfileInfo ./brew_required
+  brewfileInfo ./Brewfile--required
   echo "\nDownloading required packages...\n"
-  brew bundle install --file=./brew_required
+  brew bundle install --file=./Brewfile--required
   echo "\nThe following packages are *OPTIONAL*. They're used to setup more advanced utilities that you may find useful.\nSee ONBOARDING.md, api/README.md and client/README.md for an idea of how these additional packages can augment your developer experience."
-  brewfileInfo ./brew_optional
+  brewfileInfo ./Brewfile--optional
   read -q "download?Download optional packages? (Y/n)   "
   if [[ $? = 0 ]]; then
     echo "\n\nDownloading optional packages...\n"
-    brew bundle install --file=./brew_optional
+    brew bundle install --file=./Brewfile--optional
   fi
 }
 
