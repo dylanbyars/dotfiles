@@ -1,0 +1,47 @@
+#!/bin/zsh
+
+# Install homebrew and some packages
+
+# Install homebrew
+# More info here: https://brew.sh/
+#
+
+function brewfileInfo() {
+  brewfile=$1
+
+  if [[ $(grep 'tap' $brewfile | wc -l) -gt 0 ]]; then
+    echo "Taps:"
+    awk '/^tap/ {gsub(/"|,/, ""); print "-",$2}' $brewfile
+  fi
+  echo "Packages:"
+  awk '/^brew/ {gsub(/"|,/, ""); print "-",$2}' $brewfile
+  echo "Casks:"
+  awk '/^cask/ {gsub(/"|,/, ""); print "-",$2}' $brewfile
+}
+
+function installPackages() {
+  brewfileInfo ./brew_required
+  echo "\nDownloading required packages...\n"
+  brew bundle install --file=./brew_required
+  echo "\nThe following packages are *OPTIONAL*. They're used to setup more advanced utilities that you may find useful.\nSee ONBOARDING.md, api/README.md and client/README.md for an idea of how these additional packages can augment your developer experience."
+  brewfileInfo ./brew_optional
+  read -q "download?Download optional packages? (Y/n)   "
+  if [[ $? = 0 ]]; then
+    echo "\n\nDownloading optional packages...\n"
+    brew bundle install --file=./brew_optional
+  fi
+}
+
+if type brew > /dev/null; then
+  echo "Homebrew installation found."
+  echo "Installing the following required packages: \n"
+  installPackages
+else
+  echo "Installing Homebrew..."
+  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  installPackages
+  if [[ $? -ne 0 ]]; then
+    echo "Something went wrong."
+
+  fi
+fi
