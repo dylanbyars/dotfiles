@@ -1,6 +1,8 @@
 call plug#begin('~/.config/nvim/plugged')
 " colorscheme
 Plug 'dracula/vim', { 'as': 'dracula' } 
+" status line
+Plug 'itchyny/lightline.vim'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -9,32 +11,51 @@ Plug 'f-person/git-blame.nvim'
 Plug 'tpope/vim-commentary'
 " completion
 Plug 'neovim/nvim-lspconfig'
+Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-compe'
 Plug 'windwp/nvim-autopairs'
 " prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" file explorer
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua' 
 " telescope stuff (order matter I think)
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" writing
+Plug 'junegunn/goyo.vim'
 " linter
 Plug 'dense-analysis/ale'
 call plug#end()
 
 set termguicolors
 colorscheme dracula
+" let g:lightline = { 'colorscheme': 'selenized_black' }
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]      
+      \ },
+      \   'right': [ 'lineinfo', 'percent', 'fileformat' ],
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+" don't show the mode since it's shown in the statusline
+set noshowmode
 
 let mapleader=" "
 
 " statusline
 " left side
-set statusline=
-set statusline+=\ %f			" show relative path to current file
-" right side
-set statusline+=%=
-set statusline+=\ 
-set statusline+=%{FugitiveHead()}\  " show current branch
+" set statusline=
+" set statusline+=\ %f			" show relative path to current file
+" " right side
+" set statusline+=%=
+" set statusline+=\ 
+" set statusline+=%{FugitiveHead()}\  " show current branch
 
 " show the current line number on the current line and the relative line number on all other lines
 set number relativenumber
@@ -81,6 +102,12 @@ set updatetime=10
 let g:gitblame_enabled = 0
 nmap <leader>b :GitBlameToggle<cr>
 
+" nvim-tree config
+nnoremap <leader>n :NvimTreeToggle <CR>
+" show dot files/folders
+let g:nvim_tree_hide_dotfiles = 0
+let g:nvim_tree_width = '30%'
+
 " telescope config
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>Telescope find_files<cr>
@@ -89,23 +116,37 @@ nnoremap <C-g> <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " ALE config
-let g:ale_set_highlights = 1
+" let g:ale_set_highlights = 1
 
 " LSP config
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> ; <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> <C-m> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <silent> <C-m> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+" LSP Saga mappings
+nnoremap <silent>; :Lspsaga hover_doc<CR>
+nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+nnoremap <silent> gs :Lspsaga signature_help<CR>
+nnoremap <silent> gr :Lspsaga rename<CR>
+" nnoremap <silent> gd :Lspsaga preview_definition<CR>
+nnoremap <silent> <leader>cd :Lspsaga show_line_diagnostics<CR>
+nnoremap <silent> [e :Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> ]e :Lspsaga diagnostic_jump_prev<CR>
 
 set completeopt=menuone,noselect
 lua << EOF
 -- LSP config
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.bashls.setup{}
+
+-- LSP saga config
+local saga = require 'lspsaga'
+-- lsp provider to find the cursor word definition and reference
+
 -- autopair config
 require('nvim-autopairs').setup()
 
