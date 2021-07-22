@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 " colorscheme
-Plug 'dracula/vim', { 'as': 'dracula' } 
+Plug 'Mofiqul/dracula.nvim'
 " status line
 Plug 'itchyny/lightline.vim'
 " git
@@ -31,7 +31,9 @@ Plug 'dense-analysis/ale'
 call plug#end()
 
 set termguicolors
+
 colorscheme dracula
+
 " let g:lightline = { 'colorscheme': 'selenized_black' }
 let g:lightline = {
       \ 'active': {
@@ -47,15 +49,6 @@ let g:lightline = {
 set noshowmode
 
 let mapleader=" "
-
-" statusline
-" left side
-" set statusline=
-" set statusline+=\ %f			" show relative path to current file
-" " right side
-" set statusline+=%=
-" set statusline+=\ 
-" set statusline+=%{FugitiveHead()}\  " show current branch
 
 " show the current line number on the current line and the relative line number on all other lines
 set number relativenumber
@@ -86,10 +79,10 @@ noremap <silent> K 10k
 set scrolloff=8
 
 " move between splits
-nnoremap <silent> <leader>k :wincmd k<CR>
-nnoremap <silent> <leader>j :wincmd j<CR>
-nnoremap <silent> <leader>h :wincmd h<CR>
-nnoremap <silent> <leader>l :wincmd l<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-l> :wincmd l<CR>
 " make splits easier
 nnoremap <silent> <leader>\| <C-w>v
 nnoremap <silent> <leader>- <C-w>s
@@ -110,7 +103,7 @@ let g:nvim_tree_width = '30%'
 
 " telescope config
 " Find files using Telescope command-line sugar.
-nnoremap <C-p> <cmd>Telescope find_files<cr>
+" nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Telescope buffers<cr>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -138,10 +131,34 @@ nnoremap <silent> [e :Lspsaga diagnostic_jump_next<CR>
 nnoremap <silent> ]e :Lspsaga diagnostic_jump_prev<CR>
 
 set completeopt=menuone,noselect
+
 lua << EOF
+-- treesitter
+require'nvim-treesitter.configs'.setup {
+  -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "javascript", "bash", "css", "html", "jsdoc", "json", "lua", "regex", "scss", "tsx", "typescript", "yaml", "toml" }, 
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+-- telescope stuff
+local map = vim.api.nvim_set_keymap
+local default_opts = {noremap = true}
+-- https://github.com/skbolton/titan/blob/4d0d31cc6439a7565523b1018bec54e3e8bc502c/nvim/nvim/lua/mappings/filesystem.lua#L6
+map('n', '<C-p>', "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
+-- end telescope stuff
+
 -- LSP config
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.bashls.setup{}
+require'lspconfig'.vimls.setup{}
 
 -- LSP saga config
 local saga = require 'lspsaga'
@@ -167,7 +184,15 @@ require'compe'.setup {
 
   source = {
     path = true;
+    buffer = true;
+    calc = true;
+    vsnip = true;
     nvim_lsp = true;
+    nvim_lua = true;
+    -- spell = true;
+    tags = true;
+    snippets_nvim = true;
+    treesitter = true; 
   };
 }
 
@@ -209,4 +234,3 @@ vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 EOF
-
