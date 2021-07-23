@@ -7,7 +7,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- don't show mode since it's in the statusline
--- vim.o.noshowmode = true TODO: this broke...
+vim.o.showmode = false
 
 -- show the current line number on the current line and the relative line number on all other lines
 vim.o.number = true
@@ -31,6 +31,7 @@ vim.o.expandtab = true
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 vim.o.scrolloff = 8
 
+-- making changes here
 -- treesitter
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
