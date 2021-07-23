@@ -1,0 +1,10 @@
+os:
+  openCommand: "vim {{filename}}"
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+gui:
+  sidePanelWidth: 0.2
+  commandLogSize: 4
+notARepository: "skip"
