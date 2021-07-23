@@ -1,3 +1,35 @@
+vim.o.termguicolors = true
+vim.cmd('colorscheme dracula')
+
+--Remap space as leader key
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- don't show mode since it's in the statusline
+-- vim.o.noshowmode = true TODO: this broke...
+
+-- show the current line number on the current line and the relative line number on all other lines
+vim.o.number = true
+vim.o.relativenumber = true
+
+-- Do not save when switching buffers
+vim.o.hidden = true
+
+
+-- default to case insensitive search
+vim.o.ignorecase = true
+-- break lines between words at window's width
+vim.o.linebreak = true
+-- tabs are 2 spaces wide 
+vim.o.tabstop = 2
+vim.o.softtabstop = 2 
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+
+
+-- keep 8 rows of text visible at the top and bottom of screen (if possible)
+vim.o.scrolloff = 8
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {

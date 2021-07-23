@@ -16,7 +16,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/nvim-compe'
 Plug 'windwp/nvim-autopairs'
 " prettier
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['lua']}
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " file explorer
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua' 
@@ -32,11 +32,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'dense-analysis/ale'
 call plug#end()
 
-set termguicolors
+lua require('baz')
 
-colorscheme dracula
-
-" let g:lightline = { 'colorscheme': 'selenized_black' }
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode' ],  ['relativepath', 'modified' ] ],
@@ -46,24 +43,7 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ }
       \ } 
-" don't show the mode since it's shown in the statusline
-set noshowmode
 
-let mapleader=" "
-
-" show the current line number on the current line and the relative line number on all other lines
-set number relativenumber
-" default to case insensitive search
-set ignorecase 
-" break lines between words at window's width
-set linebreak
-" tabs are 2 spaces wide (but still tabs)
-set tabstop=2
-set softtabstop=2 
-set shiftwidth=2
-set expandtab
-" hide, don't close buffers when they're not active
-set hidden
 
 " map j and k to gj and gk so that they move from visual line to visual line when j or k is
 " pressed but move from real line to real line when jumping some number of
@@ -77,9 +57,6 @@ nmap = /<C-r><C-w>
 " move down/up 10 lines with capital J/K
 noremap <silent> J 10j
 noremap <silent> K 10k
-
-" keep 8 rows of text visible at the top and bottom of screen (if possible)
-set scrolloff=8
 
 " move between splits
 nnoremap <C-k> :wincmd k<CR>
@@ -149,4 +126,3 @@ nnoremap <silent> ]e :Lspsaga diagnostic_jump_prev<CR>
 
 set completeopt=menuone,noselect
 
-lua require('baz')
