@@ -24,6 +24,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" whichkey
+Plug 'liuchengxu/vim-which-key'
 " writing
 Plug 'junegunn/goyo.vim'
 " linter
@@ -37,14 +39,13 @@ colorscheme dracula
 " let g:lightline = { 'colorscheme': 'selenized_black' }
 let g:lightline = {
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]      
+      \   'left': [ [ 'mode' ],  ['relativepath', 'modified' ] ],
+      \   'right': [ ['percent'], ['gitbranch'] ],
       \ },
-      \   'right': [ 'lineinfo', 'percent', 'fileformat' ],
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
-      \ },
       \ }
+      \ } 
 " don't show the mode since it's shown in the statusline
 set noshowmode
 
@@ -61,6 +62,8 @@ set tabstop=2
 set softtabstop=2 
 set shiftwidth=2
 set expandtab
+" hide, don't close buffers when they're not active
+set hidden
 
 " map j and k to gj and gk so that they move from visual line to visual line when j or k is
 " pressed but move from real line to real line when jumping some number of
@@ -87,6 +90,10 @@ nnoremap <C-l> :wincmd l<CR>
 nnoremap <silent> <leader>\| <C-w>v
 nnoremap <silent> <leader>- <C-w>s
 
+" clipboard
+" yank selection to system clipboard
+noremap <Leader>y "*y
+
 " git
 " git gutter 
 set updatetime=10
@@ -94,6 +101,9 @@ set updatetime=10
 " off by default
 let g:gitblame_enabled = 0
 nmap <leader>b :GitBlameToggle<cr>
+
+" which key
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " nvim-tree config
 nnoremap <leader>n :NvimTreeToggle <CR>
@@ -114,21 +124,28 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " LSP config
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 " nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 " nnoremap <silent> <C-m> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 " LSP Saga mappings
-nnoremap <silent>; :Lspsaga hover_doc<CR>
+nnoremap <silent> <leader>d :Lspsaga hover_doc<CR>
 nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 nnoremap <silent> gs :Lspsaga signature_help<CR>
 nnoremap <silent> gr :Lspsaga rename<CR>
-" nnoremap <silent> gd :Lspsaga preview_definition<CR>
+" find cursor word definition and references
+nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
+nnoremap <silent> <leader>gd :Lspsaga preview_definition<CR>
 nnoremap <silent> <leader>cd :Lspsaga show_line_diagnostics<CR>
 nnoremap <silent> [e :Lspsaga diagnostic_jump_next<CR>
 nnoremap <silent> ]e :Lspsaga diagnostic_jump_prev<CR>
+" scroll down hover doc or scroll in definition preview
+" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+" scroll up hover doc
+" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
 
 set completeopt=menuone,noselect
 
