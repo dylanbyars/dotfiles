@@ -1,3 +1,5 @@
+--------------------------
+-- SETTINGS
 vim.o.termguicolors = true
 vim.cmd('colorscheme dracula')
 
@@ -13,9 +15,8 @@ vim.o.showmode = false
 vim.o.number = true
 vim.o.relativenumber = true
 
--- Do not save when switching buffers
+-- don't require a file save before switching buffers
 vim.o.hidden = true
-
 
 -- default to case insensitive search
 vim.o.ignorecase = true
@@ -27,12 +28,43 @@ vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
+-- shorten timeout before whichkey menu appears
+vim.o.timeoutlen = 500
 
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 vim.o.scrolloff = 8
 
--- making changes here
+
+
+--------------------------
+-- plugin configs
+--------------------------
+
+local map = vim.api.nvim_set_keymap
+local default_opts = {noremap = true}
+
+
+--------------------------
+-- telescope
+--------------------------
+-- https://github.com/skbolton/titan/blob/4d0d31cc6439a7565523b1018bec54e3e8bc502c/nvim/nvim/lua/mappings/filesystem.lua#L6
+map('n', '<C-p>', "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
+map('n', '<C-b>', "<cmd>:Telescope buffers<cr>", default_opts)
+map('n', '<C-g>', "<cmd>:Telescope live_grep<cr>", default_opts)
+-- map('n', '<C-b>', "<cmd>Telescope help_tags<cr>", default_opts)
+
+
+--------------------------
+-- nvim-tree
+--------------------------
+map('n', '<leader>?', "<cmd>:NvimTreeFindFile<cr>", default_opts)
+map('n', '<leader><space>', "<cmd>:NvimTreeToggle<cr>", default_opts)
+vim.g.nvim_tree_hide_dotfiles = 0
+vim.g.nvim_tree_width = "15%"
+
+--------------------------
 -- treesitter
+--------------------------
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ensure_installed = { "javascript", "bash", "css", "html", "jsdoc", "json", "lua", "regex", "scss", "tsx", "typescript", "yaml", "toml" }, 
@@ -47,21 +79,39 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
--- telescope stuff
-local map = vim.api.nvim_set_keymap
-local default_opts = {noremap = true}
--- https://github.com/skbolton/titan/blob/4d0d31cc6439a7565523b1018bec54e3e8bc502c/nvim/nvim/lua/mappings/filesystem.lua#L6
-map('n', '<C-p>', "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
--- end telescope stuff
-
+--------------------------
 -- LSP config
+--------------------------
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.vimls.setup{}
 
+--------------------------
 -- LSP saga config
+--------------------------
 local saga = require 'lspsaga'
--- lsp provider to find the cursor word definition and reference
+saga.init_lsp_saga {
+  border_style = "round",
+  max_preview_lines = 15,
+  finder_action_keys = {
+    open = 'o', 
+    vsplit = 's', 
+    split = 'i', 
+    quit = 'q',
+    scroll_down = '<C-,>', 
+    scroll_up = '<C-.>' 
+  }
+}
+
+map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>', default_opts)
+map('n', 'gs', '<cmd>:Lspsaga signature_help<CR>', default_opts)
+map('n', 'gr', '<cmd>:Lspsaga rename<CR>', default_opts)
+-- find cursor word definition and references
+map('n', 'gh', '<cmd>:Lspsaga lsp_finder<CR>', default_opts)
+map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>', default_opts)
+-- Lsp navigation
+-- go to definition
+map('n', 'gd', '<cmd>vim.lsp.buf.definition<CR>', default_opts)
 
 -- autopair config
 require('nvim-autopairs').setup()
@@ -132,3 +182,6 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+
+require("which-key").setup {}

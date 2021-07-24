@@ -25,7 +25,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 " whichkey
-Plug 'liuchengxu/vim-which-key'
+Plug 'folke/which-key.nvim'
 " writing
 Plug 'junegunn/goyo.vim'
 " linter
@@ -79,50 +79,10 @@ set updatetime=10
 let g:gitblame_enabled = 0
 nmap <leader>b :GitBlameToggle<cr>
 
-" which key
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-
-" nvim-tree config
-nnoremap <leader>n :NvimTreeToggle <CR>
-" show dot files/folders
-let g:nvim_tree_hide_dotfiles = 0
-let g:nvim_tree_width = '30%'
-
-" telescope config
-" Find files using Telescope command-line sugar.
-" nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <C-b> <cmd>Telescope buffers<cr>
-nnoremap <C-g> <cmd>Telescope live_grep<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " ALE config
 " let g:ale_set_highlights = 1
 
-" LSP config
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent> <C-m> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-
-" LSP Saga mappings
-nnoremap <silent> <leader>d :Lspsaga hover_doc<CR>
-nnoremap <silent><leader>ca :Lspsaga code_action<CR>
-nnoremap <silent> gs :Lspsaga signature_help<CR>
-nnoremap <silent> gr :Lspsaga rename<CR>
-" find cursor word definition and references
-nnoremap <silent> gh :Lspsaga lsp_finder<CR>
-nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
-nnoremap <silent> <leader>gd :Lspsaga preview_definition<CR>
-nnoremap <silent> <leader>cd :Lspsaga show_line_diagnostics<CR>
-nnoremap <silent> [e :Lspsaga diagnostic_jump_next<CR>
-nnoremap <silent> ]e :Lspsaga diagnostic_jump_prev<CR>
-" scroll down hover doc or scroll in definition preview
-" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-" scroll up hover doc
-" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-
+" is this for lsp saga?
 set completeopt=menuone,noselect
 
