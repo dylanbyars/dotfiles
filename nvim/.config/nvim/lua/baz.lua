@@ -1,5 +1,8 @@
+require 'statusline'
+
 --------------------------
 -- SETTINGS
+--------------------------
 vim.o.termguicolors = true
 vim.cmd('colorscheme dracula')
 
@@ -35,14 +38,39 @@ vim.o.timeoutlen = 500
 vim.o.scrolloff = 8
 
 
-
 --------------------------
--- plugin configs
+-- general key bindings
 --------------------------
 
 local map = vim.api.nvim_set_keymap
 local default_opts = {noremap = true}
 
+-- map = to a command that searches for the word under the cursor
+map('n', '=', '/<C-r><C-w>', default_opts)
+-- nmap = /<C-r><C-w>
+
+-- move down/up 10 lines with capital J/K
+map('n', 'J', '10j', default_opts)
+map('n', 'K', '10k', default_opts)
+-- noremap <silent> J 10j
+-- noremap <silent> K 10k
+
+-- move between splits
+map('n', 'K', '10k', default_opts)
+map('n', '<C-h>', ':wincmd h<cr>', default_opts)
+map('n', '<C-j>', ':wincmd j<cr>', default_opts)
+map('n', '<C-k>', ':wincmd k<cr>', default_opts)
+map('n', '<C-l>', ':wincmd l<cr>', default_opts)
+-- make splits easier
+map('n', '<leader>|', '<C-w>v', default_opts)
+map('n', '<leader>-', '<C-w>s', default_opts)
+
+-- yank selection to system clipboard
+map('n', '<leader>y', '*y', default_opts)
+
+--------------------------
+-- plugin configs
+--------------------------
 
 --------------------------
 -- telescope
@@ -62,6 +90,25 @@ map('n', '<leader><space>', "<cmd>:NvimTreeToggle<cr>", default_opts)
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = "15%"
 
+
+--------------------------
+-- which-key
+--------------------------
+require("which-key").setup {}
+
+
+--------------------------
+-- git
+--------------------------
+-- git-blame
+-- disable git-blame to start
+vim.g.gitblame_enabled = 0
+map('n', '<leader>b', '<cmd>:GitBlameToggle<cr>', default_opts)
+
+-- signify (like gitgutter)
+vim.o.updatetime = 100
+
+
 --------------------------
 -- treesitter
 --------------------------
@@ -79,12 +126,14 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+
 --------------------------
 -- LSP config
 --------------------------
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.vimls.setup{}
+
 
 --------------------------
 -- LSP saga config
@@ -111,12 +160,19 @@ map('n', 'gh', '<cmd>:Lspsaga lsp_finder<CR>', default_opts)
 map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>', default_opts)
 -- Lsp navigation
 -- go to definition
-map('n', 'gd', '<cmd>vim.lsp.buf.definition<CR>', default_opts)
+-- TODO: there are a lot more built in functions on the `vim.lsp.buf` object
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', default_opts)
 
+
+--------------------------
 -- autopair config
+--------------------------
 require('nvim-autopairs').setup()
 
+
+--------------------------
 -- Compe setup
+--------------------------
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -183,5 +239,3 @@ vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-
-require("which-key").setup {}
