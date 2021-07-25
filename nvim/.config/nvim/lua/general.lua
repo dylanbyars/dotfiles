@@ -105,7 +105,14 @@ vim.g.nvim_tree_width = '15%'
 --------------------------
 -- which-key
 --------------------------
-require('which-key').setup {}
+require('which-key').setup {
+  window = {
+    border = 'single'
+  },
+  layout = {
+    align = 'center'
+  }
+}
 
 
 --------------------------
