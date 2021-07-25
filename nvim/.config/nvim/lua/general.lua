@@ -45,16 +45,21 @@ local default_opts = {noremap = true}
 
 -- map = to a command that searches for the word under the cursor
 map('n', '=', '/<C-r><C-w>', default_opts)
--- nmap = /<C-r><C-w>
 
 -- move down/up 10 lines with capital J/K
 map('n', 'J', '10j', default_opts)
+map('v', 'J', '10j', default_opts)
 map('n', 'K', '10k', default_opts)
--- noremap <silent> J 10j
--- noremap <silent> K 10k
+map('v', 'K', '10k', default_opts)
+
+-- map j and k to gj and gk so that they move from visual line to visual line when j or k is
+-- pressed but move from real line to real line when jumping some number of
+-- lines across visually wrapped lines
+-- TODO: convert to lua
+vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
+vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
 -- move between splits
-map('n', 'K', '10k', default_opts)
 map('n', '<C-h>', ':wincmd h<cr>', default_opts)
 map('n', '<C-j>', ':wincmd j<cr>', default_opts)
 map('n', '<C-k>', ':wincmd k<cr>', default_opts)
@@ -111,6 +116,14 @@ vim.o.updatetime = 100
 -- neoformat
 --------------------------
 map('n', '<leader>p', '<cmd>:Neoformat prettier<cr>', default_opts)
+
+
+--------------------------
+-- ALE
+--------------------------
+vim.g.ale_sign_error = '●'
+vim.g.ale_sign_warning = '·'
+map('n', 'ø', '<cmd>:ALEOrganizeImports<cr>', default_opts) -- <Option-o>
 
 
 --------------------------
@@ -177,6 +190,8 @@ require('nvim-autopairs').setup()
 --------------------------
 -- Compe setup
 --------------------------
+vim.o.completeopt = "menuone,noselect"
+
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -242,4 +257,7 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- Map compe confirm and complete functions
+vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
+vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
 
