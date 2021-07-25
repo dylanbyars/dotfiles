@@ -75,6 +75,12 @@ map('n', '<leader>y', '*y', default_opts)
 -- plugin configs
 --------------------------
 
+
+--------------------------
+-- startify
+--------------------------
+vim.g.startify_change_to_vcs_root = 1
+
 --------------------------
 -- telescope
 --------------------------
