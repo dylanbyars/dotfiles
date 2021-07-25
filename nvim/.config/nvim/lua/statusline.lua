@@ -2,14 +2,18 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'dracula',
-    component_separators = {'', ''},
-    section_separators = {'', ''},
+    component_separators = {'', ''},
+    section_separators = {'', ''},
     disabled_filetypes = {}
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'filename'},
-    lualine_c = {},
+    lualine_b = {
+      {'filename', path = 1} -- 0 = just filename, 1 = relative path, 2 = absolute path
+    },
+    lualine_c = {
+      {'diff', color_added = '#50fa7b'}
+    },
     lualine_x = {},
     lualine_y = {'branch'},
     lualine_z = {'progress'}
