@@ -35,6 +35,8 @@ vim.o.timeoutlen = 500
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 vim.o.scrolloff = 8
 
+-- change hl-SignColumn so that vim-signify has better colors for added lines
+vim.api.nvim_exec('highlight SignifySignAdd guifg='..green, false)
 
 --------------------------
 -- general key bindings
@@ -126,6 +128,7 @@ map('n', '<leader>b', '<cmd>:GitBlameToggle<cr>', default_opts)
 -- signify (like gitgutter)
 vim.o.updatetime = 100
 map('n', 'hu', '<cmd>:SignifyHunkUndo<cr>', default_opts)
+map('n', 'hd', '<cmd>:SignifyHunkDiff<cr>', default_opts)
 
 
 --------------------------

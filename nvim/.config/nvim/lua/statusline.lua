@@ -12,7 +12,7 @@ require'lualine'.setup {
       {'filename', path = 1} -- 0 = just filename, 1 = relative path, 2 = absolute path
     },
     lualine_c = {
-      {'diff', color_added = '#50fa7b'}
+      {'diff', color_added = green}
     },
     lualine_x = {},
     lualine_y = {'branch'},
