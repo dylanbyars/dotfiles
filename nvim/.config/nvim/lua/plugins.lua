@@ -21,11 +21,8 @@ use {
  }
 use 'hrsh7th/nvim-compe'
 use 'windwp/nvim-autopairs'
--- prettier
-use {
- 'prettier/vim-prettier',
- run = 'yarn install'
- }
+-- formatting
+use 'sbdchd/neoformat'
 -- file explorer
 use 'kyazdani42/nvim-web-devicons' -- for file icons
 use 'kyazdani42/nvim-tree.lua' 

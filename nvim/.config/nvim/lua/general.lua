@@ -108,6 +108,12 @@ vim.o.updatetime = 100
 
 
 --------------------------
+-- neoformat
+--------------------------
+map('n', '<leader>p', '<cmd>:Neoformat prettier<cr>', default_opts)
+
+
+--------------------------
 -- treesitter
 --------------------------
 require'nvim-treesitter.configs'.setup {
