@@ -90,11 +90,15 @@ map('n', '<leader>y', '*y', default_opts)
 -- startify
 --------------------------
 vim.g.startify_change_to_vcs_root = 1
+vim.g.startify_custom_header = 'startify#center(startify#fortune#cowsay())'
 vim.g.startify_lists = {
   {type = 'bookmarks', header = {' Projects'}},
   {type = 'files', header = {' Recent Files'}},
 }
 vim.g.startify_bookmarks = {
+  {v = '~/dotfiles/nvim/.config/nvim/lua/general.lua'},
+  {z = '~/dotfiles/zsh/.zshrc'},
+  {t = '~/dotfiles/tmux/.tmux.conf'},
   '~/dotfiles',
   '~/code/api',
   '~/code/client',
