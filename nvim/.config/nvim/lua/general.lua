@@ -96,12 +96,13 @@ vim.g.startify_lists = {
 }
 vim.g.startify_bookmarks = {
   '~/dotfiles',
-  '~/code/client',
   '~/code/api',
+  '~/code/client',
   '~/code/gravity-components',
   '~/code/dotcom-v2',
   '~/code/data-migrate',
-  '~/code/gravity'
+  '~/code/gravity',
+  '~/code/setup-local-env'
 }
 
 
