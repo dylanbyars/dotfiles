@@ -99,14 +99,11 @@ vim.g.startify_bookmarks = {
   {v = '~/dotfiles/nvim/.config/nvim/lua/general.lua'},
   {z = '~/dotfiles/zsh/.zshrc'},
   {t = '~/dotfiles/tmux/.tmux.conf'},
-  '~/dotfiles',
-  '~/code/api',
-  '~/code/client',
-  '~/code/gravity-components',
-  '~/code/dotcom-v2',
-  '~/code/data-migrate',
-  '~/code/gravity',
-  '~/code/setup-local-env'
+  {d = '~/dotfiles'},
+  {a = '~/code/api'},
+  {c = '~/code/client'},
+  {g = '~/code/gravity-components'},
+  '~/code'
 }
 
 
@@ -125,8 +122,9 @@ map('n', '<C-g>', '<cmd>:Telescope live_grep<cr>', default_opts)
 --------------------------
 map('n', '<leader>?', '<cmd>:NvimTreeFindFile<cr>', default_opts)
 map('n', '<leader><space>', '<cmd>:NvimTreeToggle<cr>', default_opts)
+-- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 vim.g.nvim_tree_hide_dotfiles = 0
-vim.g.nvim_tree_width = '15%'
+vim.g.nvim_tree_width = '25%'
 
 
 --------------------------
@@ -166,7 +164,7 @@ map('n', '<leader>p', '<cmd>:Neoformat prettier<cr>', default_opts)
 -- ALE
 --------------------------
 vim.g.ale_sign_error = '●'
-vim.g.ale_sign_warning = '·'
+vim.g.ale_sign_warning = '●'
 map('n', 'ø', '<cmd>:ALEOrganizeImports<cr>', default_opts) -- <Option-o>
 
 
