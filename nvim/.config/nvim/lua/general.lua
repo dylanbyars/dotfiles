@@ -4,10 +4,16 @@
 vim.o.termguicolors = true
 vim.cmd('colorscheme dracula')
 
+-- make the mouse work
+vim.o.mouse = 'a'
+
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- persistent undo
+-- vim.o.undofile = true
 
 -- don't show mode since it's in the statusline
 vim.o.showmode = false
@@ -84,6 +90,20 @@ map('n', '<leader>y', '*y', default_opts)
 -- startify
 --------------------------
 vim.g.startify_change_to_vcs_root = 1
+vim.g.startify_lists = {
+  {type = 'bookmarks', header = {' Projects'}},
+  {type = 'files', header = {' Recent Files'}},
+}
+vim.g.startify_bookmarks = {
+  '~/dotfiles',
+  '~/code/client',
+  '~/code/api',
+  '~/code/gravity-components',
+  '~/code/dotcom-v2',
+  '~/code/data-migrate',
+  '~/code/gravity'
+}
+
 
 --------------------------
 -- telescope
@@ -107,14 +127,14 @@ vim.g.nvim_tree_width = '15%'
 --------------------------
 -- which-key
 --------------------------
-require('which-key').setup {
-  window = {
-    border = 'single'
-  },
-  layout = {
-    align = 'center'
-  }
-}
+-- require('which-key').setup {
+--   window = {
+--     border = 'single'
+--   },
+--   layout = {
+--     align = 'center'
+--   }
+-- }
 
 
 --------------------------
