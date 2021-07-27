@@ -81,7 +81,8 @@ map('n', '<leader>|', '<C-w>v', default_opts)
 map('n', '<leader>-', '<C-w>s', default_opts)
 
 -- yank selection to system clipboard
-map('n', '<leader>y', '*y', default_opts)
+map('n', '<leader>y', '"+y', default_opts)
+map('v', '<leader>y', '"+y', default_opts)
 
 --------------------------
 -- plugin configs
