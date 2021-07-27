@@ -16,6 +16,7 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'glepnir/lspsaga.nvim'
   use 'hrsh7th/nvim-compe'
+  use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
   -- treesitter
   use {

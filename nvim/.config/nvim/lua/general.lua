@@ -252,10 +252,11 @@ map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', default_opts)
 
 
 --------------------------
--- autopair config
+-- completion helpers
 --------------------------
 require('nvim-autopairs').setup()
 
+require('lsp_signature').setup()
 
 --------------------------
 -- Compe setup
