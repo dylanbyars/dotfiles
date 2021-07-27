@@ -24,6 +24,12 @@ alias ls="ls -GF" # regular format + colorized + item type info
 alias l="ls -oGF"   # long format, colorized, with item type info (symlink, directory, etc...)
 alias ll="ls -aoGF" # same as ^ but include hidden files
 
+# mktouch -- mkdirs to a new file if the path doesn't exist
+# $1 = `path/to/new/file.txt` and new file is called `file.txt`
+function mktouch() {
+  mkdir -p "$(dirname "$1")" && touch "$1"
+}
+
 # a collection of scripts used for Capital One Investing development
 
 
