@@ -135,19 +135,6 @@ vim.g.nvim_tree_width = '25%'
 
 
 --------------------------
--- which-key
---------------------------
--- require('which-key').setup {
---   window = {
---     border = 'single'
---   },
---   layout = {
---     align = 'center'
---   }
--- }
-
-
---------------------------
 -- git
 --------------------------
 -- git-blame
