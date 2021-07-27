@@ -49,9 +49,6 @@ vim.o.scrolloff = 8
 vim.o.splitbelow = true
 vim.o.splitright = true
 
--- change hl-SignColumn so that vim-signify has better colors for added lines
-vim.api.nvim_exec('highlight SignifySignAdd guifg='..green, false)
-
 --------------------------
 -- general key bindings
 --------------------------
@@ -138,16 +135,7 @@ vim.g.nvim_tree_width = '25%'
 --------------------------
 -- git
 --------------------------
--- git-blame
--- disable git-blame to start
-vim.g.gitblame_enabled = 0
-map('n', '<leader>b', '<cmd>:GitBlameToggle<cr>', default_opts)
-
--- signify (like gitgutter)
-vim.o.updatetime = 100
-map('n', 'hu', '<cmd>:SignifyHunkUndo<cr>', default_opts)
-map('n', 'hd', '<cmd>:SignifyHunkDiff<cr>', default_opts)
-
+require('gitsigns').setup()
 
 --------------------------
 -- neoformat

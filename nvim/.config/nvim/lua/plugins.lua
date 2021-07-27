@@ -8,8 +8,12 @@ return require('packer').startup(function()
   -- status line
   use 'hoob3rt/lualine.nvim'
   -- git
-  use 'mhinz/vim-signify'
-  use 'f-person/git-blame.nvim'
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    }
+  }  
   -- comments made easy
   use 'tpope/vim-commentary'
   -- completion
