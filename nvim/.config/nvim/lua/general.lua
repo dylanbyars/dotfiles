@@ -39,9 +39,6 @@ vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
--- shorten timeout before whichkey menu appears
-vim.o.timeoutlen = 500
-
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 vim.o.scrolloff = 8
 
