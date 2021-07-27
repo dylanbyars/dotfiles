@@ -18,6 +18,9 @@ vim.g.maplocalleader = ' '
 -- don't show mode since it's in the statusline
 vim.o.showmode = false
 
+-- always show the sign column
+vim.o.signcolumn = 'yes'
+
 -- show the current line number on the current line and the relative line number on all other lines
 vim.o.number = true
 vim.o.relativenumber = true
@@ -40,6 +43,10 @@ vim.o.timeoutlen = 500
 
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 vim.o.scrolloff = 8
+
+-- put new splits below or to the right
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 -- change hl-SignColumn so that vim-signify has better colors for added lines
 vim.api.nvim_exec('highlight SignifySignAdd guifg='..green, false)
