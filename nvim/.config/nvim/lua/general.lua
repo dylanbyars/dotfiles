@@ -138,7 +138,8 @@ require('gitsigns').setup()
 --------------------------
 -- neoformat
 --------------------------
-map('n', '<leader>p', '<cmd>:Neoformat prettier<cr>', default_opts)
+-- π = <Option-p>
+map('n', 'π', '<cmd>:Neoformat prettier<cr>', default_opts)
 
 
 --------------------------
@@ -198,6 +199,9 @@ require'lspconfig'.tsserver.setup {
       }
   }
 }
+-- ø = <Option-o>
+map('n', 'ø', '<cmd>:OrganizeImports<cr>', default_opts)
+
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.vimls.setup{}
 
