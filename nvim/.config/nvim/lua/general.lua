@@ -156,14 +156,6 @@ map('n', '<leader>p', '<cmd>:Neoformat prettier<cr>', default_opts)
 
 
 --------------------------
--- ALE
---------------------------
-vim.g.ale_sign_error = '●'
-vim.g.ale_sign_warning = '●'
-map('n', 'ø', '<cmd>:ALEOrganizeImports<cr>', default_opts) -- <Option-o>
-
-
---------------------------
 -- treesitter
 --------------------------
 require'nvim-treesitter.configs'.setup {
@@ -205,7 +197,21 @@ require'treesitter-context.config'.setup{ enable = true }
 --------------------------
 -- LSP config
 --------------------------
-require'lspconfig'.tsserver.setup{}
+local function organize_imports()
+  vim.lsp.buf.execute_command({
+    command = "_typescript.organizeImports",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+  })
+end
+
+require'lspconfig'.tsserver.setup {
+    commands = {
+      OrganizeImports = {
+        organize_imports,
+        description = "Organize Imports"
+      }
+  }
+}
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.vimls.setup{}
 

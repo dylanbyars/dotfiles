@@ -38,6 +38,4 @@ return require('packer').startup(function()
   }
   -- writing
   use 'junegunn/goyo.vim'
-  -- linter
-  use 'dense-analysis/ale'
 end) 
