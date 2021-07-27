@@ -4,8 +4,11 @@ export EDITOR=/usr/local/bin/nvim
 
 alias vim='nvim'
 
+alias zz='source ~/.zshrc'
+
 # git
 alias g='git'
+alias gco='git checkout'
 alias lz='lazygit'
 # fzf git aliases
 alias ga="git aliases | fzf"
