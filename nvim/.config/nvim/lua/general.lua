@@ -183,7 +183,28 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+  rainbow = {
+    enable = true,
+    extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+    colors = { -- table of hex strings
+      '#ff6e67',
+      '#5af78e',
+      '#f4f99d',
+      '#caa9fa',
+      '#ff92d0',
+      '#9aedfe',
+      '#e6e6e6',
+    }, 
+  },
+  -- refactor = {
+  --   highlight_current_scope = { enable = true },
+  --   highlight_definitions = { enable = true },
+  -- },
 }
+
+require'treesitter-context.config'.setup{ enable = true }
+
 
 
 --------------------------

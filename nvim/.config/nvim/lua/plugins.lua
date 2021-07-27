@@ -17,11 +17,15 @@ return require('packer').startup(function()
   use 'glepnir/lspsaga.nvim'
   use 'hrsh7th/nvim-compe'
   use 'windwp/nvim-autopairs'
-  -- formatting
+  -- treesitter
   use {
    'nvim-treesitter/nvim-treesitter',
    run = ':TSUpdate'
-   }
+  }
+  use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
+  use 'romgrk/nvim-treesitter-context'
+  use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
+  -- formatting
   use 'sbdchd/neoformat'
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
