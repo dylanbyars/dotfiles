@@ -2,7 +2,7 @@ return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- colorscheme
-  use 'Mofiqul/dracula.nvim'
+  use 'folke/tokyonight.nvim'
   -- start page
   use 'mhinz/vim-startify'
   -- status line
