@@ -6,6 +6,7 @@ alias vim='nvim'
 
 # git
 alias g='git'
+alias lz='lazygit'
 # fzf git aliases
 alias ga="git aliases | fzf"
 # fzf a branch
