@@ -54,7 +54,7 @@ local default_opts = {noremap = true}
 
 -- searching
 -- map = to a command that searches for the word under the cursor
-map('n', '=', '/<C-r><C-w><cr>', default_opts)
+map('n', '=', '/<C-r><C-w><cr>', default_opts) -- TODO: I think telescope can do this
 -- clear highlights with <Esc>
 map('n', '<esc>', '<cmd>:noh<cr>', default_opts)
 
@@ -113,12 +113,38 @@ vim.g.startify_bookmarks = {
 --------------------------
 -- telescope
 --------------------------
--- https://github.com/skbolton/titan/blob/4d0d31cc6439a7565523b1018bec54e3e8bc502c/nvim/nvim/lua/mappings/filesystem.lua#L6
-map('n', '<C-p>', "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
-map('n', '<C-b>', '<cmd>:Telescope buffers<cr>', default_opts)
-map('n', '<C-g>', '<cmd>:Telescope live_grep<cr>', default_opts)
--- map('n', '<C-b>', '<cmd>Telescope help_tags<cr>', default_opts)
+local function t(builtin, options) 
+  args = builtin..(options == nil and '()' or '('..options..')')
+  return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
+end
 
+-- find all files (including hidden) but NOT any files in the hidden `.git/` directory
+map('n', '<C-p>', t('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"), default_opts)
+map('n', '<C-b>', t('buffers'), default_opts)
+map('n', '<C-g>', t('live_grep'), default_opts)
+map('n', '<leader>/', t('current_buffer_fuzzy_find'), default_opts) -- 
+map('n', '<leader>?', t('help_tags'), default_opts) -- for quick vim `help`
+map('n', '<leader>man', t('man_pages'), default_opts) -- search for a man page, preview it, and open it in a vim buffer on <cr>
+-- TODO:
+-- builtin.oldfiles
+-- builtin.search_history
+-- builtin.marks
+-- builtin.registers
+-- builtin.spell_suggest
+-- builtin.lsp_FOO lots here...
+
+require('telescope').setup {
+  extensions = {
+    -- faster live_grep. I think. Should probably verify that...
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = false, -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- "smart_case" (default) or "ignore_case" or "respect_case"
+    }
+  }
+}
+require('telescope').load_extension('fzf')
 
 --------------------------
 -- nvim-tree
