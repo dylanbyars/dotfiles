@@ -32,9 +32,9 @@ vim.o.hidden = true
 vim.o.ignorecase = true
 -- break lines between words at window's width
 vim.o.linebreak = true
--- tabs are 2 spaces wide 
+-- tabs are 2 spaces wide
 vim.o.tabstop = 2
-vim.o.softtabstop = 2 
+vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
@@ -49,7 +49,7 @@ vim.o.splitright = true
 -- general key bindings
 --------------------------
 
-local function map(mode, mapping, action, options) 
+local function map(mode, mapping, action, options)
   options = options == nil and {noremap = true} or options
   return vim.api.nvim_set_keymap(mode, mapping, action, options)
 end
@@ -115,7 +115,7 @@ vim.g.startify_bookmarks = {
 --------------------------
 -- telescope
 --------------------------
-local function t(builtin, options) 
+local function t(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
   return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
 end
@@ -125,7 +125,7 @@ map('n', '<C-p>', t('find_files', "{ find_command = {'rg', '--files', '--hidden'
 map('n', '<C-b>', t('buffers'))
 map('n', '<C-g>', t('live_grep'))
 map('n', '<leader>/', '/')
-map('n', '/', t('current_buffer_fuzzy_find')) -- 
+map('n', '/', t('current_buffer_fuzzy_find')) --
 map('n', '<leader>?', t('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', t('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
@@ -179,7 +179,7 @@ map('n', 'π', '<cmd>:Neoformat prettier<cr>')
 --------------------------
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { 'javascript', 'bash', 'css', 'html', 'jsdoc', 'json', 'lua', 'regex', 'scss', 'tsx', 'typescript', 'yaml', 'toml' }, 
+  ensure_installed = { 'javascript', 'bash', 'css', 'html', 'jsdoc', 'json', 'lua', 'regex', 'scss', 'tsx', 'typescript', 'yaml', 'toml' },
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- disable = { "c", "rust" },  -- list of language that will be disabled
@@ -201,7 +201,7 @@ require'nvim-treesitter.configs'.setup {
       '#bb9af7',
       '#7dcfff',
       '#a9b1d6'
-    }, 
+    },
   },
   -- refactor = {
   --   highlight_current_scope = { enable = true },
@@ -290,12 +290,12 @@ saga.init_lsp_saga {
   border_style = 'round',
   max_preview_lines = 15,
   finder_action_keys = {
-    open = 'o', 
-    vsplit = 's', 
-    split = 'i', 
+    open = 'o',
+    vsplit = 's',
+    split = 'i',
     quit = 'q',
-    scroll_down = '<C-,>', 
-    scroll_up = '<C-.>' 
+    scroll_down = '<C-,>',
+    scroll_up = '<C-.>'
   }
 }
 
@@ -307,6 +307,7 @@ map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
 -- Lsp navigation
 -- go to definition
 -- TODO: there are a lot more built in functions on the `vim.lsp.buf` object
+-- code_action is tight
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 
 
@@ -363,7 +364,7 @@ require'compe'.setup {
     -- spell = true;
     tags = true;
     snippets_nvim = true;
-    treesitter = true; 
+    treesitter = true;
   };
 }
 
