@@ -1,7 +1,3 @@
--- TODO: learn about tags
---
---
---
 --------------------------
 -- SETTINGS
 --------------------------
@@ -53,20 +49,24 @@ vim.o.splitright = true
 -- general key bindings
 --------------------------
 
-local map = vim.api.nvim_set_keymap
-local default_opts = {noremap = true}
+local function map(mode, mapping, action, options) 
+  options = options == nil and {noremap = true} or options
+  return vim.api.nvim_set_keymap(mode, mapping, action, options)
+end
+-- local map = vim.api.nvim_set_keymap
+-- local default_opts = {noremap = true}
 
 -- searching
 -- map = to a command that searches for the word under the cursor
-map('n', '=', '/<C-r><C-w><cr>', default_opts) -- TODO: I think telescope can do this
+-- map('n', '=', '/<C-r><C-w><cr>', default_opts) -- TODO: I think telescope can do this
 -- clear highlights with <Esc>
-map('n', '<esc>', '<cmd>:noh<cr>', default_opts)
+map('n', '<esc>', '<cmd>:noh<cr>')
 
 -- move down/up 10 lines with capital J/K
-map('n', 'J', '10j', default_opts)
-map('v', 'J', '10j', default_opts)
-map('n', 'K', '10k', default_opts)
-map('v', 'K', '10k', default_opts)
+map('n', 'J', '10j')
+map('v', 'J', '10j')
+map('n', 'K', '10k')
+map('v', 'K', '10k')
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
@@ -76,17 +76,17 @@ vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
 -- move between splits with arrow keys
-map('n', '<left>', ':wincmd h<cr>', default_opts)
-map('n', '<down>', ':wincmd j<cr>', default_opts)
-map('n', '<up>', ':wincmd k<cr>', default_opts)
-map('n', '<right>', ':wincmd l<cr>', default_opts)
+map('n', '<left>', ':wincmd h<cr>')
+map('n', '<down>', ':wincmd j<cr>')
+map('n', '<up>', ':wincmd k<cr>')
+map('n', '<right>', ':wincmd l<cr>')
 -- make splits easier
-map('n', '<leader>|', '<C-w>v', default_opts)
-map('n', '<leader>-', '<C-w>s', default_opts)
+map('n', '<leader>|', '<C-w>v')
+map('n', '<leader>-', '<C-w>s')
 
 -- yank selection to system clipboard
-map('n', '<leader>y', '"+y', default_opts)
-map('v', '<leader>y', '"+y', default_opts)
+map('n', '<leader>y', '"+y')
+map('v', '<leader>y', '"+y')
 
 --------------------------
 -- plugin configs
@@ -123,12 +123,14 @@ local function t(builtin, options)
 end
 
 -- find all files (including hidden) but NOT any files in the hidden `.git/` directory
-map('n', '<C-p>', t('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"), default_opts)
-map('n', '<C-b>', t('buffers'), default_opts)
-map('n', '<C-g>', t('live_grep'), default_opts)
-map('n', '<leader>/', t('current_buffer_fuzzy_find'), default_opts) -- 
-map('n', '<leader>?', t('help_tags'), default_opts) -- for quick vim `help`
-map('n', '<leader>man', t('man_pages'), default_opts) -- search for a man page, preview it, and open it in a vim buffer on <cr>
+map('n', '<C-p>', t('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
+map('n', '<C-b>', t('buffers'))
+map('n', '<C-g>', t('live_grep'))
+map('n', '<leader>/', '/')
+map('n', '/', t('current_buffer_fuzzy_find')) -- 
+map('n', '<leader>?', t('help_tags')) -- for quick vim `help`
+map('n', '<leader>man', t('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
+map('n', '=', t('grep_string'))
 -- TODO:
 -- builtin.oldfiles
 -- builtin.search_history
@@ -153,8 +155,8 @@ require('telescope').load_extension('fzf')
 --------------------------
 -- nvim-tree
 --------------------------
-map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>', default_opts)
-map('n', '<esc>', '<cmd>:NvimTreeClose<cr>', default_opts)
+map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
+map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
 -- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = '25%'
@@ -169,7 +171,7 @@ require('gitsigns').setup()
 -- neoformat
 --------------------------
 -- π = <Option-p>
-map('n', 'π', '<cmd>:Neoformat prettier<cr>', default_opts)
+map('n', 'π', '<cmd>:Neoformat prettier<cr>')
 
 
 --------------------------
@@ -230,7 +232,7 @@ require'lspconfig'.tsserver.setup {
   }
 }
 -- ø = <Option-o>
-map('n', 'ø', '<cmd>:OrganizeImports<cr>', default_opts)
+map('n', 'ø', '<cmd>:OrganizeImports<cr>')
 
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.vimls.setup{}
@@ -254,15 +256,15 @@ saga.init_lsp_saga {
   }
 }
 
-map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>', default_opts)
-map('n', 'gr', '<cmd>:Lspsaga rename<CR>', default_opts)
+map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>')
+map('n', 'gr', '<cmd>:Lspsaga rename<CR>')
 -- find cursor word definition and references
-map('n', 'gh', '<cmd>:Lspsaga lsp_finder<CR>', default_opts)
-map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>', default_opts)
+map('n', 'gh', '<cmd>:Lspsaga lsp_finder<CR>')
+map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
 -- Lsp navigation
 -- go to definition
 -- TODO: there are a lot more built in functions on the `vim.lsp.buf` object
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', default_opts)
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 
 
 --------------------------
