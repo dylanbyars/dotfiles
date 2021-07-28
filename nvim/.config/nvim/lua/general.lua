@@ -215,6 +215,16 @@ require'treesitter-context.config'.setup{ enable = true }
 --------------------------
 -- LSP config
 --------------------------
+-- TODO: there's gotta be a better way to record what servers a person's installed
+-- servers installed:
+-- typescript
+-- html
+-- css
+-- lua
+-- dockerfile
+-- bash
+-- yaml
+-- vim
 local function setup_servers()
   require'lspinstall'.setup()
   local servers = require'lspinstall'.installed_servers()
