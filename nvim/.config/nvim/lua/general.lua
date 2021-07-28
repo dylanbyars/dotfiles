@@ -58,9 +58,7 @@ end
 
 -- searching
 -- map = to a command that searches for the word under the cursor
--- map('n', '=', '/<C-r><C-w><cr>', default_opts) -- TODO: I think telescope can do this
--- clear highlights with <Esc>
-map('n', '<esc>', '<cmd>:noh<cr>')
+map('n', '=', '/<C-r><C-w><cr>') -- TODO: I think telescope can do this
 
 -- move down/up 10 lines with capital J/K
 map('n', 'J', '10j')
@@ -130,7 +128,7 @@ map('n', '<leader>/', '/')
 map('n', '/', t('current_buffer_fuzzy_find')) -- 
 map('n', '<leader>?', t('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', t('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
-map('n', '=', t('grep_string'))
+-- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
 -- builtin.search_history
@@ -156,7 +154,8 @@ require('telescope').load_extension('fzf')
 -- nvim-tree
 --------------------------
 map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
-map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
+-- close tree AND remove highlights when <esc> is pressed
+map('n', '<esc>', '<cmd>:NvimTreeClose<cr><cmd>:noh<cr>')
 -- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = '25%'
