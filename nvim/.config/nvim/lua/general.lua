@@ -251,6 +251,19 @@ local function setup_servers()
       }
     end
 
+    -- make lua language server aware of a global variable called `vim`
+    if server == 'lua' then
+      config = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            }
+          }
+        }
+      }
+    end
+
     require'lspconfig'[server].setup(config)
   end
 end
