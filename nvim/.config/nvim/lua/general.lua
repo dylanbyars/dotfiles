@@ -215,7 +215,7 @@ require'treesitter-context.config'.setup{ enable = true }
 --------------------------
 -- LSP config
 --------------------------
--- TODO: there's gotta be a better way to record what servers a person's installed
+-- TODO: there's gotta be a better way to record what servers a person's installed...
 -- servers installed:
 -- typescript
 -- html
