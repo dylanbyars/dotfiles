@@ -215,26 +215,46 @@ require'treesitter-context.config'.setup{ enable = true }
 --------------------------
 -- LSP config
 --------------------------
-local function organize_imports()
-  vim.lsp.buf.execute_command({
-    command = "_typescript.organizeImports",
-    arguments = {vim.api.nvim_buf_get_name(0)},
-  })
+local function setup_servers()
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    local config = {}
+
+    if server == 'typescript' then
+
+      local function organize_imports()
+        vim.lsp.buf.execute_command({
+          command = "_typescript.organizeImports",
+          arguments = {vim.api.nvim_buf_get_name(0)},
+        })
+      end
+
+      config = {
+        commands = {
+          OrganizeImports = {
+            organize_imports,
+            description = "Organize Imports"
+          }
+        }
+      }
+    end
+
+    require'lspconfig'[server].setup(config)
+  end
 end
 
-require'lspconfig'.tsserver.setup {
-    commands = {
-      OrganizeImports = {
-        organize_imports,
-        description = "Organize Imports"
-      }
-  }
-}
--- ø = <Option-o>
-map('n', 'ø', '<cmd>:OrganizeImports<cr>')
+setup_servers()
 
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.vimls.setup{}
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+
+
+-- ø = <Option-o> -- only works in ts/js files I guess
+map('n', 'ø', '<cmd>:OrganizeImports<cr>')
 
 
 --------------------------

@@ -18,6 +18,7 @@ return require('packer').startup(function()
   use 'tpope/vim-commentary'
   -- completion
   use 'neovim/nvim-lspconfig'
+  use 'kabouzeid/nvim-lspinstall' -- for installing language servers
   use 'glepnir/lspsaga.nvim'
   use 'hrsh7th/nvim-compe'
   use 'ray-x/lsp_signature.nvim'
