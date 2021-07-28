@@ -4,6 +4,8 @@
 vim.o.termguicolors = true
 vim.g.tokyonight_style = 'night'
 vim.cmd[[colorscheme tokyonight]]
+-- change the color of the line between vertical splits
+-- vim.cmd[[highlight VertSplit guifg=#7dcfff]]-- not working...
 
 -- make the mouse work
 vim.o.mouse = 'a'
@@ -12,9 +14,6 @@ vim.o.mouse = 'a'
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
--- persistent undo
--- vim.o.undofile = true
 
 -- don't show mode since it's in the statusline
 vim.o.showmode = false
@@ -56,6 +55,7 @@ local default_opts = {noremap = true}
 -- searching
 -- map = to a command that searches for the word under the cursor
 map('n', '=', '/<C-r><C-w><cr>', default_opts)
+-- clear highlights with <Esc>
 map('n', '<esc>', '<cmd>:noh<cr>', default_opts)
 
 -- move down/up 10 lines with capital J/K
