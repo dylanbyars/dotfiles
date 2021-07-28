@@ -116,7 +116,7 @@ vim.g.startify_bookmarks = {
 -- telescope
 --------------------------
 local function t(builtin, options) 
-  args = builtin..(options == nil and '()' or '('..options..')')
+  local args = builtin..(options == nil and '()' or '('..options..')')
   return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
 end
 
