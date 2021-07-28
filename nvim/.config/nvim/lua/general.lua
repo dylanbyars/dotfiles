@@ -71,11 +71,11 @@ map('v', 'K', '10k', default_opts)
 vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
--- move between splits
-map('n', '<C-h>', ':wincmd h<cr>', default_opts)
-map('n', '<C-j>', ':wincmd j<cr>', default_opts)
-map('n', '<C-k>', ':wincmd k<cr>', default_opts)
-map('n', '<C-l>', ':wincmd l<cr>', default_opts)
+-- move between splits with arrow keys
+map('n', '<left>', ':wincmd h<cr>', default_opts)
+map('n', '<down>', ':wincmd j<cr>', default_opts)
+map('n', '<up>', ':wincmd k<cr>', default_opts)
+map('n', '<right>', ':wincmd l<cr>', default_opts)
 -- make splits easier
 map('n', '<leader>|', '<C-w>v', default_opts)
 map('n', '<leader>-', '<C-w>s', default_opts)
