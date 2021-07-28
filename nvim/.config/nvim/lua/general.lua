@@ -157,6 +157,7 @@ map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
 -- close tree AND remove highlights when <esc> is pressed
 map('n', '<esc>', '<cmd>:NvimTreeClose<cr><cmd>:noh<cr>')
 -- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
+vim.g.nvim_tree_highlight_opened_files = 3
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = '25%'
 
