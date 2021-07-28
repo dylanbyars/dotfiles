@@ -123,8 +123,8 @@ map('n', '<C-g>', '<cmd>:Telescope live_grep<cr>', default_opts)
 --------------------------
 -- nvim-tree
 --------------------------
-map('n', '<leader>?', '<cmd>:NvimTreeFindFile<cr>', default_opts)
-map('n', '<leader><space>', '<cmd>:NvimTreeToggle<cr>', default_opts)
+map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>', default_opts)
+map('n', '<esc>', '<cmd>:NvimTreeClose<cr>', default_opts)
 -- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = '25%'
