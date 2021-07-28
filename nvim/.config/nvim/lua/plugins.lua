@@ -1,4 +1,4 @@
-return require('packer').startup(function()
+return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- colorscheme
@@ -13,7 +13,7 @@ return require('packer').startup(function()
     requires = {
       'nvim-lua/plenary.nvim'
     }
-  }  
+  }
   -- comments made easy
   use 'tpope/vim-commentary'
   -- completion
@@ -35,7 +35,7 @@ return require('packer').startup(function()
   use 'sbdchd/neoformat'
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use 'kyazdani42/nvim-tree.lua' 
+  use 'kyazdani42/nvim-tree.lua'
   -- telescope
   use {
     'nvim-telescope/telescope.nvim',
@@ -44,4 +44,4 @@ return require('packer').startup(function()
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   -- writing
   use 'junegunn/goyo.vim'
-end) 
+end)
