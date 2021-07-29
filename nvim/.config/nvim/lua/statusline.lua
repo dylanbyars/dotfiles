@@ -22,7 +22,19 @@ require'lualine'.setup {
         symbols = {added = '+', modified = '~', removed = '-'} -- changes diff symbols
       }
     },
-    lualine_x = {},
+    lualine_x = {
+      -- TODO:
+      -- 'diagnostics',
+      --   sources = {'nvim_lsp'},
+      --   -- displays diagnostics from defined severity
+      --   sections = {'error', 'warn', 'info', 'hint'},
+      --   -- all colors are in format #rrggbb
+      --   color_error = nil, -- changes diagnostic's error foreground color
+      --   color_warn = nil, -- changes diagnostic's warn foreground color
+      --   color_info = nil, -- Changes diagnostic's info foreground color
+      --   color_hint = nil, -- Changes diagnostic's hint foreground color
+      --   symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'}
+    },
     lualine_y = {'branch'},
     lualine_z = {'progress'}
   },
