@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
    'nvim-treesitter/nvim-treesitter',
    run = ':TSUpdate'
   }
+  use 'windwp/nvim-ts-autotag'
   use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
   use 'romgrk/nvim-treesitter-context'
   use 'p00f/nvim-ts-rainbow' -- prettier () [] {}

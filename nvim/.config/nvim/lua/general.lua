@@ -203,6 +203,7 @@ require'nvim-treesitter.configs'.setup {
       return c
     end
   },
+  autotag = { enable = true }
   -- refactor = {
   --   highlight_current_scope = { enable = true },
   --   highlight_definitions = { enable = true },
