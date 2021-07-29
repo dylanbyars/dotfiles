@@ -22,9 +22,10 @@ vim.o.showmode = false
 vim.o.signcolumn = 'yes'
 -- show fold column
 vim.o.foldcolumn = "2"
+vim.o.foldlevelstart = 99
 -- treesitter folds
--- vim.wo.foldmethod = 'expr'
--- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- show the current line number on the current line and the relative line number on all other lines
 vim.o.number = true
