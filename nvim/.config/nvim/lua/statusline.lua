@@ -16,10 +16,9 @@ require'lualine'.setup {
         'diff',
         colored = true, -- displays diff status in color if set to true
         -- all colors are in format #rrggbb
-        -- bright green, yellow, and red from tokyonight
-        color_added = '#9ece6a', -- changes diff's added foreground color
-        color_modified = '#e0af68', -- changes diff's modified foreground color
-        color_removed = '#f7768e', -- changes diff's removed foreground color
+        color_added = COLORS.green, -- changes diff's added foreground color
+        color_modified = COLORS.yellow, -- changes diff's modified foreground color
+        color_removed = COLORS.red, -- changes diff's removed foreground color
         symbols = {added = '+', modified = '~', removed = '-'} -- changes diff symbols
       }
     },

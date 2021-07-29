@@ -193,15 +193,15 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-    colors = { -- table of hex strings
-      '#f7768e',
-      '#9ece6a',
-      '#e0af68',
-      '#7aa2f7',
-      '#bb9af7',
-      '#7dcfff',
-      '#a9b1d6'
-    },
+    colors = function ()
+      local c = {}
+      for key, value in pairs(COLORS) do
+        if key ~= 'foreground' and key ~= 'background' then
+          table.insert(c, value)
+        end
+      end
+      return c
+    end
   },
   -- refactor = {
   --   highlight_current_scope = { enable = true },
@@ -300,14 +300,13 @@ saga.init_lsp_saga {
 }
 
 map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>')
-map('n', 'gr', '<cmd>:Lspsaga rename<CR>')
+map('n', '<leader>r', '<cmd>:Lspsaga rename<CR>')
 -- find cursor word definition and references
 map('n', 'gh', '<cmd>:Lspsaga lsp_finder<CR>')
 map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
--- Lsp navigation
--- go to definition
--- TODO: there are a lot more built in functions on the `vim.lsp.buf` object
--- code_action is tight
+-- additional lsp mappings using regular lsp api
+map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 
 
@@ -322,7 +321,7 @@ require('lsp_signature').setup({
   -- set to 0 if you DO NOT want any API comments be shown
   -- This setting only take effect in insert mode, it does not affect signature help in normal
   -- mode, 10 by default
-
+  hint_enable = false, -- virtual hint enable
   floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
   -- use_lspsaga = false,  -- set to true if you want to use lspsaga popup
