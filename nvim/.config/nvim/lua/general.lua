@@ -20,6 +20,11 @@ vim.o.showmode = false
 
 -- always show the sign column
 vim.o.signcolumn = 'yes'
+-- show fold column
+vim.o.foldcolumn = "2"
+-- treesitter folds
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- show the current line number on the current line and the relative line number on all other lines
 vim.o.number = true
