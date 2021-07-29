@@ -115,19 +115,19 @@ vim.g.startify_bookmarks = {
 --------------------------
 -- telescope
 --------------------------
-local function t(builtin, options)
+local function telescope(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
   return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
 end
 
 -- find all files (including hidden) but NOT any files in the hidden `.git/` directory
-map('n', '<C-p>', t('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
-map('n', '<C-b>', t('buffers'))
-map('n', '<C-g>', t('live_grep'))
+map('n', '<C-p>', telescope('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
+map('n', '<C-b>', telescope('buffers'))
+map('n', '<C-g>', telescope('live_grep'))
 map('n', '<leader>/', '/')
-map('n', '/', t('current_buffer_fuzzy_find')) --
-map('n', '<leader>?', t('help_tags')) -- for quick vim `help`
-map('n', '<leader>man', t('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
+map('n', '/', telescope('current_buffer_fuzzy_find')) --
+map('n', '<leader>?', telescope('help_tags')) -- for quick vim `help`
+map('n', '<leader>man', telescope('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
