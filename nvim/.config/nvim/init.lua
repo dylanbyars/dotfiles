@@ -37,6 +37,8 @@ require('packer').startup(function(use)
   use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
   -- formatting
   use 'sbdchd/neoformat'
+  -- search improvements
+  use 'wincent/loupe'
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
@@ -135,11 +137,6 @@ map('n', '<S-Tab>', 'za')
 -- map = to a command that searches for the word under the cursor
 map('n', '=', '/<C-r><C-w><cr>') -- TODO: I think telescope can do this
 
--- keep search result in center of view while moving through list
--- (n -> next) && (zz -> center) && (zv -> open folds at cursor)
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
-
 -- move down/up 10 lines with capital J/K
 map('n', 'J', '10j')
 map('v', 'J', '10j')
@@ -236,8 +233,7 @@ require('telescope').load_extension('fzf')
 -- nvim-tree
 --------------------------
 map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
--- close tree AND remove highlights when <esc> is pressed
-map('n', '<esc>', '<cmd>:NvimTreeClose<cr><cmd>:noh<cr>')
+map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
 -- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 vim.g.nvim_tree_highlight_opened_files = 3
 vim.g.nvim_tree_hide_dotfiles = 0
