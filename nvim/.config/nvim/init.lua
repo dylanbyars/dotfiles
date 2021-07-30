@@ -173,6 +173,7 @@ vim.g.startify_custom_header = 'startify#center(startify#fortune#cowsay())'
 vim.g.startify_lists = {
   {type = 'bookmarks', header = {' Projects'}},
   {type = 'files', header = {' Recent Files'}},
+  {type = 'sessions', header = {' Sessions'}}
 }
 vim.g.startify_bookmarks = {
   {v = '~/dotfiles/nvim/.config/nvim/init.lua'},
