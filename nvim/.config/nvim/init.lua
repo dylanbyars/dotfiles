@@ -127,12 +127,18 @@ local function map(mode, mapping, action, options)
   options = options == nil and {noremap = true} or options
   return vim.api.nvim_set_keymap(mode, mapping, action, options)
 end
--- local map = vim.api.nvim_set_keymap
--- local default_opts = {noremap = true}
+
+-- toggle fold
+map('n', '<S-Tab>', 'za')
 
 -- searching
 -- map = to a command that searches for the word under the cursor
 map('n', '=', '/<C-r><C-w><cr>') -- TODO: I think telescope can do this
+
+-- keep search result in center of view while moving through list
+-- (n -> next) && (zz -> center) && (zv -> open folds at cursor)
+map('n', 'n', 'nzzzv')
+map('n', 'N', 'Nzzzv')
 
 -- move down/up 10 lines with capital J/K
 map('n', 'J', '10j')
@@ -159,6 +165,8 @@ map('n', '<leader>-', '<C-w>s')
 -- yank selection to system clipboard
 map('n', '<leader>y', '"+y')
 map('v', '<leader>y', '"+y')
+-- make Y behave like other capital letter commands
+map('n', 'Y', 'y$')
 
 --------------------------
 -- plugin configs
