@@ -175,7 +175,7 @@ vim.g.startify_lists = {
   {type = 'files', header = {' Recent Files'}},
 }
 vim.g.startify_bookmarks = {
-  {v = '~/dotfiles/nvim/.config/nvim/lua/general.lua'},
+  {v = '~/dotfiles/nvim/.config/nvim/init.lua'},
   {z = '~/dotfiles/zsh/.zshrc'},
   {t = '~/dotfiles/tmux/.tmux.conf'},
   {d = '~/dotfiles'},
