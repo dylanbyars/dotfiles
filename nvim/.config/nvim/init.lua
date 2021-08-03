@@ -38,6 +38,7 @@ require('packer').startup(function(use)
   -- formatting
   use 'sbdchd/neoformat'
   -- search improvements
+  use 'kevinhwang91/nvim-bqf' -- prettier quickfix lists
   use 'wincent/loupe'
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
@@ -380,17 +381,22 @@ require'nvim-treesitter.configs'.setup {
 
   map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>')
   map('n', '<leader>r', '<cmd>:Lspsaga rename<CR>')
-  -- find cursor word definition and references
-  map('n', 'gh', '<cmd>:Lspsaga lsp_finder<CR>')
   map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
   -- diagnostics
   map('n', '<leader>ld', '<cmd>:Lspsaga show_line_diagnostics<CR>')
   map('n', '[e', '<cmd>:Lspsaga diagnostic_jump_prev<CR>')
   map('n', ']e', '<cmd>:Lspsaga diagnostic_jump_next<CR>')
+
+
+
   -- additional lsp mappings using regular lsp api
   map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
   map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+  -- view references in the quickfix list
+  map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  -- view all diagnostics in the file in the quickfix list
+  map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>')
 
 
   --------------------------
