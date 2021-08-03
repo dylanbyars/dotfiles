@@ -381,7 +381,6 @@ require'nvim-treesitter.configs'.setup {
   }
 
   map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>')
-  map('n', '<leader>r', '<cmd>:Lspsaga rename<CR>')
   map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
   -- diagnostics
   map('n', '<leader>ld', '<cmd>:Lspsaga show_line_diagnostics<CR>')
@@ -394,6 +393,8 @@ require'nvim-treesitter.configs'.setup {
   map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
   map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+  -- rename symbol under cursor and set the rename in the command line window
+  map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
   -- view references in the quickfix list
   map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
   -- view all diagnostics in the file in the quickfix list
