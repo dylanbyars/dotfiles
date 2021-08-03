@@ -234,6 +234,7 @@ require('telescope').load_extension('fzf')
 -- nvim-tree
 --------------------------
 map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
+-- TODO: switch focus back to the previous pane. currently focus moves to the pane closest to the tree
 map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
 -- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 vim.g.nvim_tree_highlight_opened_files = 3
