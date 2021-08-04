@@ -157,7 +157,7 @@ map('n', '<down>', ':wincmd j<cr>')
 map('n', '<up>', ':wincmd k<cr>')
 map('n', '<right>', ':wincmd l<cr>')
 -- make splits easier
-map('n', '<leader>|', '<C-w>v')
+map('n', '<leader>\\', '<C-w>v')
 map('n', '<leader>-', '<C-w>s')
 
 -- yank selection to system clipboard
@@ -202,11 +202,11 @@ local function telescope(builtin, options)
 end
 
 -- find all files (including hidden) but NOT any files in the hidden `.git/` directory
-map('n', '<C-p>', telescope('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
-map('n', '<C-b>', telescope('buffers'))
-map('n', '<C-g>', telescope('live_grep'))
+map('n', '<leader>p', telescope('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
+map('n', '<leader>b', telescope('buffers'))
+map('n', '<leader>g', telescope('live_grep'))
 map('n', '<leader>/', telescope('current_buffer_fuzzy_find')) --
-map('n', '<leader>?', telescope('help_tags')) -- for quick vim `help`
+map('n', '<leader><esc>', telescope('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', telescope('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
@@ -250,8 +250,7 @@ require('gitsigns').setup()
 --------------------------
 -- neoformat
 --------------------------
--- π = <Option-p>
-map('n', 'π', '<cmd>:Neoformat prettier<cr>')
+map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 
 
 --------------------------
