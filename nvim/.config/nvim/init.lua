@@ -131,6 +131,10 @@ local function map(mode, mapping, action, options)
   return vim.api.nvim_set_keymap(mode, mapping, action, options)
 end
 
+map('n', '<leader>w', '<cmd>:w<cr>')
+map('n', '<leader>q', '<cmd>:q<cr>')
+map('n', '<leader>;', ':')
+
 -- toggle fold
 map('n', '<S-Tab>', 'za')
 
@@ -240,7 +244,6 @@ map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
 vim.g.nvim_tree_highlight_opened_files = 3
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = '25%'
-
 
 --------------------------
 -- git
@@ -357,8 +360,7 @@ require'nvim-treesitter.configs'.setup {
   end
 
 
-  -- ø = <Option-o> -- only works in ts/js files I guess
-  map('n', 'ø', '<cmd>:OrganizeImports<cr>')
+  map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
 
 
   --------------------------
@@ -369,14 +371,6 @@ require'nvim-treesitter.configs'.setup {
     use_saga_diagnostic_sign = false,
     border_style = 'round',
     max_preview_lines = 15,
-    finder_action_keys = {
-      open = 'o',
-      vsplit = 's',
-      split = 'i',
-      quit = 'q',
-      scroll_down = '<C-,>',
-      scroll_up = '<C-.>'
-    }
   }
 
   map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>')
