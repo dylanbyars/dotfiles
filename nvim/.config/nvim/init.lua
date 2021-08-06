@@ -139,10 +139,6 @@ map('v', '<leader>;', ':')
 -- toggle fold
 map('n', '<S-Tab>', 'za')
 
--- searching
--- map = to a command that searches for the word under the cursor
-map('n', '=', '/<C-r><C-w><cr>') -- TODO: I think telescope can do this
-
 -- move down/up 10 lines with capital J/K
 map('n', 'J', '10j')
 map('v', 'J', '10j')
