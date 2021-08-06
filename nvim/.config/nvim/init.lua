@@ -258,7 +258,22 @@ map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 --------------------------
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { 'javascript', 'bash', 'css', 'html', 'jsdoc', 'json', 'lua', 'regex', 'scss', 'tsx', 'typescript', 'yaml', 'toml' },
+  ensure_installed = {
+    'bash',
+    'comment', -- highlight TODO and FIXME comments
+    'css',
+    'html',
+    'javascript',
+    'jsdoc',
+    'json',
+    'lua',
+    'regex',
+    'scss',
+    'toml',
+    'tsx',
+    'typescript',
+    'yaml',
+  },
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- disable = { "c", "rust" },  -- list of language that will be disabled
