@@ -32,6 +32,7 @@ require('packer').startup(function(use)
     run = ':TSUpdate'
   }
   use 'windwp/nvim-ts-autotag'
+  -- use 'nvim-treesitter/nvim-treesitter-textobjects' -- like ^ but you define specific text objects. TODO: learn about it.
   use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
   use 'romgrk/nvim-treesitter-context'
   use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
