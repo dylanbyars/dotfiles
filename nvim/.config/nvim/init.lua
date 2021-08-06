@@ -297,7 +297,15 @@ require'nvim-treesitter.configs'.setup {
       return c
     end
   },
-  autotag = { enable = true }
+  autotag = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      node_incremental = "o", -- out
+      scope_incremental = "O", -- OUT!
+      node_decremental = "i", -- in
+    }
+  }
   -- refactor = {
     --   highlight_current_scope = { enable = true },
     --   highlight_definitions = { enable = true },
