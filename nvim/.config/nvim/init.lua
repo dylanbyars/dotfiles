@@ -134,6 +134,7 @@ end
 map('n', '<leader>w', '<cmd>:w<cr>')
 map('n', '<leader>q', '<cmd>:q<cr>')
 map('n', '<leader>;', ':')
+map('v', '<leader>;', ':')
 
 -- toggle fold
 map('n', '<S-Tab>', 'za')
