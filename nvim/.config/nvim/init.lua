@@ -1,7 +1,8 @@
 --------------------------
 -- PLUGINS
 --------------------------
-require('packer').startup(function(use)
+-- plugin repos cloned to ~/.local/share/nvim/site/pack/packer/start/
+require('packer').startup({function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- colorscheme
@@ -52,7 +53,15 @@ require('packer').startup(function(use)
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   -- writing
   use 'junegunn/goyo.vim'
-end)
+end,
+config = {
+  -- show packer outputs in a floating window
+  display = {
+    open_fn = function()
+      return require('packer.util').float({border = 'single'})
+    end,
+  }
+}})
 
 
 --------------------------
