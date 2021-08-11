@@ -143,6 +143,10 @@ vim.o.expandtab = true
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 vim.o.scrolloff = 8
 
+-- persistent undo TODO: not working
+-- vim.bo.undo = true
+-- vim.g.undodir = '~/.config/nvim/undo'
+
 -- put new splits below or to the right
 vim.o.splitbelow = true
 vim.o.splitright = true
@@ -163,12 +167,6 @@ map('v', '<leader>;', ':')
 
 -- toggle fold
 map('n', '<S-Tab>', 'za')
-
--- move down/up 10 lines with capital J/K
-map('n', 'J', '10j')
-map('v', 'J', '10j')
-map('n', 'K', '10k')
-map('v', 'K', '10k')
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
