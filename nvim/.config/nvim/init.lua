@@ -12,6 +12,7 @@ require('packer').startup({function(use)
   -- status line
   use 'hoob3rt/lualine.nvim'
   -- git
+  use 'tpope/vim-fugitive'
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
@@ -23,6 +24,9 @@ require('packer').startup({function(use)
   -- completion
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
+  use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
+  use "rafamadriz/friendly-snippets"
   use 'glepnir/lspsaga.nvim'
   use 'hrsh7th/nvim-compe'
   use 'ray-x/lsp_signature.nvim'
