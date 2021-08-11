@@ -45,6 +45,17 @@ require('packer').startup({function(use)
   use 'sbdchd/neoformat'
   -- search improvements
   use 'kevinhwang91/nvim-bqf' -- prettier quickfix lists
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
   use 'wincent/loupe'
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
@@ -207,6 +218,15 @@ vim.g.startify_bookmarks = {
   '~/code'
 }
 
+--------------------------
+-- trouble
+--------------------------
+map("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true})
+map("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", {silent = true})
+map("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", {silent = true})
+map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true})
+map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true})
+map("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true})
 
 --------------------------
 -- telescope
@@ -422,10 +442,11 @@ require'nvim-treesitter.configs'.setup {
   map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
   -- rename symbol under cursor and set the rename in the command line window
   map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
+  -- TODO: trouble obsoletes these
   -- view references in the quickfix list
-  map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  -- view all diagnostics in the file in the quickfix list
-  map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>')
+  -- map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  -- -- view all diagnostics in the file in the quickfix list
+  -- map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>')
 
 
   --------------------------
