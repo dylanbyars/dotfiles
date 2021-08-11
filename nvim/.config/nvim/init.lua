@@ -229,28 +229,18 @@ map("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true})
 --------------------------
 -- telescope
 --------------------------
-local function telescope(builtin, options)
-  local args = builtin..(options == nil and '()' or '('..options..')')
-  return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
-end
+local trouble = require("trouble.providers.telescope")
 
--- find all files (including hidden) but NOT any files in the hidden `.git/` directory
-map('n', '<leader>p', telescope('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
-map('n', '<leader>b', telescope('buffers'))
-map('n', '<leader>g', telescope('live_grep'))
-map('n', '<leader>/', telescope('current_buffer_fuzzy_find')) --
-map('n', '<leader><esc>', telescope('help_tags')) -- for quick vim `help`
-map('n', '<leader>man', telescope('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
--- map('n', '=', t('grep_string')) -- not working and I don't know why
--- TODO:
--- builtin.oldfiles
--- builtin.search_history
--- builtin.marks
--- builtin.registers
--- builtin.spell_suggest
--- builtin.lsp_FOO lots here...
+local telescope = require("telescope")
+local previewers = require("telescope.previewers")
 
-require('telescope').setup {
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = { ["<c-q>"] = trouble.open_with_trouble },
+      n = { ["<c-q>"] = trouble.open_with_trouble },
+    },
+  },
   extensions = {
     -- faster live_grep. I think. Should probably verify that...
     fzf = {
@@ -259,9 +249,56 @@ require('telescope').setup {
       override_file_sorter = true,     -- override the file sorter
       case_mode = "smart_case",        -- "smart_case" (default) or "ignore_case" or "respect_case"
     }
+  },
+  pickers = {
+    buffers = {
+      show_all_buffers = true,
+      sort_lastused = true,
+      theme = "dropdown",
+      previewer = false,
+      mappings = {
+        i = {
+          ["<c-d>"] = require("telescope.actions").delete_buffer,
+        },
+        n = {
+          -- or right hand side can also be the name of the action as string
+          ["<c-d>"] = "delete_buffer",
+        }
+      }
+    },
+    current_buffer_fuzzy_find = {
+      theme = "dropdown",
+      previewer = false,
+    },
+    -- git_bcommits = {
+    --   previewer = previewers.vim_buffer_qflist.new()
+    -- }
   }
 }
+
 require('telescope').load_extension('fzf')
+
+local function callTelescopeBuiltin(builtin, options)
+  local args = builtin..(options == nil and '()' or '('..options..')')
+  return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
+end
+
+-- find all files (including hidden) but NOT any files in the hidden `.git/` directory
+map('n', '<leader>p', callTelescopeBuiltin('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
+map('n', '<leader>b', callTelescopeBuiltin('buffers'))
+map('n', '<leader>g', callTelescopeBuiltin('live_grep'))
+map('n', '<leader>/', callTelescopeBuiltin('current_buffer_fuzzy_find')) --
+map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the previewer configurable
+map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
+map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
+-- map('n', '=', t('grep_string')) -- not working and I don't know why
+-- TODO:
+-- builtin.oldfiles
+-- builtin.search_history
+-- builtin.marks
+-- builtin.registers
+-- builtin.spell_suggest
+-- builtin.lsp_FOO lots here...
 
 --------------------------
 -- nvim-tree
