@@ -14,6 +14,7 @@ alias lz='lazygit'
 alias ga="git aliases | fzf"
 # fzf a branch
 alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
+export REVIEW_BASE="develop"
 
 # un-fuck xcode after doing any software update
 # remove xcode-select then reinstall it

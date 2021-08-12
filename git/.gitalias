@@ -185,6 +185,28 @@
   # diff deep - show changes with our preferred options. Also aliased as `diff-deep`.
   dd = diff --check --dirstat --find-copies --find-renames --histogram --color
 
+  ## PULL REQUEST HELPERS
+  # list files which have changed since REVIEW_BASE
+  # (REVIEW_BASE defaults to 'develop' in my zshrc)
+  files = "!f() { \
+              git diff --name-only $(git merge-base HEAD ${1:-$REVIEW_BASE}); \
+            }; f"
+
+  # Same as above, but with a diff stat instead of just names
+  # (better for interactive use)
+  stat = "!f() { \
+              git diff --stat $(git merge-base HEAD ${1:-$REVIEW_BASE}); \
+            }; f"
+
+  # open all files changed since $REVIEW_BASE (or some other branch supplied) in vim tabs
+  # then, diff those files to $REVIEW_BASE or the branch supplied with fugitive
+  # finally, move focus to the new file pane 
+  # TODO: add `Gitsigns change_base $REVIEW_BASE` to add signs in the signcolumn. It's not working when chained in the command in any position...
+  review = "!f() { \
+              DIFF_BASE=${1:-$REVIEW_BASE}; \
+              nvim -p $(git files $DIFF_BASE) +\"tabdo Gdiffsplit $DIFF_BASE | wincmd l\"; \
+            }; f"
+  
   ### clean ###
 
   # clean everything to be pristine
