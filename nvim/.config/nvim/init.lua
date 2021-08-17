@@ -258,8 +258,8 @@ telescope.setup {
     buffers = {
       show_all_buffers = true,
       sort_lastused = true,
-      theme = "dropdown",
-      previewer = false,
+      -- theme = "dropdown",
+      -- previewer = false,
       mappings = {
         i = {
           ["<c-d>"] = require("telescope.actions").delete_buffer,
@@ -271,6 +271,10 @@ telescope.setup {
       }
     },
     current_buffer_fuzzy_find = {
+      theme = "dropdown",
+      previewer = false,
+    },
+    keymaps = {
       theme = "dropdown",
       previewer = false,
     },
@@ -295,6 +299,7 @@ map('n', '<leader>/', callTelescopeBuiltin('current_buffer_fuzzy_find')) --
 map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the previewer configurable
 map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
+map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
