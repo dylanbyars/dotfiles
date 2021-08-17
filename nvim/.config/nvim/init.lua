@@ -46,7 +46,7 @@ require('packer').startup({function(use)
   -- formatting
   use 'sbdchd/neoformat'
   -- search improvements
-  use 'kevinhwang91/nvim-bqf' -- prettier quickfix lists
+  -- use 'kevinhwang91/nvim-bqf' -- prettier quickfix lists
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
