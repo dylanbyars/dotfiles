@@ -70,6 +70,7 @@ require('packer').startup({function(use)
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   -- idk
   use 'tpope/vim-unimpaired'
+  use 'mtth/scratch.vim'
   -- writing
   use 'junegunn/goyo.vim'
 end,
