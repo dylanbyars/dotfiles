@@ -24,8 +24,10 @@ require('packer').startup({function(use)
   -- completion
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
-  use 'hrsh7th/vim-vsnip'
-  use 'hrsh7th/vim-vsnip-integ'
+  use {
+    'hrsh7th/vim-vsnip',
+    requires = { 'hrsh7th/vim-vsnip-integ' }
+  }
   use "rafamadriz/friendly-snippets"
   use 'glepnir/lspsaga.nvim'
   use 'hrsh7th/nvim-compe'
@@ -56,7 +58,7 @@ require('packer').startup({function(use)
       }
     end
   }
-  use 'wincent/loupe'
+  use 'wincent/loupe' -- search highlight improved
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
@@ -66,6 +68,8 @@ require('packer').startup({function(use)
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  -- idk
+  use 'tpope/vim-unimpaired'
   -- writing
   use 'junegunn/goyo.vim'
 end,
