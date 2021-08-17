@@ -19,7 +19,8 @@ export REVIEW_BASE="digital-identity"
 
 # un-fuck xcode after doing any software update
 # remove xcode-select then reinstall it
-alias ufx="sudo rm -rf $(xcode-select --print-path) && xcode-select --install"
+# alias ufx="sudo rm -rf $(xcode-select --print-path) && xcode-select --install"
+alias ufx="sudo xcode-select --reset"
 
 # ls
 alias ls="ls -GF" # regular format + colorized + item type info
