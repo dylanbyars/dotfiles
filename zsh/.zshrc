@@ -14,7 +14,8 @@ alias lz='lazygit'
 alias ga="git aliases | fzf"
 # fzf a branch
 alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
-export REVIEW_BASE="develop"
+# set the branch to compare checkedout branches with (for PR reviews). use with `g review`
+export REVIEW_BASE="digital-identity"
 
 # un-fuck xcode after doing any software update
 # remove xcode-select then reinstall it

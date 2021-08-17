@@ -86,10 +86,13 @@
   # these aliases to be easy to compose and use in many ways.
   ##
 
+  currentBranch = !git rev-parse --abbrev-ref head
+
   a = add
   b = branch
   c = commit
-  d = diff
+  # diff current branch to some other branch and don't show removed files
+  d = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git diff --diff-filter=d ${1:-REVIEW_BASE}...$branch\"; $cmd; }; f"
   f = fetch
   g = grep
   l = log
@@ -116,23 +119,6 @@
   # add just the files that are updated.
   au = add --update
 
-  ### branch ###
-
-  # branch and only list branches whose tips are reachable from the specified commit (HEAD if not specified).
-  bm = branch --merged
-
-  # branch and only list branches whose tips are not reachable from the specified commit (HEAD if not specified).
-  bnm = branch --no-merged
-
-  # branch with edit description
-  bed = branch --edit-description
-
-  # branch with show description; ideally git will add this feature in the future as `git --show-description`
-  bsd = "!f(){ \
-    branch=\"${1:-$(git rev-parse --abbrev-ref HEAD 2>/dev/null)}\";  \
-    git config \"branch.$branch.description\"; \
-  };f"
-
   ### commit ###
 
   # commit - amend the tip of the current branch rather than creating a new commit.
@@ -154,36 +140,7 @@
 
   # checkout - update the working tree to match a branch or paths. [same as "o" for "out"]
   co = checkout
-  con = checkout --no-guess
   cob = checkout -b
-
-  ### cherry-pick ###
-
-  # cherry-pick - apply the changes introduced by some existing commits; useful for moving small chunks of code between branches.
-  cp = cherry-pick
-
-  # cherry-pick - abort the picking process
-  cpa = cherry-pick --abort
-
-  # cherry-pick - continue the picking process
-  cpc = cherry-pick --continue
-
-  # cherry-pick without making a commit, and when when recording the commit, append a line that says "(cherry picked from commit ...)"
-  cp-nx = cherry-pick --no-commit -x
-
-  ### diff ###
-
-  # diff - show changes not yet staged
-  dc = diff --cached
-
-  # diff - show changes about to be commited
-  ds = diff --staged
-
-  # diff - show changes but by word, not line
-  dw = diff --word-diff
-
-  # diff deep - show changes with our preferred options. Also aliased as `diff-deep`.
-  dd = diff --check --dirstat --find-copies --find-renames --histogram --color
 
   ## PULL REQUEST HELPERS
   # list files which have changed since REVIEW_BASE
@@ -198,13 +155,18 @@
               git diff --stat $(git merge-base HEAD ${1:-$REVIEW_BASE}); \
             }; f"
 
-  # open all files changed since $REVIEW_BASE (or some other branch supplied) in vim tabs
-  # then, diff those files to $REVIEW_BASE or the branch supplied with fugitive
-  # finally, move focus to the new file pane 
+  # open all files changed since $REVIEW_BASE (or some other branch supplied) in vim tabs then
+  # 1. diff those files to $REVIEW_BASE or the branch supplied with fugitive
+  # 2. move focus to the new file pane 
+  # 3. set the cursor to always be in the center of the pane
   # TODO: add `Gitsigns change_base $REVIEW_BASE` to add signs in the signcolumn. It's not working when chained in the command in any position...
+  ; review = "!f() { \
+  ;             DIFF_BASE=${1:-$REVIEW_BASE}; \
+  ;   nvim -p $(git files $DIFF_BASE) +\"tabdo Gdiffsplit $DIFF_BASE | wincmd l | set scrolloff=999 | set sidescrolloff=999\"; \
+  ;           }; f"
   review = "!f() { \
               DIFF_BASE=${1:-$REVIEW_BASE}; \
-              nvim -p $(git files $DIFF_BASE) +\"tabdo Gdiffsplit $DIFF_BASE | wincmd l\"; \
+              nvim -p $(git files $DIFF_BASE) +\"Gitsigns change_base $DIFF_BASE | tabdo Gitsigns diffthis | wincmd l | set scrolloff=999 | set sidescrolloff=999\"; \
             }; f"
   
   ### clean ###
@@ -580,7 +542,7 @@
   snapshot = !git stash push --include-untracked --message \"snapshot: $(date)\" && git stash apply \"stash@{0}\"
 
   # Track and untrack, with default parameters, and with printing the command
-  track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
+  track = "!f(){ branch=$(git rev-parse --abbrev-ref head); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
   untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
 
   ##
