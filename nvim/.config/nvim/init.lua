@@ -471,7 +471,7 @@ require'nvim-treesitter.configs'.setup {
     max_preview_lines = 15,
   }
 
-  map('n', '<leader>d', '<cmd>:Lspsaga hover_doc<CR>')
+  map('n', 'K', '<cmd>:Lspsaga hover_doc<CR>')
   map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
   -- diagnostics
   map('n', '<leader>ld', '<cmd>:Lspsaga show_line_diagnostics<CR>')
