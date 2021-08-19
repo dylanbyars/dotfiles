@@ -619,7 +619,7 @@ require'nvim-treesitter.configs'.setup {
       theme = 'tokyonight',
       component_separators = {'', ''},
       section_separators = {'', ''},
-      disabled_filetypes = {}
+      disabled_filetypes = {'minimap'}
     },
     sections = {
       lualine_a = {'mode'},
