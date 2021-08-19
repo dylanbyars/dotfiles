@@ -71,6 +71,7 @@ require('packer').startup({function(use)
   -- idk
   use 'tpope/vim-unimpaired'
   use 'mtth/scratch.vim'
+  use 'wfxr/minimap.vim'
   -- writing
   use 'junegunn/goyo.vim'
 end,
@@ -335,6 +336,21 @@ require('gitsigns').setup()
 --------------------------
 map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 
+
+--------------------------
+-- minimap
+--------------------------
+vim.g.minimap_auto_start = 1
+vim.g.minimap_width = 16
+vim.g.minimap_highlight_range = 1
+vim.g.minimap_git_colors = 1
+vim.cmd('hi MinimapDiffAdd guifg='..colors.green)
+vim.cmd('hi MinimapDiffRemove guifg='..colors.red)
+vim.cmd('hi MinimapDiff guifg='..colors.yellow)
+vim.g.minimap_diffadd_color = 'MinimapDiffAdd'
+vim.g.minimap_diffremove_color = 'MinimapDiffRemove'
+vim.g.minimap_diff_color = 'MinimapDiff'
+vim.g.minimap_cursor_color_priority	= 90
 
 --------------------------
 -- treesitter
