@@ -340,7 +340,7 @@ map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 --------------------------
 -- minimap
 --------------------------
-vim.g.minimap_auto_start = 1
+map('n', '<leader>map', '<cmd>:MinimapToggle<cr>')
 vim.g.minimap_width = 16
 vim.g.minimap_highlight_range = 1
 vim.g.minimap_git_colors = 1
