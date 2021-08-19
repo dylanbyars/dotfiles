@@ -170,7 +170,7 @@ map('n', '<leader>q', '<cmd>:q<cr>')
 map('n', '<leader>;', ':')
 map('v', '<leader>;', ':')
 
--- toggle fold
+-- toggle fold TODO: make this smarter. if the fold is closed, run zO to open it ALL up. If it's open, run whatever completely closes the biggest surrounding fold
 map('n', '<S-Tab>', 'za')
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
