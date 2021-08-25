@@ -59,6 +59,13 @@ require('packer').startup({function(use)
     end
   }
   use 'wincent/loupe' -- search highlight improved
+  use {
+    'phaazon/hop.nvim',
+    as = 'hop',
+    config = function()
+      require("hop").setup()
+    end
+  }
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
@@ -235,6 +242,12 @@ map("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", {silent = tr
 map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true})
 map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true})
 map("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true})
+
+
+--------------------------
+-- hop
+--------------------------
+map('n', 'm', '<cmd>:HopChar2<cr>')
 
 --------------------------
 -- telescope
