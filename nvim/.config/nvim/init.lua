@@ -208,6 +208,11 @@ map('n', 'Y', 'y$')
 -- taBs are more relevant to me than taGs
 map('n', '[t', '<cmd>tabprev<cr>')
 map('n', ']t', '<cmd>tabnext<cr>')
+
+-- highlight yanked text for a bit
+local hl_timeout = '750' -- ms
+vim.api.nvim_command('autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout='..hl_timeout..'}')
+
 --------------------------
 -- plugin configs
 --------------------------
