@@ -79,6 +79,7 @@ require('packer').startup({function(use)
   use 'tpope/vim-unimpaired'
   use 'mtth/scratch.vim'
   use 'wfxr/minimap.vim'
+  use 'voldikss/vim-floaterm'
   -- writing
   use 'junegunn/goyo.vim'
 end,
@@ -364,6 +365,19 @@ vim.g.minimap_diffadd_color = 'MinimapDiffAdd'
 vim.g.minimap_diffremove_color = 'MinimapDiffRemove'
 vim.g.minimap_diff_color = 'MinimapDiff'
 vim.g.minimap_cursor_color_priority	= 90
+
+
+--------------------------
+-- floaterm
+--------------------------
+vim.g.floaterm_title = '($1/$2)'
+vim.g.floaterm_keymap_toggle = '<F12>'
+vim.g.floaterm_keymap_kill = '<F11>'
+vim.g.floaterm_keymap_new = '<F8>'
+vim.g.floaterm_keymap_prev = '<F9>'
+vim.g.floaterm_keymap_next = '<F10>'
+vim.g.floaterm_width = 0.95
+vim.g.floaterm_height = 0.95
 
 --------------------------
 -- treesitter
