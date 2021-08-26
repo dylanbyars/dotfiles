@@ -13,31 +13,19 @@ require('packer').startup({function(use)
   use 'hoob3rt/lualine.nvim'
   -- git
   use 'tpope/vim-fugitive'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    }
-  }
-  -- comments made easy
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- comments made easy
   use 'tpope/vim-commentary'
   -- completion
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
-  use {
-    'hrsh7th/vim-vsnip',
-    requires = { 'hrsh7th/vim-vsnip-integ' }
-  }
+  use { 'hrsh7th/vim-vsnip', requires = { 'hrsh7th/vim-vsnip-integ' } }
   use "rafamadriz/friendly-snippets"
   use 'glepnir/lspsaga.nvim'
   use 'hrsh7th/nvim-compe'
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
   -- treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'windwp/nvim-ts-autotag'
   -- use 'nvim-treesitter/nvim-treesitter-textobjects' -- like ^ but you define specific text objects. TODO: learn about it.
   use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
@@ -70,10 +58,7 @@ require('packer').startup({function(use)
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
   -- telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  }
+  use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'} } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   -- idk
   use 'tpope/vim-unimpaired'
