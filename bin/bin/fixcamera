@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# may need to run this after kernal upgrades to get the camera working again.
+
+# https://askubuntu.com/questions/990218/camera-not-working-on-macbook-pro#991286
+
+cd ~/bin/facetimehd-firmware
+git pull
+make
+sudo make install
+cd ~/bin/bcwc_pcie
+git pull
+make
+sudo make install
+sudo depmod
+
+# removing the `bdc_pci` module doesn't work because the module isn't found when this command is run. 
+# I guess that means it doesn't _need_ to be removed since it's not there in the first place?
+sudo modprobe -r bdc_pci 
+
+sudo modprobe facetimehd
+
+# echo "make sure `facetimehd` is in `/etc/modules`"
+

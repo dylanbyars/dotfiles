@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+# usage: archive <dir>
+# archives and compresses <dir> with `tar` and then encrypts the resulting `<dir>.tar.gz` file with `gpg`.
+# `gpg` encryption happens with a symetric key
+
+TARGET_DIR=$1
+
+tar -cvzf - $TARGET_DIR | gpg -c > $TARGET_DIR.tar.gz.gpg
