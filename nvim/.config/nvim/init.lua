@@ -97,7 +97,7 @@ vim.o.termguicolors = true
 vim.g.tokyonight_style = 'night'
 vim.cmd[[colorscheme tokyonight]]
 -- change the color of the line between vertical splits
--- vim.cmd[[highlight VertSplit guifg=#7dcfff]]-- not working...
+vim.cmd("highlight VertSplit guifg="..colors.magenta)
 
 -- make the mouse work
 vim.o.mouse = 'a'
