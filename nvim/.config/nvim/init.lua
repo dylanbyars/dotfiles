@@ -250,8 +250,19 @@ telescope.setup {
   defaults = {
     mappings = {
       i = { ["<c-q>"] = trouble.open_with_trouble },
-      n = { ["<c-q>"] = trouble.open_with_trouble },
+      n = {
+        ["<c-q>"] = trouble.open_with_trouble,
+      },
     },
+    dynamic_preview_title = true,
+    path_display = {shorten = 3},
+    layout_config = {
+      height = 0.9,
+      width = 0.9,
+      horizontal = {
+        preview_width = 0.7
+      }
+    }
   },
   extensions = {
     -- faster live_grep. I think. Should probably verify that...
@@ -266,21 +277,12 @@ telescope.setup {
     buffers = {
       show_all_buffers = true,
       sort_lastused = true,
-      -- theme = "dropdown",
-      -- previewer = false,
       mappings = {
-        i = {
-          ["<c-d>"] = require("telescope.actions").delete_buffer,
-        },
         n = {
-          -- or right hand side can also be the name of the action as string
-          ["<c-d>"] = "delete_buffer",
+          -- right hand side can be the name of the action as string
+          ["<bs>"] = "delete_buffer",
         }
       }
-    },
-    current_buffer_fuzzy_find = {
-      theme = "dropdown",
-      previewer = false,
     },
     keymaps = {
       theme = "dropdown",
@@ -289,7 +291,7 @@ telescope.setup {
     -- git_bcommits = {
     --   previewer = previewers.vim_buffer_qflist.new()
     -- }
-  }
+  },
 }
 
 require('telescope').load_extension('fzf')
