@@ -348,7 +348,9 @@ map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 --------------------------
 -- minimap
 --------------------------
-map('n', '<leader>map', '<cmd>:MinimapToggle<cr>')
+-- open the minimap then move to the pane to the right to focus on it
+-- the map displays the contents of whatever buffer is focused so using it with open vsplits is weird
+map('n', '<leader>map', '<cmd>:MinimapToggle<cr><cmd>wincmd l<cr>')
 vim.g.minimap_width = 16
 vim.g.minimap_highlight_range = 1
 vim.g.minimap_git_colors = 1
