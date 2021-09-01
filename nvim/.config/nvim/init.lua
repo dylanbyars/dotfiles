@@ -57,8 +57,22 @@ require('packer').startup({function(use)
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
   -- telescope
-  use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'} } }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-lua/popup.nvim'},
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      {
+        'AckslD/nvim-neoclip.lua',
+        config = function()
+          require('neoclip').setup({
+            -- TODO: want to configure the display but not sure how...
+          })
+        end
+      }
+    }
+  }
   -- idk
   use 'tpope/vim-unimpaired'
   use 'wfxr/minimap.vim'
@@ -295,6 +309,7 @@ telescope.setup {
 }
 
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('neoclip')
 
 local function callTelescopeBuiltin(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
@@ -310,6 +325,7 @@ map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the pr
 map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
+map('n', "<leader>'", '<cmd>Telescope neoclip<cr><esc>') -- open neoclip menu AND transition to normal mode
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
