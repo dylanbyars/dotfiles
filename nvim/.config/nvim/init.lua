@@ -335,6 +335,10 @@ vim.g.nvim_tree_width = '25%'
 --------------------------
 require('gitsigns').setup()
 
+-- vim fugitive merge conflict resolution
+map('n', '<leader>gj', '<cmd>diffget //3<cr>') -- pick the right side (incoming) change
+map('n', '<leader>gf', '<cmd>diffget //2<cr>') -- pick the left side (base branch) change
+
 --------------------------
 -- neoformat
 --------------------------
