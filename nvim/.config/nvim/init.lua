@@ -14,7 +14,9 @@ require('packer').startup({function(use)
   -- git
   use 'tpope/vim-fugitive'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- comments made easy
+  -- comment helpers
   use 'tpope/vim-commentary'
+  use 'JoosepAlviste/nvim-ts-context-commentstring' -- comment bits out with proper style based on their location determined by treesitter i.e. js vs jsx
   -- completion
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
@@ -444,6 +446,7 @@ require'nvim-treesitter.configs'.setup {
       node_decremental = "i", -- in
     }
   }
+  context_commentstring = { enable = true }
   -- refactor = {
     --   highlight_current_scope = { enable = true },
     --   highlight_definitions = { enable = true },
