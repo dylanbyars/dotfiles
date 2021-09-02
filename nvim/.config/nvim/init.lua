@@ -27,6 +27,7 @@ require('packer').startup({function(use)
   use 'hrsh7th/nvim-compe'
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
+  use 'RRethy/vim-illuminate'
   -- treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'windwp/nvim-ts-autotag'
@@ -478,7 +479,11 @@ require'nvim-treesitter.configs'.setup {
     require'lspinstall'.setup()
     local servers = require'lspinstall'.installed_servers()
     for _, server in pairs(servers) do
-      local config = {}
+      local config = {
+        on_attach = function(client)
+          require 'illuminate'.on_attach(client)
+        end,
+      }
 
       if server == 'typescript' then
 
@@ -527,6 +532,9 @@ require'nvim-treesitter.configs'.setup {
 
   map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
 
+  -- TODO: not working and idk why
+  -- map('n', '<leader><up>', '<cmd>lua require"illuminate".next_reference{reverse=true, wrap=true}<cr>')
+  -- map('n', '<leader><down>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>')
 
   --------------------------
   -- LSP saga config
