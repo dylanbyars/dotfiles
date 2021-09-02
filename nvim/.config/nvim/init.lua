@@ -324,7 +324,7 @@ end
 
 -- find all files (including hidden) but NOT any files in the hidden `.git/` directory
 map('n', '<leader>p', callTelescopeBuiltin('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
-map('n', '<leader>b', callTelescopeBuiltin('buffers'))
+map('n', '<leader>b', callTelescopeBuiltin('buffers') .. '<esc>')
 map('n', '<leader>g', callTelescopeBuiltin('live_grep'))
 map('n', '<leader>/', callTelescopeBuiltin('current_buffer_fuzzy_find')) --
 map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the previewer configurable
@@ -449,7 +449,7 @@ require'nvim-treesitter.configs'.setup {
       scope_incremental = "O", -- OUT!
       node_decremental = "i", -- in
     }
-  }
+  },
   context_commentstring = { enable = true }
   -- refactor = {
     --   highlight_current_scope = { enable = true },
