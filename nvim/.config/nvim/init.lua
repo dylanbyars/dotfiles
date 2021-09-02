@@ -7,6 +7,7 @@ require('packer').startup({function(use)
   use 'wbthomason/packer.nvim'
   -- colorscheme
   use 'folke/tokyonight.nvim'
+  use 'norcalli/nvim-colorizer.lua'
   -- start page
   use 'mhinz/vim-startify'
   -- status line
@@ -96,6 +97,10 @@ config = {
 -- SETTINGS
 --------------------------
 
+vim.o.termguicolors = true
+
+require('colorizer').setup()
+
 local colors = {
   background = '#1a1b26',
   foreground = '#c0caf5',
@@ -109,7 +114,6 @@ local colors = {
   white =   '#a9b1d6',
 }
 
-vim.o.termguicolors = true
 vim.g.tokyonight_style = 'night'
 vim.cmd[[colorscheme tokyonight]]
 -- change the color of the line between vertical splits
