@@ -14,9 +14,9 @@ require('packer').startup({function(use)
   use 'hoob3rt/lualine.nvim'
   -- git
   use 'tpope/vim-fugitive'
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- comments made easy
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- comment helpers
-  use 'tpope/vim-commentary'
+  use 'tpope/vim-commentary' -- comments made easy
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- comment bits out with proper style based on their location determined by treesitter i.e. js vs jsx
   -- completion
   use 'neovim/nvim-lspconfig'
