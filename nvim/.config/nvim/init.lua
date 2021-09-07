@@ -1,120 +1,16 @@
---------------------------
--- PLUGINS
---------------------------
--- plugin repos cloned to ~/.local/share/nvim/site/pack/packer/start/
-require('packer').startup({function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-  -- colorscheme
-  use 'folke/tokyonight.nvim'
-  -- start page
-  use 'mhinz/vim-startify'
-  -- status line
-  use 'hoob3rt/lualine.nvim'
-  -- git
-  use 'tpope/vim-fugitive'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    }
-  }
-  -- comments made easy
-  use 'tpope/vim-commentary'
-  -- completion
-  use 'neovim/nvim-lspconfig'
-  use 'kabouzeid/nvim-lspinstall' -- for installing language servers
-  use {
-    'hrsh7th/vim-vsnip',
-    requires = { 'hrsh7th/vim-vsnip-integ' }
-  }
-  use "rafamadriz/friendly-snippets"
-  use 'glepnir/lspsaga.nvim'
-  use 'hrsh7th/nvim-compe'
-  use 'ray-x/lsp_signature.nvim'
-  use 'windwp/nvim-autopairs'
-  -- treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use 'windwp/nvim-ts-autotag'
-  -- use 'nvim-treesitter/nvim-treesitter-textobjects' -- like ^ but you define specific text objects. TODO: learn about it.
-  use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
-  use 'romgrk/nvim-treesitter-context'
-  use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
-  -- formatting
-  use 'sbdchd/neoformat'
-  -- search improvements
-  -- use 'kevinhwang91/nvim-bqf' -- prettier quickfix lists
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-  use 'wincent/loupe' -- search highlight improved
-  use {
-    'phaazon/hop.nvim',
-    as = 'hop',
-    config = function()
-      require("hop").setup()
-    end
-  }
-  -- file explorer
-  use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use 'kyazdani42/nvim-tree.lua'
-  -- telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  -- idk
-  use 'tpope/vim-unimpaired'
-  use 'mtth/scratch.vim'
-  use 'wfxr/minimap.vim'
-  use 'voldikss/vim-floaterm'
-  -- writing
-  use 'junegunn/goyo.vim'
-end,
-config = {
-  -- show packer outputs in a floating window
-  display = {
-    open_fn = function()
-      return require('packer.util').float({border = 'single'})
-    end,
-  }
-}})
+vim.o.termguicolors = true -- needs to be defined before a few of the plugins
 
+local colors = require('colors')
 
+require('plugins')
 --------------------------
 -- SETTINGS
 --------------------------
 
-local colors = {
-  background = '#1a1b26',
-  foreground = '#c0caf5',
-  black =   '#15161E',
-  red =     '#f7768e',
-  green =   '#9ece6a',
-  yellow =  '#e0af68',
-  blue =    '#7aa2f7',
-  magenta = '#bb9af7',
-  cyan =    '#7dcfff',
-  white =   '#a9b1d6',
-}
-
-vim.o.termguicolors = true
 vim.g.tokyonight_style = 'night'
 vim.cmd[[colorscheme tokyonight]]
 -- change the color of the line between vertical splits
--- vim.cmd[[highlight VertSplit guifg=#7dcfff]]-- not working...
+vim.cmd("highlight VertSplit guifg="..colors.magenta)
 
 -- make the mouse work
 vim.o.mouse = 'a'
@@ -267,8 +163,19 @@ telescope.setup {
   defaults = {
     mappings = {
       i = { ["<c-q>"] = trouble.open_with_trouble },
-      n = { ["<c-q>"] = trouble.open_with_trouble },
+      n = {
+        ["<c-q>"] = trouble.open_with_trouble,
+      },
     },
+    dynamic_preview_title = true,
+    path_display = {shorten = 3},
+    layout_config = {
+      height = 0.9,
+      width = 0.9,
+      horizontal = {
+        preview_width = 0.7
+      }
+    }
   },
   extensions = {
     -- faster live_grep. I think. Should probably verify that...
@@ -283,21 +190,12 @@ telescope.setup {
     buffers = {
       show_all_buffers = true,
       sort_lastused = true,
-      -- theme = "dropdown",
-      -- previewer = false,
       mappings = {
-        i = {
-          ["<c-d>"] = require("telescope.actions").delete_buffer,
-        },
         n = {
-          -- or right hand side can also be the name of the action as string
-          ["<c-d>"] = "delete_buffer",
+          -- right hand side can be the name of the action as string
+          ["<bs>"] = "delete_buffer",
         }
       }
-    },
-    current_buffer_fuzzy_find = {
-      theme = "dropdown",
-      previewer = false,
     },
     keymaps = {
       theme = "dropdown",
@@ -306,10 +204,11 @@ telescope.setup {
     -- git_bcommits = {
     --   previewer = previewers.vim_buffer_qflist.new()
     -- }
-  }
+  },
 }
 
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('neoclip')
 
 local function callTelescopeBuiltin(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
@@ -318,13 +217,14 @@ end
 
 -- find all files (including hidden) but NOT any files in the hidden `.git/` directory
 map('n', '<leader>p', callTelescopeBuiltin('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
-map('n', '<leader>b', callTelescopeBuiltin('buffers'))
+map('n', '<leader>b', callTelescopeBuiltin('buffers') .. '<esc>')
 map('n', '<leader>g', callTelescopeBuiltin('live_grep'))
 map('n', '<leader>/', callTelescopeBuiltin('current_buffer_fuzzy_find')) --
 map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the previewer configurable
 map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
+map('n', "<leader>'", '<cmd>Telescope neoclip<cr><esc>') -- open neoclip menu AND transition to normal mode
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
@@ -350,6 +250,10 @@ vim.g.nvim_tree_width = '25%'
 --------------------------
 require('gitsigns').setup()
 
+-- vim fugitive merge conflict resolution
+map('n', '<leader>gj', '<cmd>diffget //3<cr>') -- pick the right side (incoming) change
+map('n', '<leader>gf', '<cmd>diffget //2<cr>') -- pick the left side (base branch) change
+
 --------------------------
 -- neoformat
 --------------------------
@@ -359,7 +263,9 @@ map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 --------------------------
 -- minimap
 --------------------------
-map('n', '<leader>map', '<cmd>:MinimapToggle<cr>')
+-- open the minimap then move to the pane to the right to focus on it
+-- the map displays the contents of whatever buffer is focused so using it with open vsplits is weird
+map('n', '<leader>map', '<cmd>:MinimapToggle<cr><cmd>wincmd l<cr>')
 vim.g.minimap_width = 16
 vim.g.minimap_highlight_range = 1
 vim.g.minimap_git_colors = 1
@@ -384,69 +290,6 @@ vim.g.floaterm_keymap_next = '<F10>'
 vim.g.floaterm_width = 0.95
 vim.g.floaterm_height = 0.95
 
---------------------------
--- treesitter
---------------------------
-require'nvim-treesitter.configs'.setup {
-  -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = {
-    'bash',
-    'comment', -- highlight TODO and FIXME comments
-    'css',
-    'html',
-    'javascript',
-    'jsdoc',
-    'json',
-    'lua',
-    'regex',
-    'scss',
-    'toml',
-    'tsx',
-    'typescript',
-    'yaml',
-  },
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    -- disable = { "c", "rust" },  -- list of language that will be disabled
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-  rainbow = {
-    enable = true,
-    extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-    colors = function ()
-      local c = {}
-      for key, value in pairs(colors) do
-        if key ~= 'foreground' and key ~= 'background' then
-          table.insert(c, value)
-        end
-      end
-      return c
-    end
-  },
-  autotag = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      node_incremental = "o", -- out
-      scope_incremental = "O", -- OUT!
-      node_decremental = "i", -- in
-    }
-  }
-  -- refactor = {
-    --   highlight_current_scope = { enable = true },
-    --   highlight_definitions = { enable = true },
-    -- },
-  }
-
-  require'treesitter-context.config'.setup{ enable = true }
-
-
-
   --------------------------
   -- LSP config
   --------------------------
@@ -464,7 +307,11 @@ require'nvim-treesitter.configs'.setup {
     require'lspinstall'.setup()
     local servers = require'lspinstall'.installed_servers()
     for _, server in pairs(servers) do
-      local config = {}
+      local config = {
+        on_attach = function(client)
+          require 'illuminate'.on_attach(client)
+        end,
+      }
 
       if server == 'typescript' then
 
@@ -513,6 +360,9 @@ require'nvim-treesitter.configs'.setup {
 
   map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
 
+  -- TODO: not working and idk why
+  -- map('n', '<leader><up>', '<cmd>lua require"illuminate".next_reference{reverse=true, wrap=true}<cr>')
+  -- map('n', '<leader><down>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>')
 
   --------------------------
   -- LSP saga config
@@ -560,7 +410,7 @@ require'nvim-treesitter.configs'.setup {
     hint_enable = false, -- virtual hint enable
     floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
     fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
-    -- use_lspsaga = false,  -- set to true if you want to use lspsaga popup
+    use_lspsaga = true,  -- set to true if you want to use lspsaga popup
     hi_parameter = "Search", -- how your parameter will be highlight
     max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
     -- to view the hiding contents
@@ -587,8 +437,14 @@ require'nvim-treesitter.configs'.setup {
     max_abbr_width = 100,
     max_kind_width = 100,
     max_menu_width = 100,
-    documentation = true,
-
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│", },
+      winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:LspFloatWinBorder",
+      max_width = 120,
+      min_width = 60,
+      max_height = math.floor(vim.o.lines * 0.3),
+      min_height = 1,
+    };
     source = {
       path = true,
       buffer = true,
@@ -644,55 +500,3 @@ require'nvim-treesitter.configs'.setup {
   vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
   vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
 
-
-  require'lualine'.setup {
-    options = {
-      icons_enabled = true,
-      theme = 'tokyonight',
-      component_separators = {'', ''},
-      section_separators = {'', ''},
-      disabled_filetypes = {'minimap'}
-    },
-    sections = {
-      lualine_a = {'mode'},
-      lualine_b = {
-        {'filename', path = 1} -- 0 = just filename, 1 = relative path, 2 = absolute path
-      },
-      lualine_c = {
-        {
-          'diff',
-          colored = true, -- displays diff status in color if set to true
-          -- all colors are in format #rrggbb
-          color_added = colors.green, -- changes diff's added foreground color
-          color_modified = colors.yellow, -- changes diff's modified foreground color
-          color_removed = colors.red, -- changes diff's removed foreground color
-          symbols = {added = '+', modified = '~', removed = '-'} -- changes diff symbols
-        }
-      },
-      lualine_x = {
-        -- TODO:
-        -- 'diagnostics',
-        --   sources = {'nvim_lsp'},
-        --   -- displays diagnostics from defined severity
-        --   sections = {'error', 'warn', 'info', 'hint'},
-        --   -- all colors are in format #rrggbb
-        --   color_error = nil, -- changes diagnostic's error foreground color
-        --   color_warn = nil, -- changes diagnostic's warn foreground color
-        --   color_info = nil, -- Changes diagnostic's info foreground color
-        --   color_hint = nil, -- Changes diagnostic's hint foreground color
-        --   symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'}
-      },
-      lualine_y = {'branch'},
-      lualine_z = {'progress'}
-    },
-    inactive_sections = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {'filename'},
-      lualine_x = {'location'},
-      lualine_y = {},
-      lualine_z = {}
-    },
-    tabline = {},
-    extensions = {}
-  }
