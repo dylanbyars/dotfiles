@@ -3,6 +3,9 @@
 export EDITOR=/usr/local/bin/nvim
 
 alias vim='nvim'
+function nukeswap() {
+  rm -rf ~/.local/share/nvim/swap
+}
 
 alias zz='source ~/.zshrc'
 
