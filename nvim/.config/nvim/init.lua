@@ -7,60 +7,65 @@ require('plugins')
 -- SETTINGS
 --------------------------
 
-vim.g.tokyonight_style = 'night'
+local g = vim.g
+local o = vim.o
+
+g.tokyonight_style = 'night'
 vim.cmd[[colorscheme tokyonight]]
 -- change the color of the line between vertical splits
 vim.cmd("highlight VertSplit guifg="..colors.magenta)
 
 -- make the mouse work
-vim.o.mouse = 'a'
+o.mouse = 'a'
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+g.mapleader = ' '
+g.maplocalleader = ' '
 
 -- don't show mode since it's in the statusline
-vim.o.showmode = false
+o.showmode = false
 
 -- always show the sign column
-vim.o.signcolumn = 'yes'
+o.signcolumn = 'yes'
 -- do not show the fold column (too busy)
-vim.o.foldcolumn = "0"
+o.foldcolumn = "0"
 -- start file completely unfolded
-vim.o.foldlevelstart = 99
+o.foldlevelstart = 99
 -- use treesitter to define foldable areas
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- show the current line number on the current line and the relative line number on all other lines
-vim.o.number = true
-vim.o.relativenumber = true
+o.number = true
+o.relativenumber = true
 
 -- don't require a file save before switching buffers
-vim.o.hidden = true
+o.hidden = true
 
 -- default to case insensitive search
-vim.o.ignorecase = true
+o.ignorecase = true
 -- break lines between words at window's width
-vim.o.linebreak = true
+o.linebreak = true
 -- tabs are 2 spaces wide
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
-vim.o.expandtab = true
+o.tabstop = 2
+o.softtabstop = 2
+o.shiftwidth = 2
+o.expandtab = true
 
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
-vim.o.scrolloff = 8
+o.scrolloff = 8
 
 -- persistent undo TODO: not working
 -- vim.bo.undo = true
--- vim.g.undodir = '~/.config/nvim/undo'
+-- g.undodir = '~/.config/nvim/undo'
 
 -- put new splits below or to the right
-vim.o.splitbelow = true
-vim.o.splitright = true
+o.splitbelow = true
+o.splitright = true
 
+-- Time in milliseconds (default 0)
+g.Illuminate_delay = 1000
 --------------------------
 -- general key bindings
 --------------------------
@@ -117,14 +122,14 @@ vim.api.nvim_command('autocmd TextYankPost * silent! lua vim.highlight.on_yank{h
 --------------------------
 -- startify
 --------------------------
-vim.g.startify_change_to_vcs_root = 1
-vim.g.startify_custom_header = 'startify#center(startify#fortune#cowsay())'
-vim.g.startify_lists = {
+g.startify_change_to_vcs_root = 1
+g.startify_custom_header = 'startify#center(startify#fortune#cowsay())'
+g.startify_lists = {
   {type = 'bookmarks', header = {' Projects'}},
   {type = 'files', header = {' Recent Files'}},
   {type = 'sessions', header = {' Sessions'}}
 }
-vim.g.startify_bookmarks = {
+g.startify_bookmarks = {
   {v = '~/dotfiles/nvim/.config/nvim/init.lua'},
   {z = '~/dotfiles/zsh/.zshrc'},
   {t = '~/dotfiles/tmux/.tmux.conf'},
@@ -181,10 +186,10 @@ map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keyma
 map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
 -- TODO: switch focus back to the previous pane. currently focus moves to the pane closest to the tree
 map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
--- vim.g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
-vim.g.nvim_tree_highlight_opened_files = 3
-vim.g.nvim_tree_hide_dotfiles = 0
-vim.g.nvim_tree_width = '25%'
+-- g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
+g.nvim_tree_highlight_opened_files = 3
+g.nvim_tree_hide_dotfiles = 0
+g.nvim_tree_width = '25%'
 
 -- vim fugitive merge conflict resolution
 map('n', '<leader>gj', '<cmd>diffget //3<cr>') -- pick the right side (incoming) change
@@ -202,29 +207,29 @@ map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 -- open the minimap then move to the pane to the right to focus on it
 -- the map displays the contents of whatever buffer is focused so using it with open vsplits is weird
 map('n', '<leader>map', '<cmd>:MinimapToggle<cr><cmd>wincmd l<cr>')
-vim.g.minimap_width = 16
-vim.g.minimap_highlight_range = 1
-vim.g.minimap_git_colors = 1
+g.minimap_width = 16
+g.minimap_highlight_range = 1
+g.minimap_git_colors = 1
 vim.cmd('hi MinimapDiffAdd guifg='..colors.green)
 vim.cmd('hi MinimapDiffRemove guifg='..colors.red)
 vim.cmd('hi MinimapDiff guifg='..colors.yellow)
-vim.g.minimap_diffadd_color = 'MinimapDiffAdd'
-vim.g.minimap_diffremove_color = 'MinimapDiffRemove'
-vim.g.minimap_diff_color = 'MinimapDiff'
-vim.g.minimap_cursor_color_priority	= 90
+g.minimap_diffadd_color = 'MinimapDiffAdd'
+g.minimap_diffremove_color = 'MinimapDiffRemove'
+g.minimap_diff_color = 'MinimapDiff'
+g.minimap_cursor_color_priority	= 90
 
 
 --------------------------
 -- floaterm
 --------------------------
-vim.g.floaterm_title = '($1/$2)'
-vim.g.floaterm_keymap_toggle = '<F12>'
-vim.g.floaterm_keymap_kill = '<F11>'
-vim.g.floaterm_keymap_new = '<F8>'
-vim.g.floaterm_keymap_prev = '<F9>'
-vim.g.floaterm_keymap_next = '<F10>'
-vim.g.floaterm_width = 0.95
-vim.g.floaterm_height = 0.95
+g.floaterm_title = '($1/$2)'
+g.floaterm_keymap_toggle = '<F12>'
+g.floaterm_keymap_kill = '<F11>'
+g.floaterm_keymap_new = '<F8>'
+g.floaterm_keymap_prev = '<F9>'
+g.floaterm_keymap_next = '<F10>'
+g.floaterm_width = 0.95
+g.floaterm_height = 0.95
 
 
 map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
