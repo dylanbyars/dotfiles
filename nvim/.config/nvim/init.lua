@@ -151,65 +151,6 @@ map("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true})
 --------------------------
 map('n', 'm', '<cmd>:HopChar2<cr>')
 
---------------------------
--- telescope
---------------------------
-local trouble = require("trouble.providers.telescope")
-
-local telescope = require("telescope")
-local previewers = require("telescope.previewers")
-
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = { ["<c-q>"] = trouble.open_with_trouble },
-      n = {
-        ["<c-q>"] = trouble.open_with_trouble,
-      },
-    },
-    dynamic_preview_title = true,
-    path_display = {shorten = 3},
-    layout_config = {
-      height = 0.9,
-      width = 0.9,
-      horizontal = {
-        preview_width = 0.7
-      }
-    }
-  },
-  extensions = {
-    -- faster live_grep. I think. Should probably verify that...
-    fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = false, -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- "smart_case" (default) or "ignore_case" or "respect_case"
-    }
-  },
-  pickers = {
-    buffers = {
-      show_all_buffers = true,
-      sort_lastused = true,
-      mappings = {
-        n = {
-          -- right hand side can be the name of the action as string
-          ["<bs>"] = "delete_buffer",
-        }
-      }
-    },
-    keymaps = {
-      theme = "dropdown",
-      previewer = false,
-    },
-    -- git_bcommits = {
-    --   previewer = previewers.vim_buffer_qflist.new()
-    -- }
-  },
-}
-
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('neoclip')
-
 local function callTelescopeBuiltin(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
   return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
@@ -224,7 +165,7 @@ map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the pr
 map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
-map('n', "<leader>'", '<cmd>Telescope neoclip<cr><esc>') -- open neoclip menu AND transition to normal mode
+-- map('n', "<leader>'", '<cmd>Telescope neoclip<cr><esc>') -- open neoclip menu AND transition to normal mode
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
@@ -244,11 +185,6 @@ map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
 vim.g.nvim_tree_highlight_opened_files = 3
 vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_width = '25%'
-
---------------------------
--- git
---------------------------
-require('gitsigns').setup()
 
 -- vim fugitive merge conflict resolution
 map('n', '<leader>gj', '<cmd>diffget //3<cr>') -- pick the right side (incoming) change
@@ -290,213 +226,41 @@ vim.g.floaterm_keymap_next = '<F10>'
 vim.g.floaterm_width = 0.95
 vim.g.floaterm_height = 0.95
 
-  --------------------------
-  -- LSP config
-  --------------------------
-  -- TODO: there's gotta be a better way to record what servers a person's installed...
-  -- servers installed:
-  -- typescript
-  -- html
-  -- css
-  -- lua
-  -- dockerfile
-  -- bash
-  -- yaml
-  -- vim
-  local function setup_servers()
-    require'lspinstall'.setup()
-    local servers = require'lspinstall'.installed_servers()
-    for _, server in pairs(servers) do
-      local config = {
-        on_attach = function(client)
-          require 'illuminate'.on_attach(client)
-        end,
-      }
 
-      if server == 'typescript' then
+map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
 
-        local function organize_imports()
-          vim.lsp.buf.execute_command({
-            command = "_typescript.organizeImports",
-            arguments = {vim.api.nvim_buf_get_name(0)},
-          })
-        end
-
-        config = {
-          commands = {
-            OrganizeImports = {
-              organize_imports,
-              description = "Organize Imports"
-            }
-          }
-        }
-      end
-
-      -- make lua language server aware of a global variable called `vim`
-      if server == 'lua' then
-        config = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { 'vim' }
-              }
-            }
-          }
-        }
-      end
-
-      require'lspconfig'[server].setup(config)
-    end
-  end
-
-  setup_servers()
-
-  -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-  require'lspinstall'.post_install_hook = function ()
-    setup_servers() -- reload installed servers
-    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-  end
+-- TODO: not working and idk why
+-- map('n', '<leader><up>', '<cmd>lua require"illuminate".next_reference{reverse=true, wrap=true}<cr>')
+-- map('n', '<leader><down>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>')
 
 
-  map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
-
-  -- TODO: not working and idk why
-  -- map('n', '<leader><up>', '<cmd>lua require"illuminate".next_reference{reverse=true, wrap=true}<cr>')
-  -- map('n', '<leader><down>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>')
-
-  --------------------------
-  -- LSP saga config
-  --------------------------
-  local saga = require 'lspsaga'
-  saga.init_lsp_saga {
-    use_saga_diagnostic_sign = false,
-    border_style = 'round',
-    max_preview_lines = 15,
-  }
-
-  map('n', 'K', '<cmd>:Lspsaga hover_doc<CR>')
-  map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
-  -- diagnostics
-  map('n', '<leader>ld', '<cmd>:Lspsaga show_line_diagnostics<CR>')
-  map('n', '[e', '<cmd>:Lspsaga diagnostic_jump_prev<CR>')
-  map('n', ']e', '<cmd>:Lspsaga diagnostic_jump_next<CR>')
+map('n', 'K', '<cmd>:Lspsaga hover_doc<CR>')
+map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
+-- diagnostics
+map('n', '<leader>ld', '<cmd>:Lspsaga show_line_diagnostics<CR>')
+map('n', '[e', '<cmd>:Lspsaga diagnostic_jump_prev<CR>')
+map('n', ']e', '<cmd>:Lspsaga diagnostic_jump_next<CR>')
 
 
 
-  -- additional lsp mappings using regular lsp api
-  map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
-  map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  -- rename symbol under cursor and set the rename in the command line window
-  map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
-  -- TODO: trouble obsoletes these
-  -- view references in the quickfix list
-  -- map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  -- -- view all diagnostics in the file in the quickfix list
-  -- map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>')
+-- additional lsp mappings using regular lsp api
+map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+-- rename symbol under cursor and set the rename in the command line window
+map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
+-- TODO: trouble obsoletes these
+-- view references in the quickfix list
+-- map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- -- view all diagnostics in the file in the quickfix list
+-- map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>')
 
 
-  --------------------------
-  -- completion helpers
-  --------------------------
-  require('nvim-autopairs').setup()
-
-  require('lsp_signature').setup({
-    bind = true, -- This is mandatory, otherwise border config won't get registered.
-    doc_lines = 2, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
-    -- set to 0 if you DO NOT want any API comments be shown
-    -- This setting only take effect in insert mode, it does not affect signature help in normal
-    -- mode, 10 by default
-    hint_enable = false, -- virtual hint enable
-    floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
-    fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
-    use_lspsaga = true,  -- set to true if you want to use lspsaga popup
-    hi_parameter = "Search", -- how your parameter will be highlight
-    max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
-    -- to view the hiding contents
-    max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
-    handler_opts = {
-      border = "single"   -- double, single, shadow, none
-    },
-  })
-
-  --------------------------
-  -- Compe setup
-  --------------------------
-  vim.o.completeopt = 'menuone,noselect'
-
-  require'compe'.setup {
-    enabled = true,
-    autocomplete = true,
-    debug = false,
-    min_length = 1,
-    preselect = 'enable',
-    throttle_time = 80,
-    source_timeout = 200,
-    incomplete_delay = 400,
-    max_abbr_width = 100,
-    max_kind_width = 100,
-    max_menu_width = 100,
-    documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│", },
-      winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:LspFloatWinBorder",
-      max_width = 120,
-      min_width = 60,
-      max_height = math.floor(vim.o.lines * 0.3),
-      min_height = 1,
-    };
-    source = {
-      path = true,
-      buffer = true,
-      calc = true,
-      vsnip = true,
-      nvim_lsp = true,
-      nvim_lua = true,
-      -- spell = true,
-      tags = true,
-      snippets_nvim = true,
-      treesitter = true,
-    },
-  }
-
-  local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-  end
-
-  local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-      return true
-    else
-      return false
-    end
-  end
-
-  -- Use (s-)tab to:
-  --- move to prev/next item in completion menuone
-  --- jump to prev/next snippet's placeholder
-  _G.tab_complete = function()
-    if vim.fn.pumvisible() == 1 then
-      return t '<C-n>'
-    elseif check_back_space() then
-      return t '<Tab>'
-    else
-      return vim.fn['compe#complete']()
-    end
-  end
-  _G.s_tab_complete = function()
-    if vim.fn.pumvisible() == 1 then
-      return t '<C-p>'
-    else
-      return t '<S-Tab>'
-    end
-  end
-
-  vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_complete()', {expr = true})
-  vim.api.nvim_set_keymap('s', '<Tab>', 'v:lua.tab_complete()', {expr = true})
-  vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
-  vim.api.nvim_set_keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
-  -- Map compe confirm and complete functions
-  vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
-  vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
+vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_complete()', {expr = true})
+vim.api.nvim_set_keymap('s', '<Tab>', 'v:lua.tab_complete()', {expr = true})
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
+vim.api.nvim_set_keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
+-- Map compe confirm and complete functions
+vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
+vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
 
