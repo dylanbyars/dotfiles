@@ -20,7 +20,7 @@ require('packer').startup({function(use)
   use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" }
   -- git
   use 'tpope/vim-fugitive'
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, commit = '25d4b182ece5b03cd4b2d8c196f3c38e0df58801' } -- TODO: remove `commit` soon. a bad commit's going to get reverted
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- comment helpers
   use 'tpope/vim-commentary' -- comments made easy
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- comment bits out with proper style based on their location determined by treesitter i.e. js vs jsx
