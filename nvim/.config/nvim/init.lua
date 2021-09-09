@@ -9,6 +9,7 @@ require('plugins')
 
 local g = vim.g
 local o = vim.o
+local bo = vim.bo
 
 g.tokyonight_style = 'night'
 vim.cmd[[colorscheme tokyonight]]
@@ -56,9 +57,9 @@ o.expandtab = true
 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 o.scrolloff = 8
 
--- persistent undo TODO: not working
--- vim.bo.undo = true
--- g.undodir = '~/.config/nvim/undo'
+-- persistent undo
+o.undofile = true
+bo.undofile = true
 
 -- put new splits below or to the right
 o.splitbelow = true
