@@ -75,8 +75,12 @@ local function map(mode, mapping, action, options)
   return vim.api.nvim_set_keymap(mode, mapping, action, options)
 end
 
-map('n', '<leader>w', '<cmd>:w<cr>')
-map('n', '<leader>q', '<cmd>:q<cr>')
+local function cmd(command)
+  return '<cmd>'..command..'<cr>'
+end
+
+map('n', '<leader>w', cmd([[ :w ]]))
+map('n', '<leader>q', cmd([[ :q ]]))
 map('n', '<leader>;', ':')
 map('v', '<leader>;', ':')
 
@@ -107,8 +111,8 @@ map('n', 'Y', 'y$')
 
 -- the unimpaired plugin uses these mappings to navigate tags
 -- taBs are more relevant to me than taGs
-map('n', '[t', '<cmd>tabprev<cr>')
-map('n', ']t', '<cmd>tabnext<cr>')
+map('n', '[t', cmd([[ tabprev ]]))
+map('n', ']t', cmd([[ tabnext ]]))
 
 -- highlight yanked text for a bit
 local hl_timeout = '750' -- ms
@@ -143,18 +147,18 @@ g.startify_bookmarks = {
 --------------------------
 -- trouble
 --------------------------
-map("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true})
-map("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", {silent = true})
-map("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", {silent = true})
-map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true})
-map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true})
-map("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true})
+map("n", "<leader>xx", cmd([[ Trouble ]]), {silent = true})
+map("n", "<leader>xw", cmd([[ Trouble lsp_workspace_diagnostics ]]), {silent = true})
+map("n", "<leader>xd", cmd([[ Trouble lsp_document_diagnostics ]]), {silent = true})
+map("n", "<leader>xl", cmd([[ Trouble loclist ]]), {silent = true})
+map("n", "<leader>xq", cmd([[ Trouble quickfix ]]), {silent = true})
+map("n", "gR", cmd([[ Trouble lsp_references ]]), {silent = true})
 
 
 --------------------------
 -- hop
 --------------------------
-map('n', 'm', '<cmd>:HopChar2<cr>')
+map('n', 'm', cmd([[ :HopChar2 ]]))
 
 local function callTelescopeBuiltin(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
@@ -183,22 +187,22 @@ map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keyma
 --------------------------
 -- nvim-tree
 --------------------------
-map('n', '<leader><leader>', '<cmd>:NvimTreeFindFile<cr>')
+map('n', '<leader><leader>', cmd([[ :NvimTreeFindFile ]]))
 -- TODO: switch focus back to the previous pane. currently focus moves to the pane closest to the tree
-map('n', '<esc>', '<cmd>:NvimTreeClose<cr>')
+map('n', '<esc>', cmd([[ :NvimTreeClose ]]))
 -- g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
 g.nvim_tree_highlight_opened_files = 3
 g.nvim_tree_hide_dotfiles = 0
 g.nvim_tree_width = '25%'
 
 -- vim fugitive merge conflict resolution
-map('n', '<leader>gj', '<cmd>diffget //3<cr>') -- pick the right side (incoming) change
-map('n', '<leader>gf', '<cmd>diffget //2<cr>') -- pick the left side (base branch) change
+map('n', '<leader>gj', cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
+map('n', '<leader>gf', cmd([[ diffget //2 ]])) -- pick the left side (base branch) change
 
 --------------------------
 -- neoformat
 --------------------------
-map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
+map('n', '<leader>f', cmd([[ :Neoformat prettier ]]))
 
 
 --------------------------
@@ -206,7 +210,7 @@ map('n', '<leader>f', '<cmd>:Neoformat prettier<cr>')
 --------------------------
 -- open the minimap then move to the pane to the right to focus on it
 -- the map displays the contents of whatever buffer is focused so using it with open vsplits is weird
-map('n', '<leader>map', '<cmd>:MinimapToggle<cr><cmd>wincmd l<cr>')
+map('n', '<leader>map', cmd([[ :MinimapToggle<cr><cmd>wincmd l ]]))
 g.minimap_width = 16
 g.minimap_highlight_range = 1
 g.minimap_git_colors = 1
@@ -232,33 +236,33 @@ g.floaterm_width = 0.95
 g.floaterm_height = 0.95
 
 
-map('n', '<leader>o', '<cmd>:OrganizeImports<cr>')
+map('n', '<leader>o', cmd([[ :OrganizeImports ]]))
 
 -- TODO: not working and idk why
--- map('n', '<leader><up>', '<cmd>lua require"illuminate".next_reference{reverse=true, wrap=true}<cr>')
--- map('n', '<leader><down>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>')
+-- map('n', '<leader><up>', cmd([[ lua require"illuminate".next_reference{reverse=true, wrap=true} ]]))
+-- map('n', '<leader><down>', cmd([[ lua require"illuminate".next_reference{wrap=true} ]]))
 
 
-map('n', 'K', '<cmd>:Lspsaga hover_doc<CR>')
-map('n', '<leader>gd', '<cmd>:Lspsaga preview_definition<CR>')
+map('n', 'K', cmd([[ :Lspsaga hover_doc ]]))
+map('n', '<leader>gd', cmd([[ :Lspsaga preview_definition ]]))
 -- diagnostics
-map('n', '<leader>ld', '<cmd>:Lspsaga show_line_diagnostics<CR>')
-map('n', '[e', '<cmd>:Lspsaga diagnostic_jump_prev<CR>')
-map('n', ']e', '<cmd>:Lspsaga diagnostic_jump_next<CR>')
+map('n', '<leader>ld', cmd([[ :Lspsaga show_line_diagnostics ]]))
+map('n', '[e', cmd([[ :Lspsaga diagnostic_jump_prev ]]))
+map('n', ']e', cmd([[ :Lspsaga diagnostic_jump_next ]]))
 
 
 
 -- additional lsp mappings using regular lsp api
-map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>ca', cmd([[ lua vim.lsp.buf.code_action() ]]))
+map('v', '<leader>ca', cmd([[ lua vim.lsp.buf.range_code_action() ]]))
+map('n', 'gd', cmd([[ lua vim.lsp.buf.definition() ]]))
 -- rename symbol under cursor and set the rename in the command line window
 map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
 -- TODO: trouble obsoletes these
 -- view references in the quickfix list
--- map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- map('n', '<leader>gr', cmd([[ lua vim.lsp.buf.references() ]]))
 -- -- view all diagnostics in the file in the quickfix list
--- map('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>')
+-- map('n', '<leader>e', cmd([[ lua vim.lsp.diagnostic.set_qflist() ]]))
 
 
 vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_complete()', {expr = true})
