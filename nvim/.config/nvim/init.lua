@@ -65,7 +65,7 @@ o.splitbelow = true
 o.splitright = true
 
 -- Time in milliseconds (default 0)
-g.Illuminate_delay = 1000
+g.Illuminate_delay = 750
 --------------------------
 -- general key bindings
 --------------------------
