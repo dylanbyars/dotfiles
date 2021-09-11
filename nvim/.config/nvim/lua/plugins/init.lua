@@ -25,9 +25,9 @@ require('packer').startup({function(use)
   -- completion
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
+  use 'glepnir/lspsaga.nvim'
   use "hrsh7th/vim-vsnip"
   use "rafamadriz/friendly-snippets"
-  use 'glepnir/lspsaga.nvim'
   use {
     "hrsh7th/nvim-cmp",
     requires = {
