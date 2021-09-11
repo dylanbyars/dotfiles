@@ -92,17 +92,12 @@ require('packer').startup({function(use)
           })
         end
       },
-      {
-        'rmagatti/session-lens',
-        config = function() require('session-lens').setup() end
-      }
     }
   }
   -- idk
   use 'tpope/vim-unimpaired'
   use 'wfxr/minimap.vim'
   use 'voldikss/vim-floaterm'
-  use 'rmagatti/auto-session'
   -- writing
   use 'junegunn/goyo.vim'
 end,
@@ -137,3 +132,4 @@ require('plugins.lsp')
 require('plugins.cmp')
 
 require('plugins.lualine')
+
