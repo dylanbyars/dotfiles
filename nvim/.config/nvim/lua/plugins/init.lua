@@ -13,8 +13,6 @@ require('packer').startup({function(use)
   -- colorscheme
   use 'folke/tokyonight.nvim'
   use 'norcalli/nvim-colorizer.lua'
-  -- start page
-  use 'mhinz/vim-startify'
   -- status line
   use 'hoob3rt/lualine.nvim'
   use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" }
@@ -81,6 +79,10 @@ require('packer').startup({function(use)
             -- TODO: want to configure the display but not sure how...
           })
         end
+      },
+      {
+        'rmagatti/session-lens',
+        config = function() require('session-lens').setup() end
       }
     }
   }
@@ -88,6 +90,7 @@ require('packer').startup({function(use)
   use 'tpope/vim-unimpaired'
   use 'wfxr/minimap.vim'
   use 'voldikss/vim-floaterm'
+  use 'rmagatti/auto-session'
   -- writing
   use 'junegunn/goyo.vim'
 end,

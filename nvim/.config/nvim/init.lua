@@ -65,6 +65,9 @@ bo.undofile = true
 o.splitbelow = true
 o.splitright = true
 
+-- session stuff
+o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
+
 -- Time in milliseconds (default 0)
 g.Illuminate_delay = 750
 --------------------------
@@ -122,28 +125,6 @@ vim.api.nvim_command('autocmd TextYankPost * silent! lua vim.highlight.on_yank{h
 --------------------------
 -- plugin configs
 --------------------------
-
-
---------------------------
--- startify
---------------------------
-g.startify_change_to_vcs_root = 1
-g.startify_custom_header = 'startify#center(startify#fortune#cowsay())'
-g.startify_lists = {
-  {type = 'bookmarks', header = {' Projects'}},
-  {type = 'files', header = {' Recent Files'}},
-  {type = 'sessions', header = {' Sessions'}}
-}
-g.startify_bookmarks = {
-  {v = '~/dotfiles/nvim/.config/nvim/init.lua'},
-  {z = '~/dotfiles/zsh/.zshrc'},
-  {t = '~/dotfiles/tmux/.tmux.conf'},
-  {d = '~/dotfiles'},
-  {a = '~/code/api'},
-  {c = '~/code/client'},
-  {g = '~/code/gravity-components'},
-  '~/code'
-}
 
 --------------------------
 -- trouble
