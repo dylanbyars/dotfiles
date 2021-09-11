@@ -88,9 +88,6 @@ map('n', '<leader>q', cmd([[ :q ]]))
 map('n', '<leader>;', ':')
 map('v', '<leader>;', ':')
 
--- toggle fold TODO: make this smarter. if the fold is closed, run zO to open it ALL up. If it's open, run whatever completely closes the biggest surrounding fold
-map('n', '<S-Tab>', 'za')
-
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
 -- lines across visually wrapped lines
@@ -232,23 +229,9 @@ map('n', '<leader>ld', cmd([[ :Lspsaga show_line_diagnostics ]]))
 map('n', '[e', cmd([[ :Lspsaga diagnostic_jump_prev ]]))
 map('n', ']e', cmd([[ :Lspsaga diagnostic_jump_next ]]))
 
-
-
 -- additional lsp mappings using regular lsp api
 map('n', '<leader>ca', cmd([[ lua vim.lsp.buf.code_action() ]]))
 map('v', '<leader>ca', cmd([[ lua vim.lsp.buf.range_code_action() ]]))
 map('n', 'gd', cmd([[ lua vim.lsp.buf.definition() ]]))
 -- rename symbol under cursor and set the rename in the command line window
 map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
--- TODO: trouble obsoletes these
--- view references in the quickfix list
--- map('n', '<leader>gr', cmd([[ lua vim.lsp.buf.references() ]]))
--- -- view all diagnostics in the file in the quickfix list
--- map('n', '<leader>e', cmd([[ lua vim.lsp.diagnostic.set_qflist() ]]))
-
-
--- vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_complete()', {expr = true})
--- vim.api.nvim_set_keymap('s', '<Tab>', 'v:lua.tab_complete()', {expr = true})
--- vim.api.nvim_set_keymap('i', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
--- vim.api.nvim_set_keymap('s', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
-

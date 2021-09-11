@@ -26,20 +26,20 @@ require('packer').startup({function(use)
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
   use 'glepnir/lspsaga.nvim'
-  use "hrsh7th/vim-vsnip"
+  use 'L3MON4D3/LuaSnip'
   use "rafamadriz/friendly-snippets"
   use {
     "hrsh7th/nvim-cmp",
     requires = {
       -- completion sources
-      'hrsh7th/cmp-vsnip',
+      'saadparwaiz1/cmp_luasnip',
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-calc",
       "f3fora/cmp-spell",
       "hrsh7th/cmp-nvim-lsp"
-    }
+    },
   }
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
