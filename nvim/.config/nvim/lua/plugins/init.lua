@@ -25,10 +25,22 @@ require('packer').startup({function(use)
   -- completion
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
-  use { 'hrsh7th/vim-vsnip', requires = { 'hrsh7th/vim-vsnip-integ' } }
+  use "hrsh7th/vim-vsnip"
   use "rafamadriz/friendly-snippets"
   use 'glepnir/lspsaga.nvim'
-  use 'hrsh7th/nvim-compe'
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      -- completion sources
+      'hrsh7th/cmp-vsnip',
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-calc",
+      "f3fora/cmp-spell",
+      "hrsh7th/cmp-nvim-lsp"
+    }
+  }
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
   use 'RRethy/vim-illuminate'
@@ -122,6 +134,6 @@ require('plugins.telescope')
 
 require('plugins.lsp')
 
-require('plugins.compe')
+require('plugins.cmp')
 
 require('plugins.lualine')
