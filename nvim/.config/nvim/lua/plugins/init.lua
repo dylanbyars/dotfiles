@@ -67,13 +67,6 @@ require('packer').startup({function(use)
     end
   }
   use 'wincent/loupe' -- search highlight improved
-  use {
-    'phaazon/hop.nvim',
-    as = 'hop',
-    config = function()
-      require("hop").setup()
-    end
-  }
   -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'kyazdani42/nvim-tree.lua'
@@ -95,7 +88,6 @@ require('packer').startup({function(use)
     }
   }
   -- idk
-  use 'tpope/vim-unimpaired'
   use 'wfxr/minimap.vim'
   use 'voldikss/vim-floaterm'
   -- writing

@@ -110,8 +110,7 @@ map('v', '<leader>y', '"+y')
 -- make Y behave like other capital letter commands
 map('n', 'Y', 'y$')
 
--- the unimpaired plugin uses these mappings to navigate tags
--- taBs are more relevant to me than taGs
+-- move between tabs
 map('n', '[t', cmd([[ tabprev ]]))
 map('n', ']t', cmd([[ tabnext ]]))
 
