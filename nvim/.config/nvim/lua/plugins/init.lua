@@ -26,8 +26,7 @@ require('packer').startup({function(use)
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
   use 'glepnir/lspsaga.nvim'
-  use 'L3MON4D3/LuaSnip'
-  use "rafamadriz/friendly-snippets"
+  use 'L3MON4D3/LuaSnip' -- cmp requires a snippet engine
   use {
     "hrsh7th/nvim-cmp",
     requires = {
@@ -115,13 +114,20 @@ require('colorizer').setup()
 
 require('gitsigns').setup()
 
-require('nvim-autopairs').setup()
-
 require('plugins.telescope')
 
 require('plugins.lsp')
 
 require('plugins.cmp')
+
+-- nvim-autopairs stuff has to go after cmp setup
+require('nvim-autopairs').setup{}
+
+require("nvim-autopairs.completion.cmp").setup({
+  map_cr = true, --  map <CR> on insert mode
+  map_complete = true, -- it will auto insert `(` after select function or method item
+  auto_select = true -- automatically select the first item
+})
 
 require('plugins.lualine')
 
