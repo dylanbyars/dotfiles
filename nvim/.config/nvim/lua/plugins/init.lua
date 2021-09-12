@@ -12,6 +12,7 @@ require('packer').startup({function(use)
   -- colors
   use 'folke/tokyonight.nvim' -- colorscheme
   use 'norcalli/nvim-colorizer.lua' -- highlight hex strings with their color
+  use 'mhinz/vim-startify' -- session manager and fancy start screen
   -- status line
   use 'hoob3rt/lualine.nvim'
   use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" }
@@ -114,3 +115,4 @@ require("nvim-autopairs.completion.cmp").setup({
 
 require('plugins.lualine')
 
+require('plugins.startify')
