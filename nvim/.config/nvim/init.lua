@@ -65,9 +65,6 @@ bo.undofile = true
 o.splitbelow = true
 o.splitright = true
 
--- session stuff
-o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
-
 -- Time in milliseconds (default 0)
 g.Illuminate_delay = 750
 --------------------------
@@ -133,11 +130,10 @@ map("n", "<leader>xq", cmd([[ Trouble quickfix ]]), {silent = true})
 map("n", "gR", cmd([[ Trouble lsp_references ]]), {silent = true})
 
 
---------------------------
--- hop
---------------------------
-map('n', 'm', cmd([[ :HopChar2 ]]))
 
+--------------------------
+-- telescope
+--------------------------
 local function callTelescopeBuiltin(builtin, options)
   local args = builtin..(options == nil and '()' or '('..options..')')
   return "<cmd>lua require('telescope.builtin')."..args..'<cr>'
