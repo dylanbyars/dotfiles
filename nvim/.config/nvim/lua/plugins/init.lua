@@ -8,24 +8,23 @@ end
 
 vim.cmd [[packadd packer.nvim]] -- see this line in a lot of setup packer automatically snippets. why?
 require('packer').startup({function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-  -- colorscheme
-  use 'folke/tokyonight.nvim'
-  use 'norcalli/nvim-colorizer.lua'
+  use 'wbthomason/packer.nvim' -- Packer can manage itself
+  -- colors
+  use 'folke/tokyonight.nvim' -- colorscheme
+  use 'norcalli/nvim-colorizer.lua' -- highlight hex strings with their color
   -- status line
   use 'hoob3rt/lualine.nvim'
   use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" }
   -- git
-  use 'tpope/vim-fugitive'
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use 'tpope/vim-fugitive' -- ya it's pretty good
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- git info in the signs column + status line
   -- comment helpers
   use 'tpope/vim-commentary' -- comments made easy
   use 'JoosepAlviste/nvim-ts-context-commentstring' -- comment bits out with proper style based on their location determined by treesitter i.e. js vs jsx
   -- completion
-  use 'neovim/nvim-lspconfig'
+  use 'neovim/nvim-lspconfig' -- configure lsp
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
-  use 'glepnir/lspsaga.nvim'
+  use 'glepnir/lspsaga.nvim' -- pretty windows for lsp stuff
   use 'L3MON4D3/LuaSnip' -- cmp requires a snippet engine
   use {
     "hrsh7th/nvim-cmp",
@@ -40,16 +39,15 @@ require('packer').startup({function(use)
       "hrsh7th/cmp-nvim-lsp"
     },
   }
-  use 'ray-x/lsp_signature.nvim'
-  use 'windwp/nvim-autopairs'
-  use 'RRethy/vim-illuminate'
+  use 'ray-x/lsp_signature.nvim' -- show function signature info when writing
+  use 'windwp/nvim-autopairs' -- finsh the starting tag/symbol/thing
+  use 'RRethy/vim-illuminate' -- highlight other instances of the focused word
   -- treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use {'nvim-treesitter/playground', run = ':TSInstall query'}
-  use 'windwp/nvim-ts-autotag'
-  -- use 'nvim-treesitter/nvim-treesitter-textobjects' -- like ^ but you define specific text objects. TODO: learn about it.
+  use 'windwp/nvim-ts-autotag' -- auto close and auto update closing tags
   use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
-  use 'romgrk/nvim-treesitter-context'
+  use 'romgrk/nvim-treesitter-context' -- show enclosing scope
   use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
   -- formatting
   use 'sbdchd/neoformat'
@@ -57,18 +55,10 @@ require('packer').startup({function(use)
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
+    config = function() require("trouble").setup{} end
   }
   use 'wincent/loupe' -- search highlight improved
-  -- file explorer
-  use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use 'kyazdani42/nvim-tree.lua'
+  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' } -- file explorer
   -- telescope
   use {
     'nvim-telescope/telescope.nvim',
@@ -76,14 +66,7 @@ require('packer').startup({function(use)
       {'nvim-lua/popup.nvim'},
       {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      {
-        'AckslD/nvim-neoclip.lua',
-        config = function()
-          require('neoclip').setup({
-            -- TODO: want to configure the display but not sure how...
-          })
-        end
-      },
+      { 'AckslD/nvim-neoclip.lua', config = function() require('neoclip').setup() end },
     }
   }
   -- idk
