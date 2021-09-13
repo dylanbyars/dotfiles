@@ -67,7 +67,6 @@ require('packer').startup({function(use)
       {'nvim-lua/popup.nvim'},
       {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      { 'AckslD/nvim-neoclip.lua', config = function() require('neoclip').setup() end },
     }
   }
   -- idk
