@@ -157,16 +157,12 @@
 
   # open all files changed since $REVIEW_BASE (or some other branch supplied) in vim tabs then
   # 1. diff those files to $REVIEW_BASE or the branch supplied with fugitive
-  # 2. move focus to the new file pane 
+  # 2. swap panes from CURRENT | TARGET to TARGET | CURRENT
   # 3. set the cursor to always be in the center of the pane
-  # TODO: add `Gitsigns change_base $REVIEW_BASE` to add signs in the signcolumn. It's not working when chained in the command in any position...
-  ; review = "!f() { \
-  ;             DIFF_BASE=${1:-$REVIEW_BASE}; \
-  ;   nvim -p $(git files $DIFF_BASE) +\"tabdo Gdiffsplit $DIFF_BASE | wincmd l | set scrolloff=999 | set sidescrolloff=999\"; \
-  ;           }; f"
+  # TODO: use fzf to choose the branch to use as the diff base
   review = "!f() { \
               DIFF_BASE=${1:-$REVIEW_BASE}; \
-              nvim -p $(git files $DIFF_BASE) +\"Gitsigns change_base $DIFF_BASE | tabdo Gitsigns diffthis | wincmd l | set scrolloff=999 | set sidescrolloff=999\"; \
+              nvim -p $(git files $DIFF_BASE) +\"tabdo Gvdiffsplit $DIFF_BASE | wincmd H | set scrolloff=999 | set sidescrolloff=999\"; \
             }; f"
   
   ### clean ###
