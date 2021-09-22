@@ -111,6 +111,9 @@ map('n', 'Y', 'y$')
 map('n', '[t', cmd([[ tabprev ]]))
 map('n', ']t', cmd([[ tabnext ]]))
 
+-- toggle spell checking mode
+map('n', '<leader>s', cmd('set spell!'))
+
 -- highlight yanked text for a bit
 local hl_timeout = '750' -- ms
 vim.api.nvim_command('autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout='..hl_timeout..'}')
@@ -148,6 +151,7 @@ map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the pr
 map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
+map('n', '<leader>S', callTelescopeBuiltin('spell_suggest')) -- show spelling suggestions for word under cursor when `spell` is set
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles

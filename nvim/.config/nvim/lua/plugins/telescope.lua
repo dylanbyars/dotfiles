@@ -84,6 +84,10 @@ telescope.setup {
       theme = "dropdown",
       previewer = false,
     },
+    spell_suggest = {
+      theme = "dropdown",
+      previewer = false,
+    },
   },
 }
 
