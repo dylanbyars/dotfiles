@@ -153,14 +153,7 @@ map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man p
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
 map('n', '<leader>S', callTelescopeBuiltin('spell_suggest')) -- show spelling suggestions for word under cursor when `spell` is set
 map('n', "<leader>'", callTelescopeBuiltin('registers') .. '<esc>') -- open registers picker AND transition to normal mode
--- map('n', '=', t('grep_string')) -- not working and I don't know why
--- TODO:
--- builtin.oldfiles
--- builtin.search_history
--- builtin.marks
--- builtin.registers
--- builtin.spell_suggest
--- builtin.lsp_FOO lots here...
+map('n', '<leader><leader>', callTelescopeBuiltin('file_browser'))
 
 -- vim fugitive merge conflict resolution
 map('n', '<leader>gj', cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
