@@ -16,6 +16,8 @@ require('packer').startup({function(use)
   -- status line
   use 'hoob3rt/lualine.nvim'
   use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" }
+  -- file browser
+  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   -- git
   use 'tpope/vim-fugitive' -- ya it's pretty good
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- git info in the signs column + status line
@@ -25,7 +27,6 @@ require('packer').startup({function(use)
   -- completion
   use 'neovim/nvim-lspconfig' -- configure lsp
   use 'kabouzeid/nvim-lspinstall' -- for installing language servers
-  use 'glepnir/lspsaga.nvim' -- pretty windows for lsp stuff
   use 'L3MON4D3/LuaSnip' -- cmp requires a snippet engine
   use {
     "hrsh7th/nvim-cmp",
@@ -40,7 +41,6 @@ require('packer').startup({function(use)
       "hrsh7th/cmp-nvim-lsp"
     },
   }
-  use 'ray-x/lsp_signature.nvim' -- show function signature info when writing
   use 'windwp/nvim-autopairs' -- finsh the starting tag/symbol/thing
   use 'RRethy/vim-illuminate' -- highlight other instances of the focused word
   -- treesitter
@@ -48,7 +48,6 @@ require('packer').startup({function(use)
   use {'nvim-treesitter/playground', run = ':TSInstall query'}
   use 'windwp/nvim-ts-autotag' -- auto close and auto update closing tags
   use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
-  use 'romgrk/nvim-treesitter-context' -- show enclosing scope
   use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
   -- formatting
   use 'sbdchd/neoformat'
@@ -59,7 +58,6 @@ require('packer').startup({function(use)
     config = function() require("trouble").setup{} end
   }
   use 'wincent/loupe' -- search highlight improved
-  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' } -- file explorer
   -- telescope
   use {
     'nvim-telescope/telescope.nvim',

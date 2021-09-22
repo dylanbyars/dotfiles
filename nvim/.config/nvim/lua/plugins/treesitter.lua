@@ -71,4 +71,3 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-require'treesitter-context.config'.setup{ enable = true }

@@ -148,7 +148,6 @@ map('n', '<leader>c', callTelescopeBuiltin('git_bcommits')) -- TODO: make the pr
 map('n', '<leader><esc>', callTelescopeBuiltin('help_tags')) -- for quick vim `help`
 map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
-map('n', "<leader>'", '<cmd>Telescope neoclip<cr><esc>') -- open neoclip menu AND transition to normal mode
 -- map('n', '=', t('grep_string')) -- not working and I don't know why
 -- TODO:
 -- builtin.oldfiles
@@ -157,17 +156,6 @@ map('n', "<leader>'", '<cmd>Telescope neoclip<cr><esc>') -- open neoclip menu AN
 -- builtin.registers
 -- builtin.spell_suggest
 -- builtin.lsp_FOO lots here...
-
---------------------------
--- nvim-tree
---------------------------
-map('n', '<leader><leader>', cmd([[ :NvimTreeFindFile ]]))
--- TODO: switch focus back to the previous pane. currently focus moves to the pane closest to the tree
-map('n', '<esc>', cmd([[ :NvimTreeClose ]]))
--- g.nvim_tree_follow = 1 -- TODO: this shows the whole file system, not just the vcs root's folder
-g.nvim_tree_highlight_opened_files = 3
-g.nvim_tree_hide_dotfiles = 0
-g.nvim_tree_width = '25%'
 
 -- vim fugitive merge conflict resolution
 map('n', '<leader>gj', cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
@@ -178,6 +166,16 @@ map('n', '<leader>gf', cmd([[ diffget //2 ]])) -- pick the left side (base branc
 --------------------------
 map('n', '<leader>f', cmd([[ :Neoformat prettier ]]))
 
+
+--------------------------
+-- nvim-tree
+--------------------------
+g.nvim_tree_width = '25%'
+g.nvim_tree_auto_close = 1
+g.nvim_tree_follow = 1 -- 0 by default, this option allows the cursor to be updated when entering a buffer
+g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
+g.nvim_tree_lsp_diagnostics = 1 -- 0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
+map('n', '<leader><leader>', cmd('NvimTreeToggle'))
 
 --------------------------
 -- minimap
@@ -217,16 +215,21 @@ map('n', '<leader>o', cmd([[ :OrganizeImports ]]))
 -- map('n', '<leader><down>', cmd([[ lua require"illuminate".next_reference{wrap=true} ]]))
 
 
-map('n', 'K', cmd([[ :Lspsaga hover_doc ]]))
-map('n', '<leader>gd', cmd([[ :Lspsaga preview_definition ]]))
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
+
+map('n', 'K', cmd([[ :lua vim.lsp.buf.hover() ]]))
+map('n', '<C-k>', cmd([[ :lua vim.lsp.buf.signature_help() ]]))
+map('i', '<C-k>', cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 -- diagnostics
-map('n', '<leader>ld', cmd([[ :Lspsaga show_line_diagnostics ]]))
-map('n', '[e', cmd([[ :Lspsaga diagnostic_jump_prev ]]))
-map('n', ']e', cmd([[ :Lspsaga diagnostic_jump_next ]]))
+map('n', '<leader>ld', cmd([[ lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" }) ]]))
+map('n', '[e', cmd([[ lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }}) ]]))
+map('n', ']e', cmd([[ lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }}) ]]))
 
 -- additional lsp mappings using regular lsp api
 map('n', '<leader>ca', cmd([[ lua vim.lsp.buf.code_action() ]]))
 map('v', '<leader>ca', cmd([[ lua vim.lsp.buf.range_code_action() ]]))
-map('n', 'gd', cmd([[ lua vim.lsp.buf.definition() ]]))
+map('n', '<C-]>', cmd([[ lua vim.lsp.buf.definition() ]]))
 -- rename symbol under cursor and set the rename in the command line window
 map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
+
