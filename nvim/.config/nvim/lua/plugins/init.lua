@@ -16,8 +16,6 @@ require('packer').startup({function(use)
   -- status line
   use 'hoob3rt/lualine.nvim'
   use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" }
-  -- file browser
-  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   -- git
   use 'tpope/vim-fugitive' -- ya it's pretty good
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- git info in the signs column + status line

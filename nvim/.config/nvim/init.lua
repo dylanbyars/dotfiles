@@ -173,16 +173,6 @@ map('n', '<leader>f', cmd([[ :Neoformat prettier ]]))
 
 
 --------------------------
--- nvim-tree
---------------------------
-g.nvim_tree_width = '25%'
-g.nvim_tree_auto_close = 1
-g.nvim_tree_follow = 1 -- 0 by default, this option allows the cursor to be updated when entering a buffer
-g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
-g.nvim_tree_lsp_diagnostics = 1 -- 0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
-map('n', '<leader><leader>', cmd('NvimTreeToggle'))
-
---------------------------
 -- minimap
 --------------------------
 -- open the minimap then move to the pane to the right to focus on it
@@ -220,6 +210,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
 
 map('n', 'K', cmd([[ :lua vim.lsp.buf.hover() ]]))
+-- TODO: looks like there's a way to highlight the current item of a signature. do that.
 map('n', '<C-k>', cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 map('i', '<C-k>', cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 -- diagnostics
