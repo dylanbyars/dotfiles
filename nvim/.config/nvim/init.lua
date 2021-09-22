@@ -215,11 +215,6 @@ g.floaterm_height = 0.95
 
 map('n', '<leader>o', cmd([[ :OrganizeImports ]]))
 
--- TODO: not working and idk why
--- map('n', '<leader><up>', cmd([[ lua require"illuminate".next_reference{reverse=true, wrap=true} ]]))
--- map('n', '<leader><down>', cmd([[ lua require"illuminate".next_reference{wrap=true} ]]))
-
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
 
