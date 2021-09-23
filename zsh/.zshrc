@@ -71,7 +71,13 @@ function review() {
 # un-fuck xcode after doing any software update
 # remove xcode-select then reinstall it
 # alias ufx="sudo rm -rf $(xcode-select --print-path) && xcode-select --install"
-alias ufx="sudo xcode-select --reset"
+# alias ufx="sudo xcode-select --reset" -- thought this would work but it didn't
+function ufx() {
+  echo 'removing xcode-select tools'
+  sudo rm -rf $(xcode-select --print-path)
+  echo 'reinstalling xcode-select'
+  xcode-select --install
+}
 
 # ls
 alias ls="ls -GF" # regular format + colorized + item type info
