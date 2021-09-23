@@ -198,18 +198,20 @@ g.floaterm_height = 0.95
 
 map('n', '<leader>o', cmd([[ :OrganizeImports ]]))
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
+local borderStyle = { border = "double" }
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
 
 map('n', 'K', cmd([[ :lua vim.lsp.buf.hover() ]]))
--- TODO: looks like there's a way to highlight the current item of a signature. do that.
+-- NOTE: looks like there's a way to highlight the current item of a signature. do that. UPDATE it's available in the neovim 0.6 but that version doesn't work with most plugins. so sit tight.
 map('n', '<C-k>', cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 map('i', '<C-k>', cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 -- diagnostics
-map('n', '<leader>ld', cmd([[ lua vim.lsp.diagnostic.show_line_diagnostics({ border = "single" }) ]]))
-map('n', '[e', cmd([[ lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }}) ]]))
-map('n', ']e', cmd([[ lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }}) ]]))
+map('n', '<leader>ld', cmd([[ lua vim.lsp.diagnostic.show_line_diagnostics({ border = "double" }) ]]))
+map('n', '[e', cmd([[ lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }}) ]]))
+map('n', ']e', cmd([[ lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }}) ]]))
 
 -- additional lsp mappings using regular lsp api
 map('n', '<leader>ca', cmd([[ lua vim.lsp.buf.code_action() ]]))
