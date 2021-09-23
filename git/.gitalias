@@ -162,7 +162,7 @@
   # TODO: use fzf to choose the branch to use as the diff base
   review = "!f() { \
               DIFF_BASE=${1:-$REVIEW_BASE}; \
-              nvim -p $(git files $DIFF_BASE) +\"tabdo Gvdiffsplit $DIFF_BASE | wincmd H | set scrolloff=999 | set sidescrolloff=999\"; \
+              nvim -p $(git files $DIFF_BASE) +\"tabdo Gvdiffsplit $DIFF_BASE | wincmd H | set scrolloff=999 | set sidescrolloff=999 | tabfirst\"; \
             }; f"
   
   ### clean ###
