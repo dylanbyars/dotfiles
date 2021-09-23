@@ -45,7 +45,6 @@ require('packer').startup({function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use {'nvim-treesitter/playground', run = ':TSInstall query'}
   use 'windwp/nvim-ts-autotag' -- auto close and auto update closing tags
-  use 'nvim-treesitter/nvim-treesitter-refactor' -- for scope and symbol highlights
   use 'p00f/nvim-ts-rainbow' -- prettier () [] {}
   -- formatting
   use 'sbdchd/neoformat'
@@ -55,7 +54,7 @@ require('packer').startup({function(use)
     requires = "kyazdani42/nvim-web-devicons",
     config = function() require("trouble").setup{} end
   }
-  use 'wincent/loupe' -- search highlight improved
+  use 'wincent/loupe' -- search highlight improved. TODO: feels like I can do this myself
   -- telescope
   use {
     'nvim-telescope/telescope.nvim',
