@@ -9,14 +9,22 @@ function nukeswap() {
 
 alias zz='source ~/.zshrc'
 
+# customize default style of fzf and accept an optional header
+# NOTE: absolute path to fzf bin is on purpose
+function fzf() { /usr/local/bin/fzf --reverse --height=20 --border=rounded --header=$1 }
+
 # git
 alias g='git'
 alias gco='git checkout'
 alias lz='lazygit'
 # fzf git aliases
-alias ga="git aliases | fzf"
+alias ga="git aliases | fzf 'Git Aliases'"
 # fzf a branch
-alias gcob="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
+alias gb="git for-each-ref --format='%(refname:short)' refs/heads | fzf 'Git Branches'"
+# checkout a fuzily-found branch
+alias gcob="gb | xargs git checkout"
+# checkout a fuzily-found branch (including remotes)
+# alias gcorb="git checkout --track $(git branches | fzf)"
 # set the branch to compare checkedout branches with (for PR reviews). use with `g review`
 export REVIEW_BASE="digital-identity"
 
