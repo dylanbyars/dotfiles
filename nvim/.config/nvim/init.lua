@@ -216,7 +216,7 @@ map('n', ']e', cmd([[ lua vim.lsp.diagnostic.goto_next({ popup_opts = { border =
 -- additional lsp mappings using regular lsp api
 map('n', '<leader>ca', cmd([[ lua vim.lsp.buf.code_action() ]]))
 map('v', '<leader>ca', cmd([[ lua vim.lsp.buf.range_code_action() ]]))
-map('n', '<C-]>', cmd([[ lua vim.lsp.buf.definition() ]]))
+map('n', '<leader>d', cmd([[ lua vim.lsp.buf.definition() ]]))
 -- rename symbol under cursor and set the rename in the command line window
 map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
 
