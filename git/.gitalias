@@ -155,6 +155,8 @@
               git diff --stat $(git merge-base HEAD ${1:-$REVIEW_BASE}); \
             }; f"
 
+  filesWithConflicts = "diff --name-only --diff-filter=U"
+
   # open all files changed since $REVIEW_BASE (or some other branch supplied) in vim tabs then
   # 1. diff those files to $REVIEW_BASE or the branch supplied with fugitive
   # 2. swap panes from CURRENT | TARGET to TARGET | CURRENT
@@ -164,6 +166,8 @@
               DIFF_BASE=${1:-$REVIEW_BASE}; \
               nvim -p $(git files $DIFF_BASE) +\"tabdo Gvdiffsplit $DIFF_BASE | wincmd H | set scrolloff=999 | set sidescrolloff=999 | tabfirst\"; \
             }; f"
+
+  resolve = "!f() { nvim -p $(git filesWithConflicts) +\"tabdo Gvdiffsplit! | set scrolloff=999 | set sidescrolloff=999 | tabfirst\"; }; f"
   
   ### clean ###
 
