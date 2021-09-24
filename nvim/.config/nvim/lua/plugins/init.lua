@@ -68,6 +68,7 @@ require('packer').startup({function(use)
   use 'tpope/vim-surround'
   use 'wfxr/minimap.vim'
   use 'voldikss/vim-floaterm'
+  use 'vimwiki/vimwiki'
   -- writing
   use 'junegunn/goyo.vim'
 end,

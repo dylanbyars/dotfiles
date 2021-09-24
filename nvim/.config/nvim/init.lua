@@ -220,3 +220,8 @@ map('n', '<C-]>', cmd([[ lua vim.lsp.buf.definition() ]]))
 -- rename symbol under cursor and set the rename in the command line window
 map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
 
+-- vimwiki
+vim.api.nvim_command('set nocompatible')
+vim.api.nvim_command('filetype plugin on')
+vim.api.nvim_command('syntax on')
+
