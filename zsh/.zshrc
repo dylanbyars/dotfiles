@@ -49,7 +49,7 @@ function review() {
   # TODO: what if I don't have the target branch locally?
   echo "Updating local version of $targetBranch"
   # don't care about successful output of these
-  git checkout $targetBranch 1> /dev/null
+  git checkout -b $targetBranch 1> /dev/null
   git pull 1> /dev/null
 
   echo "Checking out $reviewBranch\n"
