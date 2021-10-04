@@ -9,6 +9,8 @@ function nukeswap() {
 
 alias zz='source ~/.zshrc'
 
+alias rr='ranger'
+
 # customize default style of fzf and accept an optional header
 # NOTE: absolute path to fzf bin is on purpose
 function fzf() { /usr/local/bin/fzf --reverse --height=20 --border=rounded --header=$1 }
