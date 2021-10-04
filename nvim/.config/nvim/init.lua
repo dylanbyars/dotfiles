@@ -118,6 +118,9 @@ map('n', '<leader>s', cmd('set spell!'))
 local hl_timeout = '750' -- ms
 vim.api.nvim_command('autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout='..hl_timeout..'}')
 
+-- navigate to start/end of line
+map('n', 'H', '^')
+map('n', 'L', '$')
 --------------------------
 -- plugin configs
 --------------------------
