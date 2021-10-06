@@ -120,7 +120,10 @@ vim.api.nvim_command('autocmd TextYankPost * silent! lua vim.highlight.on_yank{h
 
 -- navigate to start/end of line
 map('n', 'H', '^')
+map('v', 'H', '^')
 map('n', 'L', '$')
+map('v', 'L', '$')
+
 --------------------------
 -- plugin configs
 --------------------------
@@ -156,7 +159,7 @@ map('n', '<leader>man', callTelescopeBuiltin('man_pages')) -- search for a man p
 map('n', '<leader>key', callTelescopeBuiltin('keymaps')) -- search through keymaps
 map('n', '<leader>S', callTelescopeBuiltin('spell_suggest')) -- show spelling suggestions for word under cursor when `spell` is set
 map('n', "<leader>'", callTelescopeBuiltin('registers') .. '<esc>') -- open registers picker AND transition to normal mode
-map('n', '<leader><leader>', callTelescopeBuiltin('file_browser'))
+map('n', '<leader><leader>', callTelescopeBuiltin('file_browser', "{cwd = require('telescope.utils').buffer_dir()}")..'<esc>') -- open file browser on the directory of the focused buffer's dir
 
 -- vim fugitive merge conflict resolution
 map('n', '<leader>gj', cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
