@@ -27,7 +27,9 @@ if [[ ! -d ~/.zsh ]]
 fi
 
 # clone and install neovim
-# TODO:
+git clone git clone https://github.com/neovim/neovim $HOME/neovim
+cd $HOME/neovim
+echo "continue with the notes from the repo: git clone https://github.com/neovim/neovim"
 
 # clone and install lazygit
 # lazygit depends on `go` so _go_ get that! 
