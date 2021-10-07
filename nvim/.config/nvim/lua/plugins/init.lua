@@ -80,12 +80,12 @@ config = {
   }
 }})
 
--- vim.api.nvim_exec([[
---   augroup Packer
---     autocmd!
---     autocmd BufWritePost */plugins/init.lua PackerCompile
---   augroup end
--- ]], false)
+vim.api.nvim_exec([[
+  augroup Packer
+    autocmd!
+    autocmd BufWritePost */plugins/init.lua PackerCompile
+  augroup end
+]], false)
 
 require('plugins.treesitter')
 
