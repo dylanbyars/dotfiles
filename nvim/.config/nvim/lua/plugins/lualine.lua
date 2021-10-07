@@ -9,7 +9,7 @@ require('lualine').setup {
     theme = 'tokyonight',
     component_separators = {'', ''},
     section_separators = {'', ''},
-    disabled_filetypes = {'minimap'}
+    disabled_filetypes = {}
   },
   sections = {
     lualine_a = {'mode'},

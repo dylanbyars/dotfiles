@@ -66,7 +66,6 @@ require('packer').startup({function(use)
   }
   -- idk
   use 'tpope/vim-surround'
-  -- use 'wfxr/minimap.vim'
   use 'voldikss/vim-floaterm'
   use 'vimwiki/vimwiki'
   -- writing
