@@ -1,0 +1,7 @@
+
+brew "awscli"
+brew "flyway"
+brew "jq"
+brew "yarn"
+
+cask "docker"

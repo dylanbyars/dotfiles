@@ -1,0 +1,52 @@
+#!/usr/bin/zsh
+
+sudo apt update
+
+# get some stuff
+sudo apt install \
+  ripgrep \
+  fzf \
+  kitty \
+  ranger \
+  tmux \
+
+
+# set kitty as the default terminal
+sudo update-alternatives --config x-terminal-emulator
+
+# install zsh plugins
+if [[ ! -d ~/.zsh ]] 
+  then 
+    # make a directory to house the plugins
+    mkdir ~/.zsh/
+
+    # clone the plugins into the plugin house
+    git clone https://github.com/lukechilds/zsh-nvm.git $HOME/.zsh/zsh-nvm
+    git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
+
+fi
+
+# clone and install neovim
+# TODO:
+
+# clone and install lazygit
+# lazygit depends on `go` so _go_ get that! 
+# eradicate any old lazygit stuff
+rm -rf /usr/local/go
+wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar --extract --ungzip -C /usr/local
+echo "test that go works:"
+go version
+# assume `go` is good to _go_ and continue on 
+# TODO: handle `go` installation errors better
+git clone https://github.com/jesseduffield/lazygit.git $HOME/lazygit
+cd $HOME/lazygit
+# install lazygit into `~/go/bin/lazygit`
+# TODO: can I have go install the binary produced somewhere directly?
+go install
+# TODO how gross is it to symlink a binary to a different location just so I can reuse a path on $PATH?
+ln -s $HOME/go/bin/lazygit ~/bin/lazygit
+# TODO: update lazygit config path so it can be shared between macos and linux
+
+# nerdfont
+# TODO: automate this
+# go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
