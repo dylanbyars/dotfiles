@@ -52,3 +52,7 @@ ln -s $HOME/go/bin/lazygit ~/bin/lazygit
 # nerdfont
 # TODO: automate this
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
+#
+
+# deno
+curl -fsSL https://deno.land/x/install/install.sh | sh

@@ -1,4 +1,4 @@
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:$HOME/bin:/usr/libexec:$PATH
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$PATH
 
 export EDITOR=/usr/local/bin/nvim
 
