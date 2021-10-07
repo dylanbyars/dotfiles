@@ -124,6 +124,8 @@ map('v', 'H', '^')
 map('n', 'L', '$')
 map('v', 'L', '$')
 
+-- u = undo  U = undo undo aka redo
+map('n', 'U', '<C-r>')
 --------------------------
 -- plugin configs
 --------------------------
@@ -176,17 +178,17 @@ map('n', '<leader>f', cmd([[ :Neoformat prettier ]]))
 --------------------------
 -- open the minimap then move to the pane to the right to focus on it
 -- the map displays the contents of whatever buffer is focused so using it with open vsplits is weird
-map('n', '<leader>map', cmd([[ :MinimapToggle<cr><cmd>wincmd l ]]))
-g.minimap_width = 16
-g.minimap_highlight_range = 1
-g.minimap_git_colors = 1
-vim.cmd('hi MinimapDiffAdd guifg='..colors.green)
-vim.cmd('hi MinimapDiffRemove guifg='..colors.red)
-vim.cmd('hi MinimapDiff guifg='..colors.yellow)
-g.minimap_diffadd_color = 'MinimapDiffAdd'
-g.minimap_diffremove_color = 'MinimapDiffRemove'
-g.minimap_diff_color = 'MinimapDiff'
-g.minimap_cursor_color_priority	= 90
+-- map('n', '<leader>map', cmd([[ :MinimapToggle<cr><cmd>wincmd l ]]))
+-- g.minimap_width = 16
+-- g.minimap_highlight_range = 1
+-- g.minimap_git_colors = 1
+-- vim.cmd('hi MinimapDiffAdd guifg='..colors.green)
+-- vim.cmd('hi MinimapDiffRemove guifg='..colors.red)
+-- vim.cmd('hi MinimapDiff guifg='..colors.yellow)
+-- g.minimap_diffadd_color = 'MinimapDiffAdd'
+-- g.minimap_diffremove_color = 'MinimapDiffRemove'
+-- g.minimap_diff_color = 'MinimapDiff'
+-- g.minimap_cursor_color_priority	= 90
 
 
 --------------------------

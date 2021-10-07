@@ -66,7 +66,7 @@ require('packer').startup({function(use)
   }
   -- idk
   use 'tpope/vim-surround'
-  use 'wfxr/minimap.vim'
+  -- use 'wfxr/minimap.vim'
   use 'voldikss/vim-floaterm'
   use 'vimwiki/vimwiki'
   -- writing
@@ -81,12 +81,12 @@ config = {
   }
 }})
 
-vim.api.nvim_exec([[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost */plugins/init.lua PackerCompile
-  augroup end
-]], false)
+-- vim.api.nvim_exec([[
+--   augroup Packer
+--     autocmd!
+--     autocmd BufWritePost */plugins/init.lua PackerCompile
+--   augroup end
+-- ]], false)
 
 require('plugins.treesitter')
 

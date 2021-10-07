@@ -92,16 +92,13 @@ function mktouch() {
   mkdir -p "$(dirname "$1")" && touch "$1"
 }
 
-# a collection of scripts used for Capital One Investing development
-
+# view all globally installed npm packages
+alias globalPackages="npm ls -g --depth=0"
 
 # nvm (node version manager) using [this plugin](https://github.com/lukechilds/zsh-nvm)
 export NVM_COMPLETION=true
 export NVM_AUTO_USE=true
 source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
-
-# view all globally installed npm packages
-alias globalPackages="npm ls -g --depth=0"
 
 # Vim mode improved with [this plugin](https://github.com/jeffreytse/zsh-vi-mode)
 source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
