@@ -232,4 +232,5 @@ map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR><c-F>')
 vim.api.nvim_command('set nocompatible')
 vim.api.nvim_command('filetype plugin on')
 vim.api.nvim_command('syntax on')
+g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part of a wiki
 
