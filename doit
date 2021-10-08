@@ -56,3 +56,6 @@ ln -s $HOME/go/bin/lazygit ~/bin/lazygit
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
+# generate completions file and stick it in `~/.zsh` 
+# WARN: this assumes that `~/.zsh` exists
+deno completions zsh > ~/.zsh/_deno

@@ -95,6 +95,11 @@ function mktouch() {
 # view all globally installed npm packages
 alias globalPackages="npm ls -g --depth=0"
 
+# autocompletions for deno
+fpath=(~/.zsh $fpath)
+autoload -Uz compinit
+compinit -u
+
 # nvm (node version manager) using [this plugin](https://github.com/lukechilds/zsh-nvm)
 export NVM_COMPLETION=true
 export NVM_AUTO_USE=true
