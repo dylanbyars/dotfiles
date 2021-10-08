@@ -30,9 +30,9 @@ alias gcob="gb | xargs git checkout"
 # checkout a fuzily-found branch (including remotes)
 # alias gcorb="git checkout --track $(git branches | fzf)"
 # set the branch to compare checkedout branches with (for PR reviews). use with `g review`
-export REVIEW_BASE="digital-identity"
+export REVIEW_BASE="main"
 review() {
-  # type review
+  # type `review`
   # prompt to checkout remote branch I want to review
   # prompt to set merge target
   # show stats of merge
