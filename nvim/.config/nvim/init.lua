@@ -170,7 +170,7 @@ map('n', '<leader>gf', cmd([[ diffget //2 ]])) -- pick the left side (base branc
 --------------------------
 -- neoformat
 --------------------------
-map('n', '<leader>f', cmd([[ :Neoformat prettier ]]))
+map('n', '<leader>f', cmd([[ :Neoformat ]]))
 
 
 --------------------------
