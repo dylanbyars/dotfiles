@@ -24,16 +24,16 @@ install_zsh_plugins() {
   if [[ ! -d ~/.zsh ]]; then
     # make a directory to house the plugins
     mkdir ~/.zsh/
-
-    PLUGIN_PATH="$HOME/.zsh/"
-
-    # clone the plugins into the plugin house
-    # TODO: make this smarter
-    git clone https://github.com/lukechilds/zsh-nvm.git $PLUGIN_PATH/zsh-nvm
-    git clone https://github.com/lukechilds/zsh-better-npm-completion.git $PLUGIN_PATH/zsh-better-npm-completion
-    git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
-
   fi
+
+  PLUGIN_PATH="$HOME/.zsh"
+
+  # clone the plugins into the plugin house
+  # TODO: make this smarter
+  git clone https://github.com/lukechilds/zsh-nvm.git $PLUGIN_PATH/zsh-nvm
+  git clone https://github.com/lukechilds/zsh-better-npm-completion.git $PLUGIN_PATH/zsh-better-npm-completion
+  git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
+
 }
 
 # onto the slightly trickier stuff...
@@ -90,11 +90,11 @@ install_shfmt() {
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
 
 # do it!
-install_apps
-set_default_terminal
+# install_apps
+# set_default_terminal
 install_zsh_plugins
-install_deno
-# TODO: go + rust are only needed on ubuntu machines
-install_rust
-install_go
-install_shfmt
+# install_deno
+# # TODO: go + rust are only needed on ubuntu machines
+# install_rust
+# install_go
+# install_shfmt

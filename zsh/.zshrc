@@ -105,6 +105,9 @@ export NVM_COMPLETION=true
 export NVM_AUTO_USE=true
 source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
 
+# npm completions
+source ~/.zsh/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+
 # Vim mode improved with [this plugin](https://github.com/jeffreytse/zsh-vi-mode)
 source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
