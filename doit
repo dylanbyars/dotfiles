@@ -9,6 +9,7 @@ sudo apt install \
   kitty \
   ranger \
   tmux \
+  htop \
 
 
 # set kitty as the default terminal
@@ -52,10 +53,14 @@ ln -s $HOME/go/bin/lazygit ~/bin/lazygit
 # nerdfont
 # TODO: automate this
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
-#
 
 # deno
 curl -fsSL https://deno.land/x/install/install.sh | sh
 # generate completions file and stick it in `~/.zsh` 
 # WARN: this assumes that `~/.zsh` exists
 deno completions zsh > ~/.zsh/_deno
+
+# rust
+# get this to try broot
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# then cargo install broot or get it with brew on mac
