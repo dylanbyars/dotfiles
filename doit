@@ -10,7 +10,6 @@ install_apps() {
     ripgrep \
     fzf \
     kitty \
-    ranger \
     tmux \
     htop
 }

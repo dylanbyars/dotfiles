@@ -3,13 +3,15 @@ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/lo
 export EDITOR=/usr/local/bin/nvim
 
 alias vim='nvim'
+
 function nukeswap() {
   rm -rf ~/.local/share/nvim/swap
 }
 
 alias zz='source ~/.zshrc'
 
-alias rr='ranger'
+# source `broot` bin
+source /home/dylan/.config/broot/launcher/bash/br
 
 # customize default style of fzf and accept an optional header
 # NOTE: absolute path to fzf bin is on purpose
@@ -123,4 +125,3 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-source /home/dylan/.config/broot/launcher/bash/br
