@@ -1,66 +1,100 @@
 #!/usr/bin/zsh
+#
+# TODO: notes
 
-sudo apt update
+# the easy basics:
+install_apps() {
+  sudo apt update
 
-# get some stuff
-sudo apt install \
-  ripgrep \
-  fzf \
-  kitty \
-  ranger \
-  tmux \
-  htop \
+  sudo apt install \
+    ripgrep \
+    fzf \
+    kitty \
+    ranger \
+    tmux \
+    htop
+}
 
+set_default_terminal() {
+  echo "set kitty as the default terminal"
+  sudo update-alternatives --config x-terminal-emulator
+}
 
-# set kitty as the default terminal
-sudo update-alternatives --config x-terminal-emulator
-
-# install zsh plugins
-if [[ ! -d ~/.zsh ]] 
-  then 
+install_zsh_plugins() {
+  if [[ ! -d ~/.zsh ]]; then
     # make a directory to house the plugins
     mkdir ~/.zsh/
 
+    PLUGIN_PATH="$HOME/.zsh/"
+
     # clone the plugins into the plugin house
-    git clone https://github.com/lukechilds/zsh-nvm.git $HOME/.zsh/zsh-nvm
+    # TODO: make this smarter
+    git clone https://github.com/lukechilds/zsh-nvm.git $PLUGIN_PATH/zsh-nvm
+    git clone https://github.com/lukechilds/zsh-better-npm-completion.git $PLUGIN_PATH/zsh-better-npm-completion
     git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
 
-fi
+  fi
+}
 
-# clone and install neovim
-git clone git clone https://github.com/neovim/neovim $HOME/neovim
-cd $HOME/neovim
-echo "continue with the notes from the repo: git clone https://github.com/neovim/neovim"
+# onto the slightly trickier stuff...
+install_deno() {
+  curl -fsSL https://deno.land/x/install/install.sh | sh
+  # generate completions file and stick it in `~/.zsh`
+  # WARN: this assumes that `~/.zsh` exists
+  deno completions zsh >~/.zsh/_deno
+}
 
-# clone and install lazygit
-# lazygit depends on `go` so _go_ get that! 
-# eradicate any old lazygit stuff
-rm -rf /usr/local/go
-wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar --extract --ungzip -C /usr/local
-echo "test that go works:"
-go version
-# assume `go` is good to _go_ and continue on 
-# TODO: handle `go` installation errors better
-git clone https://github.com/jesseduffield/lazygit.git $HOME/lazygit
-cd $HOME/lazygit
-# install lazygit into `~/go/bin/lazygit`
-# TODO: can I have go install the binary produced somewhere directly?
-go install
-# TODO how gross is it to symlink a binary to a different location just so I can reuse a path on $PATH?
-ln -s $HOME/go/bin/lazygit ~/bin/lazygit
-# TODO: update lazygit config path so it can be shared between macos and linux
+install_go() {
+  # eradicate old installations
+  rm -rf /usr/local/go
+  wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar --extract --ungzip -C /usr/local
+  echo "it's working if you see a version number below"
+  go version
+}
+
+install_rust() {
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
+
+# more applications
+install_neovim() {
+  git clone https://github.com/neovim/neovim $HOME/neovim
+  cd $HOME/neovim
+  echo "continue with the notes from the repo: git clone https://github.com/neovim/neovim"
+}
+
+install_lazygit() {
+  git clone https://github.com/jesseduffield/lazygit.git $HOME/lazygit
+  cd $HOME/lazygit
+  # install lazygit into `~/go/bin/lazygit`
+  # TODO: can I have go install the binary produced somewhere directly?
+  go install
+  # TODO how gross is it to symlink a binary to a different location just so I can reuse a path on $PATH?
+  ln -s $HOME/go/bin/lazygit ~/bin/lazygit
+  # TODO: update lazygit config path so it can be shared between macos and linux
+}
+
+install_broot() {
+  # TODO: `brew`
+  cargo install broot
+}
+
+install_shfmt() {
+  # a formatter for bash/zsh
+  # TODO: `brew`
+  snap install shfmt
+}
 
 # nerdfont
 # TODO: automate this
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
 
-# deno
-curl -fsSL https://deno.land/x/install/install.sh | sh
-# generate completions file and stick it in `~/.zsh` 
-# WARN: this assumes that `~/.zsh` exists
-deno completions zsh > ~/.zsh/_deno
-
-# rust
-# get this to try broot
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# then cargo install broot or get it with brew on mac
+# do it!
+install_apps
+set_default_terminal
+install_zsh_plugins
+install_deno
+# TODO: go + rust are only needed on ubuntu machines
+install_rust
+install_go
+install_shfmt
