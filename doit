@@ -4,6 +4,7 @@
 
 # the easy basics:
 install_apps() {
+  #  TODO: `brew`
   sudo apt update
 
   sudo apt install \
@@ -11,7 +12,10 @@ install_apps() {
     fzf \
     kitty \
     tmux \
-    htop
+    htop \
+    zoxide \
+    exa
+
 }
 
 set_default_terminal() {
@@ -57,14 +61,21 @@ install_rust() {
 
 # more applications
 install_neovim() {
-  git clone https://github.com/neovim/neovim $HOME/neovim
-  cd $HOME/neovim
-  echo "continue with the notes from the repo: git clone https://github.com/neovim/neovim"
+  git clone https://github.com/neovim/neovim $HOME/neovim && cd $HOME/neovim
+  # TODO: `brew`
+  echo "installing build dependencies -> https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
+  sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  echo "building neovim"
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  sudo make install
+  # if that didn't work, show some help
+  if [[ $? -eq 1 ]]; then
+    echo "Something went wrong. Check the docs -> https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source"
+  fi
 }
 
 install_lazygit() {
-  git clone https://github.com/jesseduffield/lazygit.git $HOME/lazygit
-  cd $HOME/lazygit
+  git clone https://github.com/jesseduffield/lazygit.git $HOME/lazygit && cd $HOME/lazygit
   # install lazygit into `~/go/bin/lazygit`
   # TODO: can I have go install the binary produced somewhere directly?
   go install
@@ -74,6 +85,7 @@ install_lazygit() {
 }
 
 install_broot() {
+  # a directory browser
   # TODO: `brew`
   cargo install broot
 }
