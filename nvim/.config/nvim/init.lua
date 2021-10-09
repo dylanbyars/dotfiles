@@ -171,6 +171,7 @@ map('n', '<leader>gf', cmd([[ diffget //2 ]])) -- pick the left side (base branc
 -- neoformat
 --------------------------
 map('n', '<leader>f', cmd([[ :Neoformat ]]))
+g.shfmt_opt = "-ci"
 
 
 --------------------------
