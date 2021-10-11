@@ -14,7 +14,15 @@ install_apps() {
     tmux \
     htop \
     zoxide \
-    exa
+    exa \
+    expect \
+    tldr
+
+  # get the content for tldr
+  tldr --update
+
+  # install snaps
+  snap install glow shfmt
 
 }
 
@@ -59,12 +67,18 @@ install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
+install_broot() {
+  # a directory browser
+  # TODO: `brew`
+  cargo install broot
+}
+
 # more applications
 install_neovim() {
   git clone https://github.com/neovim/neovim $HOME/neovim && cd $HOME/neovim
   # TODO: `brew`
   echo "installing build dependencies -> https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
-  sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
   echo "building neovim"
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   sudo make install
@@ -84,18 +98,6 @@ install_lazygit() {
   # TODO: update lazygit config path so it can be shared between macos and linux
 }
 
-install_broot() {
-  # a directory browser
-  # TODO: `brew`
-  cargo install broot
-}
-
-install_shfmt() {
-  # a formatter for bash/zsh
-  # TODO: `brew`
-  snap install shfmt
-}
-
 # nerdfont
 # TODO: automate this
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
@@ -103,9 +105,8 @@ install_shfmt() {
 # do it!
 # install_apps
 # set_default_terminal
-install_zsh_plugins
+# install_zsh_plugins
 # install_deno
 # # TODO: go + rust are only needed on ubuntu machines
 # install_rust
 # install_go
-# install_shfmt
