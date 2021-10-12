@@ -10,8 +10,8 @@ nukeswap() {
 
 alias zz='source ~/.zshrc'
 
-# source `broot` bin
-source /home/dylan/.config/broot/launcher/bash/br
+# source br
+source $HOME/.config/broot/launcher/bash/br
 
 # customize default style of fzf and accept an optional header
 # NOTE: absolute path to fzf bin is on purpose
