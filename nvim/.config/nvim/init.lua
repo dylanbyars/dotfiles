@@ -171,7 +171,9 @@ map('n', '<leader>gf', cmd([[ diffget //2 ]])) -- pick the left side (base branc
 -- neoformat
 --------------------------
 map('n', '<leader>f', cmd([[ :Neoformat ]]))
-g.shfmt_opt = "-ci"
+g.neoformat_only_msg_on_error = 1
+g.neoformat_try_node_exe = 1 -- node projects with a `prettier` dependency will use the bin in `$PROJECT/node_modules/.bin`
+g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
 
 
 --------------------------
