@@ -97,7 +97,7 @@ mktouch() {
 # view all globally installed npm packages
 alias globalPackages="npm ls -g --depth=0"
 
-# autocompletions for deno
+# I'll put completion files in ~/.zsh
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit
 compinit -u
@@ -115,6 +115,9 @@ source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # start fancy prompt
 eval "$(starship init zsh)"
+
+# zoxide helpers
+eval "$(zoxide init zsh)"
 
 # colorful man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
