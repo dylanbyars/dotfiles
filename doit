@@ -65,12 +65,17 @@ install_go() {
 
 install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  # install completions for `cargo`
+  rustup completions zsh cargo > ~/.zsh/_cargo
 }
 
 install_broot() {
   # a directory browser
   # TODO: `brew`
   cargo install broot
+  # run `broot` command to have it make its own config file
+  # NOTE: it will also try to add a line to `.zshrc` to source something. that's already taken care of.
+  broot
 }
 
 # more applications
