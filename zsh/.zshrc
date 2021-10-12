@@ -83,10 +83,10 @@ ufx() {
   xcode-select --install
 }
 
-# ls
-alias ls="ls -GF"   # regular format + colorized + item type info
-alias l="ls -oGF"   # long format, colorized, with item type info (symlink, directory, etc...)
-alias ll="ls -aoGF" # same as ^ but include hidden files
+# exa -- f is easy to type :shrug:
+alias f="exa --long --header"
+alias ff="exa --long --header --all"
+alias t="exa --tree --level 2"
 
 # mktouch -- mkdirs to a new file if the path doesn't exist
 # $1 = `path/to/new/file.txt` and new file is called `file.txt`
