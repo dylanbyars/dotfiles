@@ -151,7 +151,9 @@ local function callTelescopeBuiltin(builtin, options)
 end
 
 -- find all files (including hidden) but NOT any files in the hidden `.git/` directory
-map('n', '<leader>p', callTelescopeBuiltin('find_files', "{ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}"))
+-- TODO: make map accept multiple modes as a string e.g. 'ni' = normal and insert modes
+map('n', '<C-p>', callTelescopeBuiltin('git_files'))
+map('i', '<C-p>', callTelescopeBuiltin('git_files'))
 map('n', '<leader>b', callTelescopeBuiltin('buffers') .. '<esc>')
 map('n', '<leader>?', callTelescopeBuiltin('live_grep'))
 map('n', '<leader>/', callTelescopeBuiltin('current_buffer_fuzzy_find')) --
