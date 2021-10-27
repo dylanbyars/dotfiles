@@ -21,7 +21,7 @@ cmp.setup({
   },
   sources = {
     { name = 'luasnip' },
-    { name = 'buffer' },
+    { name = 'buffer', keyword_length = 6 },
     { name = 'nvim_lsp' },
     { name = 'path' },
     { name = 'calc' },
@@ -31,5 +31,8 @@ cmp.setup({
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│", },
   },
+  experimental = {
+    ghost_text = true
+  }
 })
 
