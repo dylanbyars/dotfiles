@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 #
 # TODO: notes
 
@@ -120,8 +120,9 @@ install_lazygit() {
 setup_dot_zsh
 # install_apps
 # set_default_terminal
-# install_zsh_plugins
+install_zsh_plugins
 # install_deno
 # # TODO: go + rust are only needed on ubuntu machines
 # install_rust
-# install_go
+install_go
+install_lazygit
