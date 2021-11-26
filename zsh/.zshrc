@@ -121,10 +121,6 @@ source_plugin zsh-better-npm-completion
 # Vim mode improved
 source_plugin zsh-vi-mode
 
-# suggest endings for current command
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#1a1b26,fg=#bb9af7"
-source_plugin zsh-autosuggestions
-
 # start fancy prompt
 eval "$(starship init zsh)"
 
