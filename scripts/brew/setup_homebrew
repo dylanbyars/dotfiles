@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # Install homebrew and some packages
 # More info here: https://brew.sh/
 
@@ -21,28 +21,24 @@ function brewfileInfo() {
 }
 
 function installPackages() {
-  brewfileInfo ./Brewfile--required
+  BREWFILE="./Brewfile"
+
+  brewfileInfo $BREWFILE
   echo "\nDownloading required packages...\n"
-  brew bundle install --file=./Brewfile--required
-  echo "\nThe following packages are *OPTIONAL*. They're used to setup more advanced utilities that you may find useful.\nSee ONBOARDING.md, api/README.md and client/README.md for an idea of how these additional packages can augment your developer experience."
-  brewfileInfo ./Brewfile--optional
-  read -q "download?Download optional packages? (Y/n)   "
-  if [[ $? = 0 ]]; then
-    echo "\n\nDownloading optional packages...\n"
-    brew bundle install --file=./Brewfile--optional
-  fi
+  brew bundle install --file=$BREWFILE
 }
 
-if type brew > /dev/null; then
+# Do the thing
+if type brew >/dev/null; then
   echo "Homebrew installation found."
-  echo "Installing the following required packages: \n"
-  installPackages
 else
   echo "Installing Homebrew..."
   curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-  installPackages
-  if [[ $? -ne 0 ]]; then
-    echo "Something went wrong."
+fi
 
-  fi
+echo "Installing the following packages: \n"
+installPackages
+
+if [[ $? -ne 0 ]]; then
+  echo "Something went wrong."
 fi
