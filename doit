@@ -1,13 +1,24 @@
-#!/bin/zsh
+#!/bin/bash
 #
 # TODO: notes
 
-# setup a ~/.zsh dir since a lot of these scripts interact with that dir
-setup_dot_zsh() {
+setup_zsh() {
+  # setup a ~/.zsh dir if it doesn't already exist
   if [[ ! -d ~/.zsh ]]; then
     # make a directory to house the plugins
     mkdir ~/.zsh/
   fi
+
+  # install some plugins
+  # these are sourced later in ~/.zshrc
+  PLUGIN_PATH="$HOME/.zsh"
+
+  # TODO: make this smarter
+  git -C $PLUGIN_PATH clone https://github.com/lukechilds/zsh-nvm
+  git -C $PLUGIN_PATH clone https://github.com/lukechilds/zsh-better-npm-completion
+  git -C $PLUGIN_PATH clone https://github.com/jeffreytse/zsh-vi-mode
+  git -C $PLUGIN_PATH clone https://github.com/Aloxaf/fzf-tab
+  git -C $PLUGIN_PATH clone https://github.com/zsh-users/zsh-autosuggestions
 }
 
 # the easy basics:
@@ -44,18 +55,6 @@ set_default_terminal() {
   sudo update-alternatives --config x-terminal-emulator
 }
 
-install_zsh_plugins() {
-
-  PLUGIN_PATH="$HOME/.zsh"
-
-  # clone the plugins into the plugin house
-  # TODO: make this smarter
-  git clone https://github.com/lukechilds/zsh-nvm.git $PLUGIN_PATH/zsh-nvm
-  git clone https://github.com/lukechilds/zsh-better-npm-completion.git $PLUGIN_PATH/zsh-better-npm-completion
-  git clone https://github.com/jeffreytse/zsh-vi-mode.git $HOME/.zsh/zsh-vi-mode
-
-}
-
 # onto the slightly trickier stuff...
 install_deno() {
   curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -75,7 +74,7 @@ install_go() {
 install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   # install completions for `cargo`
-  rustup completions zsh cargo > ~/.zsh/_cargo
+  rustup completions zsh cargo >~/.zsh/_cargo
 }
 
 install_broot() {
@@ -117,12 +116,12 @@ install_lazygit() {
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
 
 # do it!
-setup_dot_zsh
+setup_zsh
 # install_apps
 # set_default_terminal
-install_zsh_plugins
+# install_zsh_plugins
 # install_deno
 # # TODO: go + rust are only needed on ubuntu machines
 # install_rust
-install_go
-install_lazygit
+# install_go
+# install_lazygit

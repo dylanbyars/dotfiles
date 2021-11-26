@@ -102,16 +102,29 @@ fpath=(~/.zsh $fpath)
 autoload -Uz compinit
 compinit -u
 
-# nvm (node version manager) using [this plugin](https://github.com/lukechilds/zsh-nvm)
+source_plugin() {
+  PLUGIN_NAME=$1
+  source $HOME/.zsh/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh
+}
+
+# Replace zsh's default completion selection menu with fzf
+# NOTE: fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
+source_plugin fzf-tab
+
+# nvm (node version manager)
 export NVM_COMPLETION=true
 export NVM_AUTO_USE=true
-source ~/.zsh/zsh-nvm/zsh-nvm.plugin.zsh
+source_plugin zsh-nvm
 
 # npm completions
-source ~/.zsh/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+source_plugin zsh-better-npm-completion
 
-# Vim mode improved with [this plugin](https://github.com/jeffreytse/zsh-vi-mode)
-source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+# Vim mode improved
+source_plugin zsh-vi-mode
+
+# suggest endings for current command
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="bg=#1a1b26,fg=#bb9af7"
+source_plugin zsh-autosuggestions
 
 # start fancy prompt
 eval "$(starship init zsh)"
