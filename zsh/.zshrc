@@ -85,7 +85,7 @@ ufx() {
 # exa -- f is easy to type :shrug:
 alias f="exa --long --header"
 alias ff="exa --long --header --all"
-alias t="exa --tree --level 2"
+alias F="exa --tree --level 2"
 
 # mktouch -- mkdirs to a new file if the path doesn't exist
 # $1 = `path/to/new/file.txt` and new file is called `file.txt`
