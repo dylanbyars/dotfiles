@@ -13,10 +13,9 @@ alias zz='source ~/.zshrc'
 # source br
 source $HOME/.config/broot/launcher/bash/br
 
-# customize default style of fzf and accept an optional header
-# NOTE: absolute path to fzf bin is on purpose
-fzf() {
-  /bin/fzf --reverse --height=20 --border=rounded --header=$1
+# customize the style of fzf and accept an optional header
+fzfancy() {
+  fzf --reverse --height=20 --border=rounded --header=$1
 }
 
 # git
@@ -24,7 +23,7 @@ alias g='git'
 alias gco='git checkout'
 alias lz='lazygit'
 # fzf a branch
-alias gb="git for-each-ref --format='%(refname:short)' refs/heads | fzf 'Git Branches'"
+alias gb="git for-each-ref --format='%(refname:short)' refs/heads | fzfancy 'Git Branches'"
 # checkout a fuzily-found branch
 alias gcob="gb | xargs git checkout"
 # checkout a fuzily-found branch (including remotes)
@@ -45,9 +44,9 @@ review() {
   git fetch
   # checkout branch to review or use current branch
   # TODO: colors!
-  reviewBranch=$(g branches | tr -d '* ' | fzf 'Review Branch')
+  reviewBranch=$(g branches | tr -d '* ' | fzfancy 'Review Branch')
   echo "Review Branch -> $reviewBranch"
-  targetBranch=$(g branches | tr -d '* ' | fzf 'Target Branch')
+  targetBranch=$(g branches | tr -d '* ' | fzfancy 'Target Branch')
   echo "Target Branch -> $targetBranch\n"
 
   # TODO: what if I don't have the target branch locally?
