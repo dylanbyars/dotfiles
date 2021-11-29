@@ -103,13 +103,11 @@ fpath=(~/.zsh $fpath)
 autoload -Uz compinit
 compinit -u
 
-source_plugin() {
-  PLUGIN_NAME=$1
-  source $HOME/.zsh/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh
-}
+source ~/.zsh/functions
 
 # Replace zsh's default completion selection menu with fzf
 # NOTE: fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
+# TODO: this isn't quite working. it kicks in if the shell is reloaded though
 source_plugin fzf-tab
 
 # nvm (node version manager)
@@ -132,3 +130,4 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
+

@@ -1,0 +1,9 @@
+source_plugin() {
+  local PLUGIN_NAME=$1
+  source "${HOME}/.zsh/${PLUGIN_NAME}/${PLUGIN_NAME}.plugin.zsh"
+}
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 3); do /usr/bin/time $shell -i -c exit; done
+}
