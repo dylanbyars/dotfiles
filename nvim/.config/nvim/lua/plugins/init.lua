@@ -71,6 +71,7 @@ require("packer").startup({
 		use("tpope/vim-surround")
 		use("voldikss/vim-floaterm")
 		use("vimwiki/vimwiki")
+		use("is0n/fm-nvim")
 		-- writing
 		use("junegunn/goyo.vim")
 	end,

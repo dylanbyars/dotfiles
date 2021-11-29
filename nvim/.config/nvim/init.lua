@@ -163,11 +163,11 @@ map("n", "<leader>man", callTelescopeBuiltin("man_pages")) -- search for a man p
 map("n", "<leader>key", callTelescopeBuiltin("keymaps")) -- search through keymaps
 map("n", "<leader>S", callTelescopeBuiltin("spell_suggest")) -- show spelling suggestions for word under cursor when `spell` is set
 map("n", "<leader>'", callTelescopeBuiltin("registers") .. "<esc>") -- open registers picker AND transition to normal mode
-map(
-	"n",
-	"<leader><leader>",
-	callTelescopeBuiltin("file_browser", "{cwd = require('telescope.utils').buffer_dir()}") .. "<esc>"
-) -- open file browser on the directory of the focused buffer's dir
+-- map(
+-- 	"n",
+-- 	"<leader><leader>",
+-- 	callTelescopeBuiltin("file_browser", "{cwd = require('telescope.utils').buffer_dir()}") .. "<esc>"
+-- ) -- open file browser on the directory of the focused buffer's dir
 
 -- vim fugitive merge conflict resolution
 map("n", "<leader>gj", cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
@@ -242,3 +242,6 @@ vim.api.nvim_command("set nocompatible")
 vim.api.nvim_command("filetype plugin on")
 vim.api.nvim_command("syntax on")
 g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part of a wiki
+
+-- broot thing
+map("n", "<leader><leader>", cmd([[ Broot ]]))
