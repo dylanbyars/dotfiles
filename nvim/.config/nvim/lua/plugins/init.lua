@@ -128,3 +128,23 @@ require("nvim-autopairs").setup({})
 require("plugins.lualine")
 
 require("plugins.startify")
+
+require("fm-nvim").setup({
+	-- Floating window border (see ":h nvim_open_win")
+	border = "double",
+
+	-- Highlight group for floating window/border (see ":h winhl")
+	border_hl = "FloatBorder",
+	float_hl = "Normal",
+
+	-- Num from `0 - 1` for measurements
+	height = 0.7,
+	width = 0.7,
+
+	-- (Vim) Command used to open files
+	edit_cmd = "edit", -- opts: 'tabedit', 'split', 'pedit', etc...
+
+	cmds = {
+		broot_cmd = "broot --show-git-info", -- TODO: this isn't working
+	},
+})

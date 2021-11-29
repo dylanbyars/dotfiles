@@ -8,10 +8,12 @@ nukeswap() {
   rm -rf ~/.local/share/nvim/swap
 }
 
-alias zz='source ~/.zshrc'
+alias zz='exec zsh'
 
-# source br
+# source broot
 source $HOME/.config/broot/launcher/bash/br
+alias z='br'
+alias Z='br -h' # include hidden files
 
 # customize the style of fzf and accept an optional header
 fzfancy() {
