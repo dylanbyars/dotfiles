@@ -15,8 +15,6 @@ setup_zsh() {
 
   # TODO: make this smarter
   git -C $PLUGIN_PATH clone https://github.com/lukechilds/zsh-nvm
-  git -C $PLUGIN_PATH clone https://github.com/lukechilds/zsh-better-npm-completion
-  git -C $PLUGIN_PATH clone https://github.com/jeffreytse/zsh-vi-mode
   git -C $PLUGIN_PATH clone https://github.com/Aloxaf/fzf-tab
   git -C $PLUGIN_PATH clone https://github.com/zsh-users/zsh-autosuggestions
 }

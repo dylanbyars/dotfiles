@@ -118,17 +118,11 @@ export NVM_NO_USE=true
 export NVM_LAZY_LOAD=true
 source_plugin zsh-nvm
 
-# npm completions
-source_plugin zsh-better-npm-completion
-
-# Vim mode improved
-source_plugin zsh-vi-mode
+# Enable vi mode
+bindkey -v
 
 # start fancy prompt
 eval "$(starship init zsh)"
-
-# zoxide helpers
-eval "$(zoxide init zsh)"
 
 # colorful man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
