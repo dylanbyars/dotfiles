@@ -138,8 +138,8 @@ require("fm-nvim").setup({
 	float_hl = "Normal",
 
 	-- Num from `0 - 1` for measurements
-	height = 0.7,
-	width = 0.7,
+	height = 0.9,
+	width = 0.6,
 
 	-- (Vim) Command used to open files
 	edit_cmd = "edit", -- opts: 'tabedit', 'split', 'pedit', etc...
