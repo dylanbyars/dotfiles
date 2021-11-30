@@ -143,8 +143,4 @@ require("fm-nvim").setup({
 
 	-- (Vim) Command used to open files
 	edit_cmd = "edit", -- opts: 'tabedit', 'split', 'pedit', etc...
-
-	cmds = {
-		broot_cmd = "broot --show-git-info", -- TODO: this isn't working
-	},
 })

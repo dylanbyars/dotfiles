@@ -243,5 +243,5 @@ vim.api.nvim_command("filetype plugin on")
 vim.api.nvim_command("syntax on")
 g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part of a wiki
 
--- broot thing
-map("n", "<leader><leader>", cmd([[ Broot ]]))
+-- broot in fm-nvim
+map("n", "<leader><leader>", cmd([[ Broot %:h ]])) -- open broot in the directory of the current buffer
