@@ -126,11 +126,11 @@ function() {
 
   for p in "${PLUGINS[@]}"; do
     :
-    git -C "$HOME/.zsh" clone https://github.com/$p 2> /dev/null
+    git -C $HOME/.zsh clone https://github.com/$p 2> /dev/null
 
     local PLUGIN_NAME=`echo $p | cut --fields=2 --delimiter='/'`
 
-    source "${HOME}/.zsh/${PLUGIN_NAME}/${PLUGIN_NAME}.plugin.zsh"
+    source $HOME/.zsh/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh
   done
 }
 
