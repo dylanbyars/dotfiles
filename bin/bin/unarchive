@@ -1,9 +1,0 @@
-#!/bin/zsh
-
-# usage: unarchive <dir.tar.gz.gpg>
-# decrypts then unarchives and decompresses <dir.tar.gz> with `tar`
-# `gpg` encryption happens with a symetric key so decrypt will prompt for a password
-
-ARCHIVE=$1
-
-gpg -d $ARCHIVE | tar -xvzf -
