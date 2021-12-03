@@ -1,11 +1,6 @@
 #!/bin/bash
-#
-# TODO: notes
 
-
-# the easy basics:
-install_apps() {
-  #  TODO: `brew`
+install_programs__linux() {
   sudo apt update
 
   sudo apt install \
@@ -29,12 +24,8 @@ install_apps() {
 
   # install snaps
   snap install glow shfmt
-
 }
 
-set_default_terminal() {
-  echo "set kitty as the default terminal"
-  sudo update-alternatives --config x-terminal-emulator
 # More info here: https://brew.sh/
 install_programs__mac() {
 
@@ -80,7 +71,7 @@ install_programs__mac() {
   fi
 }
 
-# onto the slightly trickier stuff...
+# programs
 install_deno() {
   curl -fsSL https://deno.land/x/install/install.sh | sh
   # generate completions file and stick it in `~/.zsh`
@@ -104,19 +95,18 @@ install_rust() {
 
 install_broot() {
   # a directory browser
-  # TODO: `brew`
   cargo install broot
   # run `broot` command to have it make its own config file
   # NOTE: it will also try to add a line to `.zshrc` to source something. that's already taken care of.
   broot
 }
 
-# more applications
 install_neovim() {
-  git clone https://github.com/neovim/neovim $HOME/neovim && cd $HOME/neovim
-  # TODO: `brew`
+  git -C $HOME/neovim clone https://github.com/neovim/neovim && cd $HOME/neovim
   echo "installing build dependencies -> https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
+  # linux
   sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  # TODO: installing dependencies on mac
   echo "building neovim"
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   sudo make install
@@ -140,11 +130,17 @@ install_lazygit() {
 # TODO: automate this
 # go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
 
-# do it!
-# install_apps
-# set_default_terminal
+# linux only
+set_default_terminal() {
+  echo "set kitty as the default terminal"
+  sudo update-alternatives --config x-terminal-emulator
+}
+
+# install_programs__linux
 # install_deno
-# # TODO: go + rust are only needed on ubuntu machines
 # install_rust
 # install_go
+# install_neovim
+# install_broot
 # install_lazygit
+# set_default_terminal
