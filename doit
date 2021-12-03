@@ -35,6 +35,49 @@ install_apps() {
 set_default_terminal() {
   echo "set kitty as the default terminal"
   sudo update-alternatives --config x-terminal-emulator
+# More info here: https://brew.sh/
+install_programs__mac() {
+
+  function brewfileInfo() {
+    awk '
+    BEGIN {lineType = ""}
+    {if (lineType != $1) {
+      lineType = $1
+      description = ""
+      if (lineType == "tap") {
+        description = "(additional sources for packages)"
+      } else if (lineType == "brew") {
+        description = "(packages that you use on the command line)" 
+      } else {
+        description = "(GUI applications)" 
+      }
+      print $1,description;
+    }}
+    {gsub(/"|,/, ""); print "  -",$2}' $1
+  }
+
+  function installPackages() {
+    BREWFILE="./Brewfile"
+
+    brewfileInfo $BREWFILE
+    echo "\nDownloading required packages...\n"
+    brew bundle install --file=$BREWFILE
+  }
+
+  # Do the thing
+  if type brew >/dev/null; then
+    echo "Homebrew installation found."
+  else
+    echo "Installing Homebrew..."
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  fi
+
+  echo "Installing the following packages: \n"
+  installPackages
+
+  if [[ $? -ne 0 ]]; then
+    echo "Something went wrong."
+  fi
 }
 
 # onto the slightly trickier stuff...
