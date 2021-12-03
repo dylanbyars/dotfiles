@@ -103,18 +103,36 @@ fpath=(~/.zsh $fpath)
 autoload -Uz compinit
 compinit -u
 
-source ~/.zsh/functions
+#
+# plugins
+#
 
-# Replace zsh's default completion selection menu with fzf
-# NOTE: fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
-# TODO: this isn't quite working. it kicks in if the shell is reloaded though
-source_plugin fzf-tab
-
-# nvm (node version manager)
+# nvm -> node version manager
 export NVM_COMPLETION=true
 export NVM_NO_USE=true
 export NVM_LAZY_LOAD=true
-source_plugin zsh-nvm
+
+# fzf-tab -> Replace zsh's default completion selection menu with fzf
+# NOTE: fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
+
+function() {
+  # setup a ~/.zsh dir if it doesn't already exist
+  if [[ ! -d ~/.zsh ]]; then
+    # make a directory to house the plugins
+    mkdir ~/.zsh/ 
+  fi
+
+  local PLUGINS=('lukechilds/zsh-nvm' 'Aloxaf/fzf-tab' 'zsh-users/zsh-autosuggestions')
+
+  for p in "${PLUGINS[@]}"; do
+    :
+    git -C "$HOME/.zsh" clone https://github.com/$p 2> /dev/null
+
+    local PLUGIN_NAME=`echo $p | cut --fields=2 --delimiter='/'`
+
+    source "${HOME}/.zsh/${PLUGIN_NAME}/${PLUGIN_NAME}.plugin.zsh"
+  done
+}
 
 # Enable vi mode
 bindkey -v
