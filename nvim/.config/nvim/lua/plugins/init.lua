@@ -20,9 +20,13 @@ require("packer").startup({
 		-- git
 		use("tpope/vim-fugitive") -- ya it's pretty good
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
-		-- comment helpers
-		use("tpope/vim-commentary") -- comments made easy
-		use("JoosepAlviste/nvim-ts-context-commentstring") -- comment bits out with proper style based on their location determined by treesitter i.e. js vs jsx
+		-- commenting
+		use({
+			"numToStr/Comment.nvim",
+			config = function()
+				require("Comment").setup()
+			end,
+		})
 		-- completion
 		use("neovim/nvim-lspconfig") -- configure lsp
 		use("williamboman/nvim-lsp-installer") -- for installing language servers
