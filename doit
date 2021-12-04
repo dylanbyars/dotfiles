@@ -92,6 +92,9 @@ install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   # install completions for `cargo`
   rustup completions zsh cargo >~/.zsh/_cargo
+
+  # install stylua to format lua files
+  # cargo install stylua
 }
 
 install_broot() {
