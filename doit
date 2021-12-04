@@ -127,8 +127,26 @@ install_lazygit() {
 }
 
 # nerdfont
-# TODO: automate this
-# go to nerdfont, download a zip of a font, unpack it, open a font file with a gui, install it, go to gnome-tweaks to use it
+function install_fonts() {
+  fonts_dir="${HOME}/.local/share/fonts"
+
+  if [ ! -d "${fonts_dir}" ]; then
+    echo "mkdir -p $fonts_dir"
+    mkdir -p "${fonts_dir}"
+  else
+    echo "Found fonts dir $fonts_dir"
+  fi
+
+  version=5.2
+  zip=Fira_Code_v${version}.zip
+  curl --fail --location --show-error https://github.com/tonsky/FiraCode/releases/download/${version}/${zip} --output ${zip}
+  unzip -o -q -d ${fonts_dir} ${zip}
+  cp ttf/* ./
+  rm ${zip} # TODO: remove all the other junk in the zip
+
+  echo "fc-cache -f"
+  fc-cache -f
+}
 
 # linux only
 set_default_terminal() {
@@ -144,3 +162,4 @@ set_default_terminal() {
 # install_broot
 # install_lazygit
 # set_default_terminal
+install_fonts
