@@ -1,4 +1,5 @@
 #!/bin/bash
+# ^ because I don't get good highlighting for zsh
 
 install_programs__linux() {
   sudo apt update
@@ -102,9 +103,12 @@ install_broot() {
 }
 
 install_neovim() {
-  git -C $HOME/neovim clone https://github.com/neovim/neovim && cd $HOME/neovim
+  # TODO: mkdir for neovim
+  git -C $HOME/bin clone https://github.com/neovim/neovim && cd $HOME/bin/neovim
+  git checkout stable
   echo "installing build dependencies -> https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
   # linux
+  sudo apt update
   sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
   # TODO: installing dependencies on mac
   echo "building neovim"
@@ -114,6 +118,11 @@ install_neovim() {
   if [[ $? -eq 1 ]]; then
     echo "Something went wrong. Check the docs -> https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source"
   fi
+}
+
+uninstall_neovim() {
+  sudo rm /usr/local/bin/nvim
+  sudo rm -r /usr/local/share/nvim/
 }
 
 install_lazygit() {
@@ -127,7 +136,7 @@ install_lazygit() {
 }
 
 # nerdfont
-function install_fonts() {
+install_fonts() {
   fonts_dir="${HOME}/.local/share/fonts"
 
   if [ ! -d "${fonts_dir}" ]; then
@@ -158,8 +167,8 @@ set_default_terminal() {
 # install_deno
 # install_rust
 # install_go
-# install_neovim
+install_neovim
 # install_broot
 # install_lazygit
 # set_default_terminal
-install_fonts
+# install_fonts
