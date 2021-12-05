@@ -1,0 +1,7 @@
+os:
+  openCommand: "vim {{filename}}"
+gui:
+  sidePanelWidth: 0.2
+  commandLogSize: 4
+  scrollPastBottom: false
+notARepository: "skip"
