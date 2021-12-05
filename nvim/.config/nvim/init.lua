@@ -79,8 +79,6 @@ end
 
 map("n", "<leader>w", cmd([[ :w ]]))
 map("n", "<leader>q", cmd([[ :q ]]))
-map("n", "<leader>;", ":")
-map("v", "<leader>;", ":")
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
