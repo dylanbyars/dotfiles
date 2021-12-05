@@ -1,24 +1,17 @@
 #!/bin/bash
 # ^ because I don't get good highlighting for zsh
 
-install_programs__linux() {
-  sudo apt update
+PACKAGES=(jq yarn broot fzf ripgrep fd htop lazygit starship stow tmux zoxide tldr glow shfmt)
+APP_DIR=~/bin
+COMPLETIONS_DIR=~/.zsh
 
-  sudo apt install \
-    ripgrep \
-    fzf \
-    kitty \
-    tmux \
-    htop \
-    zoxide \
-    exa \
-    expect \
-    tldr \
-    snapd
+if [ ! -d "${APP_DIR}" ]; then
+  echo "mkdir -p $APP_DIR"
+  mkdir -p "${APP_DIR}"
+fi
 
-  # TODO: this feels dangerous...
-  # echo "getting completions for exa..."
-  # curl https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa > ~/.zsh/_exa
+install_packages__linux() {
+  sudo apt update && apt install ripgrep fzf kitty tmux htop zoxide exa expect tldr snapd
 
   # get the content for tldr
   tldr --update
@@ -28,9 +21,9 @@ install_programs__linux() {
 }
 
 # More info here: https://brew.sh/
-install_programs__mac() {
+install_packages__mac() {
 
-  function brewfileInfo() {
+  brewfileInfo() {
     awk '
     BEGIN {lineType = ""}
     {if (lineType != $1) {
@@ -48,7 +41,7 @@ install_programs__mac() {
     {gsub(/"|,/, ""); print "  -",$2}' $1
   }
 
-  function installPackages() {
+  installPackages() {
     BREWFILE="./Brewfile"
 
     brewfileInfo $BREWFILE
@@ -72,29 +65,31 @@ install_programs__mac() {
   fi
 }
 
-# programs
 install_deno() {
   curl -fsSL https://deno.land/x/install/install.sh | sh
   # generate completions file and stick it in `~/.zsh`
   # WARN: this assumes that `~/.zsh` exists
-  deno completions zsh >~/.zsh/_deno
+  deno completions zsh >~/${COMPLETIONS_DIR}/_deno
 }
 
 install_go() {
-  # eradicate old installations
-  rm -rf /usr/local/go
+  echo "eradicate old installations"
+  sudo rm -rf /usr/local/go
+  echo "download go"
   wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar --extract --ungzip -C /usr/local
   echo "it's working if you see a version number below"
   go version
+  echo "set $GOBIN environment variable to install go packages to ~/bin"
+  go env -w GOBIN="${APP_DIR}"
 }
 
 install_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   # install completions for `cargo`
-  rustup completions zsh cargo >~/.zsh/_cargo
+  rustup completions zsh cargo >~/${COMPLETIONS_DIR}/_cargo
 
   # install stylua to format lua files
-  # cargo install stylua
+  cargo install stylua
 }
 
 install_broot() {
@@ -106,17 +101,24 @@ install_broot() {
 }
 
 install_neovim() {
-  # TODO: mkdir for neovim
-  git -C $HOME/bin clone https://github.com/neovim/neovim && cd $HOME/bin/neovim
+  git -C $APP_DIT clone https://github.com/neovim/neovim && cd $APP_DIR/_neovim
+  # `stable` is a tag so it'll checkout into detached head state
   git checkout stable
-  echo "installing build dependencies -> https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
-  # linux
-  sudo apt update
-  sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
-  # TODO: installing dependencies on mac
+
+  echo "installing build dependencies"
+  if [ "$(uname)" == "Darwin" ]; then
+    echo "mac -> https://github.com/neovim/neovim/wiki/Building-Neovim#macos--homebrew"
+    brew install ninja libtool automake cmake pkg-config gettext curl
+  elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo "linux -> https://github.com/neovim/neovim/wiki/Building-Neovim#ubuntu--debian"
+    sudo apt update
+    sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  fi
+
   echo "building neovim"
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   sudo make install
+
   # if that didn't work, show some help
   if [[ $? -eq 1 ]]; then
     echo "Something went wrong. Check the docs -> https://github.com/neovim/neovim/wiki/Installing-Neovim#install-from-source"
@@ -129,16 +131,11 @@ uninstall_neovim() {
 }
 
 install_lazygit() {
-  git clone https://github.com/jesseduffield/lazygit.git $HOME/lazygit && cd $HOME/lazygit
-  # install lazygit into `~/go/bin/lazygit`
-  # TODO: can I have go install the binary produced somewhere directly?
+  git -C $APP_DIR clone https://github.com/jesseduffield/lazygit.git && cd $APP_DIR/_lazygit
+  # WARN: this assumes that `install_go` has run and set the GOBIN env var to `~/bin`
   go install
-  # TODO how gross is it to symlink a binary to a different location just so I can reuse a path on $PATH?
-  ln -s $HOME/go/bin/lazygit ~/bin/lazygit
-  # TODO: update lazygit config path so it can be shared between macos and linux
 }
 
-# nerdfont
 install_fonts() {
   fonts_dir="${HOME}/.local/share/fonts"
 
@@ -160,18 +157,7 @@ install_fonts() {
   fc-cache -f
 }
 
-# linux only
 set_default_terminal() {
   echo "set kitty as the default terminal"
   sudo update-alternatives --config x-terminal-emulator
 }
-
-# install_programs__linux
-# install_deno
-# install_rust
-# install_go
-install_neovim
-# install_broot
-# install_lazygit
-# set_default_terminal
-# install_fonts
