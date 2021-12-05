@@ -41,9 +41,6 @@ vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 o.number = true
 o.relativenumber = true
 
--- don't require a file save before switching buffers
-o.hidden = true
-
 -- default to case insensitive search
 o.ignorecase = true
 -- break lines between words at window's width
@@ -104,8 +101,6 @@ map("n", "<leader>-", "<C-w>s")
 -- yank selection to system clipboard
 map("n", "<leader>y", '"+y')
 map("v", "<leader>y", '"+y')
--- make Y behave like other capital letter commands
-map("n", "Y", "y$")
 
 -- move between tabs
 map("n", "[t", cmd([[ tabprev ]]))
@@ -222,7 +217,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 map("n", "K", cmd([[ :lua vim.lsp.buf.hover() ]]))
--- NOTE: looks like there's a way to highlight the current item of a signature. do that. UPDATE it's available in the neovim 0.6 but that version doesn't work with most plugins. so sit tight.
 map("n", "<C-k>", cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 map("i", "<C-k>", cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 -- diagnostics
