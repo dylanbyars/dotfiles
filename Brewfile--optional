@@ -1,0 +1,6 @@
+brew "autossh"
+brew "cntlm", restart_service: true
+brew "expect"
+brew "pass"
+cask "insomnia"
+cask "postico"
