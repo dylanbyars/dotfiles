@@ -202,3 +202,12 @@ g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part
 
 -- broot in fm-nvim
 map("n", "<leader><leader>", cmd([[ Broot %:h ]])) -- open broot in the directory of the current buffer
+
+-- symbols_outline
+g.symbols_outline = {
+	highlight_hovered_item = false,
+	width = 100,
+	position = "left",
+	auto_preview = false,
+}
+map("n", "<C-s>", cmd([[ SymbolsOutline ]]))

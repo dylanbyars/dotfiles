@@ -72,6 +72,7 @@ require("packer").startup({
 			},
 		})
 		-- idk
+		use("simrat39/symbols-outline.nvim") -- pretty good for file local symbols
 		use("tpope/vim-surround")
 		use("vimwiki/vimwiki")
 		use("is0n/fm-nvim")
