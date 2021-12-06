@@ -24,35 +24,32 @@ vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true 
 g.mapleader = " "
 g.maplocalleader = " "
 
--- don't show mode since it's in the statusline
-o.showmode = false
+o.showmode = false -- don't show mode since it's in the statusline
 
--- always show the sign column
-o.signcolumn = "yes"
--- do not show the fold column (too busy)
-o.foldcolumn = "0"
--- start file completely unfolded
-o.foldlevelstart = 99
--- use treesitter to define foldable areas
-vim.wo.foldmethod = "expr"
+o.signcolumn = "yes" -- always show the sign column
+
+o.foldcolumn = "0" -- do not show the fold column (too busy)
+
+o.foldlevelstart = 99 -- start file completely unfolded
+
+vim.wo.foldmethod = "expr" -- use treesitter to define foldable areas
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- show the current line number on the current line and the relative line number on all other lines
 o.number = true
 o.relativenumber = true
 
--- default to case insensitive search
-o.ignorecase = true
--- break lines between words at window's width
-o.linebreak = true
+o.ignorecase = true -- default to case insensitive search
+
+o.linebreak = true -- break lines between words at window's width
+
 -- tabs are 2 spaces wide
 o.tabstop = 2
 o.softtabstop = 2
 o.shiftwidth = 2
 o.expandtab = true
 
--- keep 8 rows of text visible at the top and bottom of screen (if possible)
-o.scrolloff = 8
+o.scrolloff = 8 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
 
 -- persistent undo
 o.undofile = true
@@ -62,8 +59,7 @@ bo.undofile = true
 o.splitbelow = true
 o.splitright = true
 
--- Time in milliseconds (default 0)
-g.Illuminate_delay = 750
+g.Illuminate_delay = 750 -- Time in milliseconds (default 0)
 --------------------------
 -- general key bindings
 --------------------------
@@ -104,8 +100,7 @@ map("v", "<leader>y", '"+y')
 map("n", "[t", cmd([[ tabprev ]]))
 map("n", "]t", cmd([[ tabnext ]]))
 
--- toggle spell checking mode
-map("n", "<leader>s", cmd("set spell!"))
+map("n", "<leader>s", cmd("set spell!")) -- toggle spell checking mode
 
 -- highlight yanked text for a bit
 local hl_timeout = "750" -- ms
@@ -119,8 +114,8 @@ map("v", "H", "^")
 map("n", "L", "$")
 map("v", "L", "$")
 
--- u = undo  U = undo undo aka redo
-map("n", "U", "<C-r>")
+map("n", "U", "<C-r>") -- u = undo  U = undo undo aka redo
+
 --------------------------
 -- plugin configs
 --------------------------
@@ -156,11 +151,6 @@ map("n", "<leader>man", callTelescopeBuiltin("man_pages")) -- search for a man p
 map("n", "<leader>key", callTelescopeBuiltin("keymaps")) -- search through keymaps
 map("n", "<leader>S", callTelescopeBuiltin("spell_suggest")) -- show spelling suggestions for word under cursor when `spell` is set
 map("n", "<leader>'", callTelescopeBuiltin("registers") .. "<esc>") -- open registers picker AND transition to normal mode
--- map(
--- 	"n",
--- 	"<leader><leader>",
--- 	callTelescopeBuiltin("file_browser", "{cwd = require('telescope.utils').buffer_dir()}") .. "<esc>"
--- ) -- open file browser on the directory of the focused buffer's dir
 
 -- vim fugitive merge conflict resolution
 map("n", "<leader>gj", cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
@@ -175,33 +165,8 @@ g.neoformat_try_node_exe = 1 -- node projects with a `prettier` dependency will 
 g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
 
 --------------------------
--- minimap
 --------------------------
--- open the minimap then move to the pane to the right to focus on it
--- the map displays the contents of whatever buffer is focused so using it with open vsplits is weird
--- map('n', '<leader>map', cmd([[ :MinimapToggle<cr><cmd>wincmd l ]]))
--- g.minimap_width = 16
--- g.minimap_highlight_range = 1
--- g.minimap_git_colors = 1
--- vim.cmd('hi MinimapDiffAdd guifg='..colors.green)
--- vim.cmd('hi MinimapDiffRemove guifg='..colors.red)
--- vim.cmd('hi MinimapDiff guifg='..colors.yellow)
--- g.minimap_diffadd_color = 'MinimapDiffAdd'
--- g.minimap_diffremove_color = 'MinimapDiffRemove'
--- g.minimap_diff_color = 'MinimapDiff'
--- g.minimap_cursor_color_priority	= 90
 
---------------------------
--- floaterm
---------------------------
-g.floaterm_title = "($1/$2)"
-g.floaterm_keymap_toggle = "<F12>"
-g.floaterm_keymap_kill = "<F11>"
-g.floaterm_keymap_new = "<F8>"
-g.floaterm_keymap_prev = "<F9>"
-g.floaterm_keymap_next = "<F10>"
-g.floaterm_width = 0.95
-g.floaterm_height = 0.95
 
 map("n", "<leader>o", cmd([[ :OrganizeImports ]]))
 
@@ -226,8 +191,8 @@ map("n", "]e", cmd([[ lua vim.lsp.diagnostic.goto_next({ popup_opts = { border =
 map("n", "<leader>ca", cmd([[ lua vim.lsp.buf.code_action() ]]))
 map("v", "<leader>ca", cmd([[ lua vim.lsp.buf.range_code_action() ]]))
 map("n", "<leader>d", cmd([[ lua vim.lsp.buf.definition() ]]))
--- rename symbol under cursor and set the rename in the command line window
-map("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR><c-F>")
+
+map("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR><c-F>") -- rename symbol under cursor and set the rename in the command line window
 
 -- vimwiki
 vim.api.nvim_command("set nocompatible")

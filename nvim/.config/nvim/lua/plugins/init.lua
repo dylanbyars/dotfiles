@@ -73,7 +73,6 @@ require("packer").startup({
 		})
 		-- idk
 		use("tpope/vim-surround")
-		use("voldikss/vim-floaterm")
 		use("vimwiki/vimwiki")
 		use("is0n/fm-nvim")
 		-- writing
