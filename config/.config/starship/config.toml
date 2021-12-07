@@ -1,4 +1,5 @@
 format = """
+$jobs\
 $directory\
 $git_branch\
 $git_commit\
@@ -8,3 +9,6 @@ $cmd_duration\
 $line_break\
 $status\
 $character"""
+
+[character]
+vicmd_symbol = "[](bold yellow)"
