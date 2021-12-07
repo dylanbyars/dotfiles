@@ -133,24 +133,20 @@ map("n", "gR", cmd([[ Trouble lsp_references ]]), { silent = true })
 --------------------------
 -- telescope
 --------------------------
-local function callTelescopeBuiltin(builtin, options)
-	local args = builtin .. (options == nil and "()" or "(" .. options .. ")")
-	return "<cmd>lua require('telescope.builtin')." .. args .. "<cr>"
+local function callTelescopeBuiltin(builtin)
+	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
 end
 
--- find all files (including hidden) but NOT any files in the hidden `.git/` directory
--- TODO: make map accept multiple modes as a string e.g. 'ni' = normal and insert modes
 map("n", "<C-p>", callTelescopeBuiltin("git_files"))
 map("i", "<C-p>", callTelescopeBuiltin("git_files"))
-map("n", "<leader>b", callTelescopeBuiltin("buffers") .. "<esc>")
+map("n", "<leader>b", callTelescopeBuiltin("buffers"))
 map("n", "<leader>?", callTelescopeBuiltin("live_grep"))
-map("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find")) --
-map("n", "<leader>c", callTelescopeBuiltin("git_bcommits")) -- TODO: make the previewer configurable
+map("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find"))
+map("n", "<leader>c", callTelescopeBuiltin("git_bcommits"))-- TODO: make the previewer configurable
 map("n", "<leader><esc>", callTelescopeBuiltin("help_tags")) -- for quick vim `help`
 map("n", "<leader>man", callTelescopeBuiltin("man_pages")) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map("n", "<leader>key", callTelescopeBuiltin("keymaps")) -- search through keymaps
 map("n", "<leader>S", callTelescopeBuiltin("spell_suggest")) -- show spelling suggestions for word under cursor when `spell` is set
-map("n", "<leader>'", callTelescopeBuiltin("registers") .. "<esc>") -- open registers picker AND transition to normal mode
 
 -- vim fugitive merge conflict resolution
 map("n", "<leader>gj", cmd([[ diffget //3 ]])) -- pick the right side (incoming) change
