@@ -1,3 +1,5 @@
 bin/bin/bcwc_pcie
 bin/bin/facetimehd-firmware
 nvim/.config/nvim/plugin/packer_compiled.lua
+
+config/.config/nvim/plugin/packer_compiled.lua
