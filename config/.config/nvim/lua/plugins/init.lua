@@ -16,7 +16,6 @@ require("packer").startup({
 		use("mhinz/vim-startify") -- session manager and fancy start screen
 		-- status line
 		use("hoob3rt/lualine.nvim")
-		use({ "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" })
 		-- git
 		use("tpope/vim-fugitive") -- ya it's pretty good
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
