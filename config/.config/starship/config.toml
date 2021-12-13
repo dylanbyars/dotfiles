@@ -10,5 +10,8 @@ $line_break\
 $status\
 $character"""
 
+command_timeout = 1001
+
 [character]
 vicmd_symbol = "[](bold yellow)"
+
