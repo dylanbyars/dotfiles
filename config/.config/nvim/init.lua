@@ -129,6 +129,7 @@ map("n", "<leader>xd", cmd([[ Trouble lsp_document_diagnostics ]]), { silent = t
 map("n", "<leader>xl", cmd([[ Trouble loclist ]]), { silent = true })
 map("n", "<leader>xq", cmd([[ Trouble quickfix ]]), { silent = true })
 map("n", "gR", cmd([[ Trouble lsp_references ]]), { silent = true })
+map("n", "gI", cmd([[ Trouble lsp_implementations ]]), { silent = true })
 
 --------------------------
 -- telescope
