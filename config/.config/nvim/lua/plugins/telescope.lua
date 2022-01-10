@@ -92,7 +92,8 @@ telescope.setup({
 			previewer = false,
 		},
 		git_files = {
-			hidden = true,
+			hidden = true, -- show hidden files
+      no_ignore = true -- show files ignored by .gitignore
 		},
 	},
 })

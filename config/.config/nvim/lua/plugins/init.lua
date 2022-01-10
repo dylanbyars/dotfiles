@@ -14,8 +14,7 @@ require("packer").startup({
 		use("folke/tokyonight.nvim") -- colorscheme
 		use("norcalli/nvim-colorizer.lua") -- highlight hex strings with their color
 		use("mhinz/vim-startify") -- session manager and fancy start screen
-		-- status line
-		use("hoob3rt/lualine.nvim")
+		use("hoob3rt/lualine.nvim") --status line
 		-- git
 		use("tpope/vim-fugitive") -- ya it's pretty good
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
@@ -28,7 +27,7 @@ require("packer").startup({
 		})
 		-- completion
 		use("neovim/nvim-lspconfig") -- configure lsp
-		use("williamboman/nvim-lsp-installer") -- for installing language servers
+		use("williamboman/nvim-lsp-installer") -- install language servers
 		use("rafamadriz/friendly-snippets") -- snippets to feed into luasnip
 		use("L3MON4D3/LuaSnip") -- cmp requires a snippet engine
 		use({
@@ -52,8 +51,7 @@ require("packer").startup({
 		use({ "nvim-treesitter/playground", run = ":TSInstall query" })
 		use("windwp/nvim-ts-autotag") -- auto close and auto update closing tags
 		use("p00f/nvim-ts-rainbow") -- prettier () [] {}
-		-- formatting
-		use("sbdchd/neoformat")
+		use("sbdchd/neoformat") -- formatting
 		-- search improvements
 		use({
 			"folke/trouble.nvim",
@@ -74,11 +72,10 @@ require("packer").startup({
 		})
 		-- idk
 		use("simrat39/symbols-outline.nvim") -- pretty good for file local symbols
-		use("tpope/vim-surround")
-		use("vimwiki/vimwiki")
-		use("is0n/fm-nvim")
-		-- writing
-		use("junegunn/goyo.vim")
+		use("tpope/vim-surround") -- automagically finish bracket-y things after typing the opener
+		use("vimwiki/vimwiki") -- DIY wiki
+		use("is0n/fm-nvim") -- use broot in vim
+		use("junegunn/goyo.vim") -- kinda like zen mode
 	end,
 	config = {
 		-- show packer outputs in a floating window
@@ -144,7 +141,7 @@ require("fm-nvim").setup({
 
 	-- Num from `0 - 1` for measurements
 	height = 0.9,
-	width = 0.6,
+	width = 0.9,
 
 	-- (Vim) Command used to open files
 	edit_cmd = "edit", -- opts: 'tabedit', 'split', 'pedit', etc...
