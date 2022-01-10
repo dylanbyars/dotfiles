@@ -1,5 +1,8 @@
 local colors = require('colors')
 
+local gps = require("nvim-gps")
+gps.setup()
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -13,7 +16,9 @@ require('lualine').setup {
     lualine_b = {
       {'filename', path = 1} -- 0 = just filename, 1 = relative path, 2 = absolute path
     },
-    lualine_c = {},
+    lualine_c = {
+      { gps.get_location, condition = gps.is_available },
+    },
     lualine_x = {
       {
         'diff',
