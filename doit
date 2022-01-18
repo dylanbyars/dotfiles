@@ -17,7 +17,8 @@ if [ ! -d "${APP_DIR}" ]; then
 fi
 
 install_packages__linux() {
-  sudo apt update && apt install ripgrep fzf kitty tmux htop zoxide exa expect tldr snapd
+  sudo apt update
+  sudo apt install ripgrep fzf kitty tmux htop zoxide exa expect tldr snapd
 
   # get the content for tldr
   tldr --update
@@ -79,14 +80,14 @@ install_deno() {
 }
 
 install_go() {
-  echo "eradicate old installations"
+  echo "Eradicating old installations of `go`..."
   sudo rm -rf /usr/local/go
-  echo "download go"
+  echo "All clean. Downloading `go`"
   wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar --extract --ungzip -C /usr/local
   echo "it's working if you see a version number below"
   go version
-  echo "set $GOBIN environment variable to install go packages to ~/bin"
-  go env -w GOBIN="${APP_DIR}"
+  echo "Setting `$GOBIN` environment variable to install go packages to ~/bin"
+  go env -w GOBIN="${BIN_DIR}"
 }
 
 install_rust() {
@@ -107,7 +108,7 @@ install_broot() {
 }
 
 install_neovim() {
-  git -C $APP_DIT clone https://github.com/neovim/neovim && cd $APP_DIR/_neovim
+  git -C $APP_DIR clone https://github.com/neovim/neovim && cd $APP_DIR/neovim
   # `stable` is a tag so it'll checkout into detached head state
   git checkout stable
 
@@ -137,7 +138,8 @@ uninstall_neovim() {
 }
 
 install_lazygit() {
-  git -C $APP_DIR clone https://github.com/jesseduffield/lazygit.git && cd $APP_DIR/_lazygit
+  git -C $APP_DIR clone https://github.com/jesseduffield/lazygit.git 
+  cd $APP_DIR/lazygit
   # WARN: this assumes that `install_go` has run and set the GOBIN env var to `~/bin`
   go install
 }
