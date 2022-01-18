@@ -2,8 +2,14 @@
 # ^ because I don't get good highlighting for zsh
 
 PACKAGES=(jq yarn broot fzf ripgrep fd htop lazygit starship stow tmux zoxide tldr glow shfmt)
-APP_DIR=~/bin
+BIN_DIR=~/bin
+APP_DIR=~/Applications
 COMPLETIONS_DIR=~/.zsh
+
+if [ ! -d "${BIN_DIR}" ]; then
+  echo "mkdir -p $BIN_DIR"
+  mkdir -p "${BIN_DIR}"
+fi
 
 if [ ! -d "${APP_DIR}" ]; then
   echo "mkdir -p $APP_DIR"
@@ -146,15 +152,15 @@ install_fonts() {
     echo "Found fonts dir $fonts_dir"
   fi
 
-  version=5.2
-  zip=Fira_Code_v${version}.zip
-  curl --fail --location --show-error https://github.com/tonsky/FiraCode/releases/download/${version}/${zip} --output ${zip}
+  version=2.1.0
+  zip=FiraCode.zip
+  curl --fail --location --show-error https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip} --output ${zip}
   unzip -o -q -d ${fonts_dir} ${zip}
-  cp ttf/* ./
-  rm ${zip} # TODO: remove all the other junk in the zip
 
   echo "fc-cache -f"
   fc-cache -f
+
+  echo "restart the terminal to see the font in action"
 }
 
 set_default_terminal() {
