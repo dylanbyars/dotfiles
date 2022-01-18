@@ -72,6 +72,11 @@ install_packages__mac() {
   fi
 }
 
+install_starship() {
+  # rerun to update `starship`
+  sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+}
+
 install_deno() {
   curl -fsSL https://deno.land/x/install/install.sh | sh
   # generate completions file and stick it in `~/.zsh`
