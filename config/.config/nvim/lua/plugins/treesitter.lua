@@ -1,5 +1,3 @@
-local colors = require('colors')
-
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ensure_installed = {
@@ -31,15 +29,6 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-    colors = function ()
-      local c = {}
-      for key, value in pairs(colors) do
-        if key ~= 'foreground' and key ~= 'background' then
-          table.insert(c, value)
-        end
-      end
-      return c
-    end
   },
   autotag = { enable = true },
   incremental_selection = {
