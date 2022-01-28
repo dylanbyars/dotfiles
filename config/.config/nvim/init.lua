@@ -142,7 +142,7 @@ map("i", "<C-p>", callTelescopeBuiltin("git_files()"))
 map("n", "<leader>b", callTelescopeBuiltin("buffers()"))
 map("n", "<leader>?", callTelescopeBuiltin("live_grep()"))
 map("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find()"))
-map("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))-- TODO: make the previewer configurable
+map("n", "<leader>c", callTelescopeBuiltin("git_bcommits()")) -- TODO: make the previewer configurable
 map("n", "<leader><esc>", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
 map("n", "<leader>man", callTelescopeBuiltin("man_pages()")) -- search for a man page, preview it, and open it in a vim buffer on <cr>
 map("n", "<leader>key", callTelescopeBuiltin("keymaps()")) -- search through keymaps
@@ -179,9 +179,9 @@ map("n", "K", cmd([[ :lua vim.lsp.buf.hover() ]]))
 map("n", "<C-k>", cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 map("i", "<C-k>", cmd([[ :lua vim.lsp.buf.signature_help() ]]))
 -- diagnostics
-map("n", "<leader>ld", cmd([[ lua vim.lsp.diagnostic.show_line_diagnostics({ border = "double" }) ]]))
-map("n", "[e", cmd([[ lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }}) ]]))
-map("n", "]e", cmd([[ lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }}) ]]))
+map("n", "<leader>ld", cmd([[ lua vim.diagnostic.open_float({ border = "double" }) ]]))
+map("n", "[e", cmd([[ lua vim.diagnostic.goto_prev({ popup_opts = { border = "double" }}) ]]))
+map("n", "]e", cmd([[ lua vim.diagnostic.goto_next({ popup_opts = { border = "double" }}) ]]))
 
 -- additional lsp mappings using regular lsp api
 map("n", "<leader>ca", cmd([[ lua vim.lsp.buf.code_action() ]]))
