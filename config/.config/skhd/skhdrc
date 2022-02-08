@@ -1,0 +1,6 @@
+cmd - left : yabai -m window --focus west
+cmd - right : yabai -m window --focus east
+cmd - down : yabai -m window --focus south
+cmd - up : yabai -m window --focus north
+
+ctrl + cmd - b : yabai -m space --balance
