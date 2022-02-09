@@ -1,6 +1,27 @@
-cmd - left : yabai -m window --focus west
-cmd - right : yabai -m window --focus east
-cmd - down : yabai -m window --focus south
-cmd - up : yabai -m window --focus north
+# `type skhd --observe` in a terminal and type a key to get keycode
 
+# toggle window fullscreen zoom
+ctrl + cmd - 0x2F : yabai -m window --toggle zoom-fullscreen # ctrl + cmd - .
+
+# increase window size
+ctrl + cmd - h : yabai -m window --resize left:-20:0
+ctrl + cmd - j : yabai -m window --resize bottom:0:20
+ctrl + cmd - k : yabai -m window --resize top:0:-20
+ctrl + cmd - l : yabai -m window --resize right:20:0
+
+# move focus between windows
+ctrl + cmd - left : yabai -m window --focus west
+ctrl + cmd - right : yabai -m window --focus east
+ctrl + cmd - down : yabai -m window --focus south
+ctrl + cmd - up : yabai -m window --focus north
+
+# rebalance windows in a space
 ctrl + cmd - b : yabai -m space --balance
+
+# rotate windows around space
+ctrl + cmd - 0x21 : yabai -m space --rotate 90
+ctrl + cmd - 0x1E : yabai -m space --rotate 270
+
+# open terminal
+ctrl + cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
+
