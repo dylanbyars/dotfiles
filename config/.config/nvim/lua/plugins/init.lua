@@ -134,17 +134,36 @@ require("plugins.lualine")
 require("plugins.startify")
 
 require("fm-nvim").setup({
-	-- Floating window border (see ":h nvim_open_win")
-	border = "double",
-
-	-- Highlight group for floating window/border (see ":h winhl")
-	border_hl = "FloatBorder",
-	float_hl = "Normal",
-
-	-- Num from `0 - 1` for measurements
-	height = 0.9,
-	width = 0.9,
-
 	-- (Vim) Command used to open files
-	edit_cmd = "edit", -- opts: 'tabedit', 'split', 'pedit', etc...
+	edit_cmd = "edit",
+
+	-- See `Q&A` for more info
+	on_close = {},
+	on_open = {},
+
+	-- UI Options
+	ui = {
+		-- Default UI (can be "split" or "float")
+		default = "float",
+
+		float = {
+			-- Floating window border (see ':h nvim_open_win')
+			border = "rounded",
+
+			-- Highlight group for floating window/border (see ':h winhl')
+			float_hl = "Normal",
+			border_hl = "FloatBorder",
+
+			-- Floating Window Transparency (see ':h winblend')
+			blend = 0,
+
+			-- Num from 0 - 1 for measurements
+			height = 1,
+			width = 0.6,
+
+			-- X and Y Axis of Window
+			x = 0,
+			y = 0,
+		},
+	},
 })
