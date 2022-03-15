@@ -183,7 +183,7 @@ map("n", "<leader>ca", cmd([[ lua vim.lsp.buf.code_action() ]]))
 map("v", "<leader>ca", cmd([[ lua vim.lsp.buf.range_code_action() ]]))
 map("n", "<leader>d", cmd([[ lua vim.lsp.buf.definition() ]]))
 
-map("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR><c-F>") -- rename symbol under cursor and set the rename in the command line window
+map("n", "<leader>r", cmd([[ lua vim.lsp.buf.rename() ]])) -- rename symbol under cursor
 
 -- vimwiki
 vim.api.nvim_command("set nocompatible")
