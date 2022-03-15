@@ -30,7 +30,6 @@ telescope.setup({
 			},
 
 			n = {
-				["<C-p>"] = builtin.git_files,
 				["<esc>"] = actions.close,
 				["<CR>"] = actions.select_default,
 				["<C-x>"] = actions.select_horizontal,
@@ -53,12 +52,12 @@ telescope.setup({
 			},
 		},
 		dynamic_preview_title = true,
-		path_display = { shorten = 3 },
+		path_display = { "smart" },
 		layout_config = {
-			height = 0.9,
-			width = 0.9,
 			horizontal = {
-				preview_width = 0.7,
+				height = 0.99,
+				width = 0.99,
+				preview_width = 0.6,
 			},
 		},
 	},
@@ -73,8 +72,9 @@ telescope.setup({
 	},
 	pickers = {
 		buffers = {
-			show_all_buffers = true,
 			sort_lastused = true,
+			ignore_current_buffer = true,
+			sort_mru = true,
 			mappings = {
 				n = {
 					-- right hand side can be the name of the action as string
@@ -83,16 +83,19 @@ telescope.setup({
 			},
 			initial_mode = "normal",
 		},
-		keymaps = {
-			theme = "dropdown",
-			previewer = false,
-		},
 		spell_suggest = {
-			theme = "dropdown",
-			previewer = false,
+			theme = "cursor",
+			initial_mode = "normal",
+			layout_config = { width = 24 },
 		},
-		git_files = {
-			hidden = true,
+		git_status = {
+			initial_mode = "normal",
+		},
+		live_grep = {
+			additional_args = function()
+				return { "--hidden",  }
+			end,
+      disable_coordinates = true
 		},
 	},
 })
