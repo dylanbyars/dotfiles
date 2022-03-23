@@ -43,6 +43,8 @@ o.ignorecase = true -- default to case insensitive search
 
 o.linebreak = true -- break lines between words at window's width
 
+o.laststatus = 3 -- global statusline
+
 -- tabs are 2 spaces wide
 o.tabstop = 2
 o.softtabstop = 2
