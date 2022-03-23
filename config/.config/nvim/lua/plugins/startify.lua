@@ -3,7 +3,7 @@ local g, api, fn = vim.g, vim.api, vim.fn
 g.startify_change_to_vcs_root = 1
 g.startify_custom_header = 'startify#center(startify#fortune#cowsay())'
 g.startify_lists = {
-  -- {type = 'sessions', header = {' Sessions'}},
+  {type = 'sessions', header = {' Sessions'}},
   {type = 'dir', header = {' Directory Files'}},
   {type = 'files', header = {' Recent Files'}},
 }
