@@ -19,7 +19,17 @@ require("lualine").setup({
 		lualine_c = {
 			{ gps.get_location, condition = gps.is_available },
 		},
-		lualine_x = { { "diff", colored = true } },
+		lualine_x = {
+			{
+				"diff",
+				colored = true,
+				diff_color = {
+					added = "GitSignsAdd",
+					modified = "GitSignsChange",
+					removed = "GitSignsDelete",
+				},
+			},
+		},
 		lualine_y = { "branch" },
 		lualine_z = { "progress" },
 	},
