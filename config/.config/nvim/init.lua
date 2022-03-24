@@ -109,6 +109,28 @@ local hl_timeout = "750" -- ms
 vim.api.nvim_command(
 	'autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=' .. hl_timeout .. "}"
 )
+-- TODO: this is still a little worse than what it replaces...
+-- vim.api.nvim_create_autocmd(
+-- 	"TextYankPost",
+-- 	{
+-- 		pattern = "*",
+-- 		callback = function()
+-- 			vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
+-- 		end,
+-- 	}
+-- 	-- command = 'lua vim.highlight.on_yank{higroup="IncSearch", timeout=' .. hl_timeout .. "}" }
+-- )
+
+vim.api.nvim_set_hl(0, 'NonCurrentWindow', { ctermbg = 'gray' })
+--
+-- -- change the background of non-focused windows (NC means non-current)
+vim.api.nvim_create_autocmd("WinEnter", {
+	pattern = "*",
+	callback = function()
+		-- vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:LspReferenceText"
+		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
+	end,
+})
 
 -- navigate to start/end of line
 map("n", "H", "^")
