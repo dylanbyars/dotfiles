@@ -4,7 +4,6 @@
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
 local actions = require("telescope.actions")
-local builtin = require("telescope.builtin")
 
 telescope.setup({
 	defaults = {
@@ -72,7 +71,6 @@ telescope.setup({
 	},
 	pickers = {
 		buffers = {
-			sort_lastused = true,
 			ignore_current_buffer = true,
 			sort_mru = true,
 			mappings = {
@@ -89,6 +87,8 @@ telescope.setup({
 			layout_config = { width = 24 },
 		},
 		git_status = {
+      theme = "dropdown",
+      layout_config = { width = 0.8 },
 			initial_mode = "normal",
 		},
 		live_grep = {
