@@ -140,6 +140,9 @@ require("fm-nvim").setup({
 	on_close = {},
 	on_open = {},
 
+	-- Commands
+	cmds = { broot_cmd = "broot -h" },
+
 	-- UI Options
 	ui = {
 		-- Default UI (can be "split" or "float")
@@ -165,4 +168,6 @@ require("fm-nvim").setup({
 			y = 0,
 		},
 	},
+
+	broot_conf = "~/.config/broot/nvim_broot_conf.hjson",
 })
