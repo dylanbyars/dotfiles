@@ -161,7 +161,7 @@ require("fm-nvim").setup({
 
 			-- Num from 0 - 1 for measurements
 			height = 1,
-			width = 0.6,
+			width = 0.85,
 
 			-- X and Y Axis of Window
 			x = 0,
