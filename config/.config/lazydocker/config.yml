@@ -1,7 +1,8 @@
-os:
-  openCommand: "vim {{filename}}"
+reporting: "on"
 gui:
-  sidePanelWidth: 0.2
-  commandLogSize: 4
-  scrollPastBottom: false
-notARepository: "skip"
+  returnImmediately: true
+  wrapMainPanel: true
+oS:
+  openCommand: vim {{filename}}
+commandTemplates:
+  viewServiceLogs: '{{ .DockerCompose }} logs --follow {{ .Service.Name }}'
