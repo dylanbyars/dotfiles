@@ -11,7 +11,14 @@ require("lualine").setup({
 		disabled_filetypes = { "TelescopePrompt" },
 	},
 	sections = {
-		lualine_a = { "mode" },
+		lualine_a = {
+			{
+				"mode",
+				fmt = function(str)
+					return str:sub(1, 1)
+				end,
+			},
+		},
 		lualine_b = {
 			{ "filename", path = 0 }, -- 0 = just filename, 1 = relative path, 2 = absolute path
 		},
