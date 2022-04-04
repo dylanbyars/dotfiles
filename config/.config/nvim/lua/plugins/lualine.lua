@@ -8,6 +8,7 @@ require("lualine").setup({
 		component_separators = { "", "" },
 		section_separators = { "", "" },
 		disabled_filetypes = {},
+		disabled_filetypes = { "TelescopePrompt" },
 	},
 	sections = {
 		lualine_a = { "mode" },
