@@ -20,7 +20,7 @@ require("lualine").setup({
 			},
 		},
 		lualine_b = {
-			{ "filename", path = 0 }, -- 0 = just filename, 1 = relative path, 2 = absolute path
+			{ "filename", path = 1 }, -- 0 = just filename, 1 = relative path, 2 = absolute path
 		},
 		lualine_c = { { gps.get_location, condition = gps.is_available, padding = 2 } },
 		lualine_x = {},
