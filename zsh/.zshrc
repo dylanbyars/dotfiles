@@ -24,6 +24,7 @@ fzfancy() {
 alias g='git'
 alias gco='git checkout'
 alias lz='lazygit -ucf ~/.config/lazygit/config.yml' # -ucf === use-config-file
+alias gpr="gh dash"
 # docker
 alias ld='lazydocker'
 # fzf a branch
