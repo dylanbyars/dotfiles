@@ -85,11 +85,6 @@ map("n", "<leader>q", cmd([[ :q ]]))
 vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
--- move between splits with arrow keys
-map("n", "<left>", ":wincmd h<cr>")
-map("n", "<down>", ":wincmd j<cr>")
-map("n", "<up>", ":wincmd k<cr>")
-map("n", "<right>", ":wincmd l<cr>")
 -- make splits easier
 map("n", "<leader>\\", "<C-w>v")
 map("n", "<leader>-", "<C-w>s")
