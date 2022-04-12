@@ -48,8 +48,46 @@ require("lualine").setup({
 	extensions = {},
 })
 
+local util = require("tabby.util")
+
+local hl_tabline = util.extract_nvim_hl("TabLine")
+local hl_tabline_sel = util.extract_nvim_hl("TabLineSel")
+local hl_tabline_fill = util.extract_nvim_hl("TabLineFill")
+
 require("tabby").setup({
-	tabline = require("tabby.presets").tab_only,
+	tabline = {
+		hl = "TabLineFill",
+		layout = "tab_only",
+		-- head = {
+		-- 	{ "  ", hl = { fg = hl_tabline.fg, bg = hl_tabline.bg } },
+		-- 	{ "", hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
+		-- },
+		-- tail = {
+		-- TODO: put git stuff up here
+		-- 	{ require('gitsigns'), hl = { fg = hl_tabline.fg, bg = hl_tabline.bg } },
+		-- 	{ "", hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
+		-- },
+		active_tab = {
+			label = function(tabid)
+				return {
+					util.get_tab_name(tabid),
+					hl = { fg = hl_tabline_sel.fg, bg = hl_tabline_sel.bg, style = "bold" },
+				}
+			end,
+			left_sep = { "", hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
+			right_sep = { "", hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
+		},
+		inactive_tab = {
+			label = function(tabid)
+				return {
+					util.get_tab_name(tabid),
+					hl = { fg = hl_tabline.fg, bg = hl_tabline.bg, style = "bold" },
+				}
+			end,
+			left_sep = { "", hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
+			right_sep = { "", hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } },
+		},
+	},
 	opt = {
 		show_at_least = 2,
 	},
