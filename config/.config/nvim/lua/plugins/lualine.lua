@@ -20,10 +20,13 @@ require("lualine").setup({
 			},
 			{ "filename", path = 1 }, -- 0 = just filename, 1 = relative path, 2 = absolute path
 		},
-		lualine_b = { },
+		lualine_b = {},
 		lualine_c = { { gps.get_location, condition = gps.is_available, padding = 2 } },
 		lualine_x = {},
-		lualine_y = { { "diff", diff_color = { removed = { fg = "red" } } }, { "branch", separator = { right = "" } } },
+		lualine_y = {
+			{ "diff", diff_color = { removed = { fg = "red" } } },
+			{ "branch", separator = { right = "" } },
+		},
 		lualine_z = {},
 	},
 	inactive_sections = {
@@ -47,4 +50,7 @@ require("lualine").setup({
 
 require("tabby").setup({
 	tabline = require("tabby.presets").tab_only,
+	opt = {
+		show_at_least = 2,
+	},
 })
