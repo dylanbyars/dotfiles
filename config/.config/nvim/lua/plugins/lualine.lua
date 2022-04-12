@@ -5,9 +5,8 @@ require("lualine").setup({
 	options = {
 		icons_enabled = true,
 		theme = "tokyonight",
-		component_separators = { "", "" },
-		section_separators = { "", "" },
-		disabled_filetypes = {},
+		component_separators = "",
+		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "TelescopePrompt" },
 	},
 	sections = {
@@ -17,26 +16,15 @@ require("lualine").setup({
 				fmt = function(str)
 					return str:sub(1, 1)
 				end,
+				separator = { left = "" },
 			},
-		},
-		lualine_b = {
 			{ "filename", path = 1 }, -- 0 = just filename, 1 = relative path, 2 = absolute path
 		},
+		lualine_b = { },
 		lualine_c = { { gps.get_location, condition = gps.is_available, padding = 2 } },
 		lualine_x = {},
-		lualine_y = {
-			{
-				"diff",
-				colored = true,
-				diff_color = {
-					added = "GitSignsAdd",
-					modified = "GitSignsChange",
-					removed = "GitSignsDelete",
-				},
-				padding = 1,
-			},
-		},
-		lualine_z = { "branch" },
+		lualine_y = { { "diff", diff_color = { removed = { fg = "red" } } }, { "branch", separator = { right = "" } } },
+		lualine_z = {},
 	},
 	inactive_sections = {
 		lualine_a = {},
@@ -47,7 +35,7 @@ require("lualine").setup({
 		lualine_z = {},
 	},
 	-- tabline = {
-	-- 	lualine_a = {},
+	-- 	lualine_a = { {'tabs', mode = 1, max_length = vim.o.columns} },
 	-- 	lualine_b = {},
 	-- 	lualine_c = {},
 	-- 	lualine_x = {},
@@ -55,4 +43,8 @@ require("lualine").setup({
 	-- 	lualine_z = {},
 	-- },
 	extensions = {},
+})
+
+require("tabby").setup({
+	tabline = require("tabby.presets").tab_only,
 })
