@@ -96,6 +96,9 @@ map("v", "<leader>y", '"+y')
 -- move between tabs
 map("n", "[t", cmd([[ tabprev ]]))
 map("n", "]t", cmd([[ tabnext ]]))
+-- move tabs
+map("n", "[T", cmd([[ -tabmove ]]))
+map("n", "]T", cmd([[ +tabmove ]]))
 
 map("n", "<leader>s", cmd("set spell!")) -- toggle spell checking mode
 
