@@ -130,6 +130,11 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWrite", {
+	pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
+	command = "Neoformat prettier | EslintFixAll",
+})
+
 -- navigate to start/end of line
 map("n", "H", "^")
 map("v", "H", "^")
