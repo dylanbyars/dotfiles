@@ -119,7 +119,7 @@ vim.api.nvim_command(
 -- 	-- command = 'lua vim.highlight.on_yank{higroup="IncSearch", timeout=' .. hl_timeout .. "}" }
 -- )
 
-vim.api.nvim_set_hl(0, 'NonCurrentWindow', { ctermbg = 'gray' })
+vim.api.nvim_set_hl(0, "NonCurrentWindow", { ctermbg = "gray" })
 --
 -- -- change the background of non-focused windows (NC means non-current)
 vim.api.nvim_create_autocmd("WinEnter", {
