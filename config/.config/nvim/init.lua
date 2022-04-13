@@ -209,6 +209,8 @@ map("n", "]e", cmd([[ lua vim.diagnostic.goto_next({ float = { border = "rounded
 map("n", "<leader>ca", cmd([[ lua vim.lsp.buf.code_action() ]]))
 map("v", "<leader>ca", cmd([[ lua vim.lsp.buf.range_code_action() ]]))
 map("n", "<leader>d", cmd([[ lua vim.lsp.buf.definition() ]]))
+-- TODO: open the definition in a floating window (plenary.window)
+map("n", "<leader>D", cmd([[ tab split | lua vim.lsp.buf.definition() ]]))
 
 map("n", "<leader>r", cmd([[ lua vim.lsp.buf.rename() ]])) -- rename symbol under cursor
 
