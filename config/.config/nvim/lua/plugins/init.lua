@@ -130,7 +130,7 @@ require("plugins.cmp")
 -- nvim-autopairs stuff has to go after cmp setup
 require("nvim-autopairs").setup({})
 
-require("plugins.lualine")
+require("plugins.tabstatusline")
 
 require("plugins.startify")
 
