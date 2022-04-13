@@ -31,7 +31,6 @@ require("packer").startup({
 		-- completion
 		use("neovim/nvim-lspconfig") -- configure lsp
 		use("williamboman/nvim-lsp-installer") -- for installing language servers
-		use("L3MON4D3/LuaSnip") -- cmp requires a snippet engine
 		use({
 			"hrsh7th/nvim-cmp",
 			requires = {
@@ -45,6 +44,8 @@ require("packer").startup({
 				"hrsh7th/cmp-nvim-lsp",
 			},
 		})
+		use("L3MON4D3/LuaSnip") -- snippet engine
+		use("rafamadriz/friendly-snippets") -- snippet definitions
 		use("windwp/nvim-autopairs") -- finsh the starting tag/symbol/thing
 		use("RRethy/vim-illuminate") -- highlight other instances of the focused word
 		-- treesitter
