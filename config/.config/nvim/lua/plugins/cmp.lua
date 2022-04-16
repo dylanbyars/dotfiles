@@ -24,16 +24,10 @@ cmp.setup({
 		{ name = "buffer", keyword_length = 6 },
 		{ name = "nvim_lsp" },
 		{ name = "path" },
-		{ name = "calc" },
 		{ name = "nvim_lua" },
-		-- { name = 'spell' },
-	},
-	documentation = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 	},
 	experimental = {
 		ghost_text = true,
 	},
 })
 
-require("luasnip.loaders.from_vscode").lazy_load()

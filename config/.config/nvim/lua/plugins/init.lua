@@ -39,15 +39,11 @@ require("packer").startup({
 				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-path",
 				"hrsh7th/cmp-nvim-lua",
-				"hrsh7th/cmp-calc",
-				"f3fora/cmp-spell",
 				"hrsh7th/cmp-nvim-lsp",
 			},
 		})
 		use("L3MON4D3/LuaSnip") -- snippet engine
-		use("rafamadriz/friendly-snippets") -- snippet definitions
 		use("windwp/nvim-autopairs") -- finsh the starting tag/symbol/thing
-		use("RRethy/vim-illuminate") -- highlight other instances of the focused word
 		-- treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use({ "nvim-treesitter/playground", run = ":TSInstall query" })
@@ -74,12 +70,11 @@ require("packer").startup({
 			},
 		})
 		-- idk
-		use("simrat39/symbols-outline.nvim") -- pretty good for file local symbols
 		use("tpope/vim-surround")
 		use("vimwiki/vimwiki")
 		use("is0n/fm-nvim")
 		-- writing
-		use("junegunn/goyo.vim")
+		-- use("junegunn/goyo.vim")
 	end,
 	config = {
 		-- show packer outputs in a floating window
@@ -91,36 +86,17 @@ require("packer").startup({
 	},
 })
 
-vim.api.nvim_exec(
-	[[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost */plugins/init.lua PackerCompile
-  augroup end
-]],
-	false
-)
+-- still not sure if this works...
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*/plugins/init.lua" },
+	command = "PackerCompile",
+})
 
 require("plugins.treesitter")
 
-require("colorizer").setup()
+require("colorizer").setup() -- must be called after plugin definitions
 
-require("gitsigns").setup({
-	keymaps = {
-		["n ]c"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk({wrap = true})<CR>'" },
-		["n [c"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk({wrap = true})<CR>'" },
-		["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-		["v <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-		["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-		["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-		["v <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-		["n <leader>hR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-		["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-		["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-		["n <leader>hS"] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
-		["n <leader>hU"] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
-	},
-})
+require("gitsigns").setup()
 
 require("plugins.telescope")
 
@@ -131,41 +107,31 @@ require("plugins.cmp")
 -- nvim-autopairs stuff has to go after cmp setup
 require("nvim-autopairs").setup({})
 
-require("plugins.tabstatusline")
-
-require("plugins.startify")
+require("plugins.statusline")
 
 require("fm-nvim").setup({
 	-- (Vim) Command used to open files
 	edit_cmd = "edit",
-
 	-- See `Q&A` for more info
 	on_close = {},
 	on_open = {},
-
 	-- Commands
 	cmds = { broot_cmd = "broot -h" },
-
 	-- UI Options
 	ui = {
 		-- Default UI (can be "split" or "float")
 		default = "float",
-
 		float = {
 			-- Floating window border (see ':h nvim_open_win')
 			border = "rounded",
-
 			-- Highlight group for floating window/border (see ':h winhl')
 			float_hl = "Normal",
 			border_hl = "FloatBorder",
-
 			-- Floating Window Transparency (see ':h winblend')
 			blend = 0,
-
 			-- Num from 0 - 1 for measurements
 			height = 1,
 			width = 0.85,
-
 			-- X and Y Axis of Window
 			x = 0,
 			y = 0,

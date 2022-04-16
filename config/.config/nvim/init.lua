@@ -1,8 +1,5 @@
 vim.o.termguicolors = true -- needs to be defined before a few of the plugins
 
-local colors = require("colors")
-
-require("plugins")
 --------------------------
 -- SETTINGS
 --------------------------
@@ -12,15 +9,16 @@ local o = vim.o
 local bo = vim.bo
 
 g.tokyonight_style = "night"
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd("colorscheme tokyonight")
 -- change the color of the line between vertical splits
-vim.cmd("highlight VertSplit guifg=" .. colors.magenta)
+vim.cmd("highlight VertSplit guifg=white")
+vim.cmd("highlight VertSplit guifg=white")
 
 -- make the mouse work
 o.mouse = "a"
 
 --Remap space as leader key
-vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set({ "n" }, "<Space>", "<Nop>", { silent = true })
 g.mapleader = " "
 g.maplocalleader = " "
 
@@ -61,22 +59,18 @@ bo.undofile = true
 o.splitbelow = true
 o.splitright = true
 
-g.Illuminate_delay = 750 -- Time in milliseconds (default 0)
 --------------------------
 -- general key bindings
 --------------------------
-
-local function map(mode, mapping, action, options)
-	options = options == nil and { noremap = true } or options
-	return vim.api.nvim_set_keymap(mode, mapping, action, options)
-end
 
 local function cmd(command)
 	return "<cmd>" .. command .. "<cr>"
 end
 
-map("n", "<leader>w", cmd([[ :w ]]))
-map("n", "<leader>q", cmd([[ :q ]]))
+local setKeymap = vim.keymap.set
+
+setKeymap("n", "<leader>w", cmd("w"))
+setKeymap("n", "<leader>q", cmd("q"))
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
@@ -86,62 +80,50 @@ vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
 -- make splits easier
-map("n", "<leader>\\", "<C-w>v")
-map("n", "<leader>-", "<C-w>s")
+setKeymap("n", "<leader>\\", "<C-w>v")
+setKeymap("n", "<leader>-", "<C-w>s")
 
 -- yank selection to system clipboard
-map("n", "<leader>y", '"+y')
-map("v", "<leader>y", '"+y')
+setKeymap("n", "<leader>y", '"+y')
+setKeymap("v", "<leader>y", '"+y')
 
 -- move between tabs
-map("n", "[t", cmd([[ tabprev ]]))
-map("n", "]t", cmd([[ tabnext ]]))
+setKeymap("n", "[t", cmd("tabprev"))
+setKeymap("n", "]t", cmd(" tabnext "))
 -- move tabs
-map("n", "[T", cmd([[ -tabmove ]]))
-map("n", "]T", cmd([[ +tabmove ]]))
+setKeymap("n", "[T", cmd("-tabmove"))
+setKeymap("n", "]T", cmd("+tabmove"))
 
-map("n", "<leader>s", cmd("set spell!")) -- toggle spell checking mode
+setKeymap("n", "<leader>s", cmd("set spell!")) -- toggle spell checking mode
 
 -- highlight yanked text for a bit
-local hl_timeout = "750" -- ms
-vim.api.nvim_command(
-	'autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=' .. hl_timeout .. "}"
-)
--- TODO: this is still a little worse than what it replaces...
--- vim.api.nvim_create_autocmd(
--- 	"TextYankPost",
--- 	{
--- 		pattern = "*",
--- 		callback = function()
--- 			vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
--- 		end,
--- 	}
--- 	-- command = 'lua vim.highlight.on_yank{higroup="IncSearch", timeout=' .. hl_timeout .. "}" }
--- )
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
+	end,
+})
 
+-- change the background of non-focused windows (NC means non-current)
 vim.api.nvim_set_hl(0, "NonCurrentWindow", { ctermbg = "gray" })
---
--- -- change the background of non-focused windows (NC means non-current)
 vim.api.nvim_create_autocmd("WinEnter", {
 	pattern = "*",
 	callback = function()
-		-- vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:LspReferenceText"
 		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
 	end,
 })
 
+-- run some scripts when saving js/ts files
 vim.api.nvim_create_autocmd("BufWrite", {
 	pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
 	command = "Neoformat prettier | EslintFixAll",
 })
 
 -- navigate to start/end of line
-map("n", "H", "^")
-map("v", "H", "^")
-map("n", "L", "$")
-map("v", "L", "$")
+setKeymap({ "n", "v" }, "H", "^")
+setKeymap({ "n", "v" }, "L", "$")
 
-map("n", "U", "<C-r>") -- u = undo  U = undo undo aka redo
+setKeymap("n", "U", "<C-r>") -- u = undo  U = undo undo aka redo
 
 --------------------------
 -- plugin configs
@@ -150,12 +132,12 @@ map("n", "U", "<C-r>") -- u = undo  U = undo undo aka redo
 --------------------------
 -- trouble
 --------------------------
-map("n", "<leader>xx", cmd([[ Trouble ]]), { silent = true })
-map("n", "<leader>xw", cmd([[ Trouble lsp_workspace_diagnostics ]]), { silent = true })
-map("n", "<leader>xd", cmd([[ Trouble lsp_document_diagnostics ]]), { silent = true })
-map("n", "<leader>xl", cmd([[ Trouble loclist ]]), { silent = true })
-map("n", "<leader>xq", cmd([[ Trouble quickfix ]]), { silent = true })
-map("n", "gR", cmd([[ Trouble lsp_references ]]), { silent = true })
+setKeymap("n", "<leader>xx", cmd("Trouble"), { silent = true })
+setKeymap("n", "<leader>xw", cmd("Trouble lsp_workspace_diagnostics"), { silent = true })
+setKeymap("n", "<leader>xd", cmd("Trouble lsp_document_diagnostics"), { silent = true })
+setKeymap("n", "<leader>xl", cmd("Trouble loclist"), { silent = true })
+setKeymap("n", "<leader>xq", cmd("Trouble quickfix"), { silent = true })
+setKeymap("n", "gR", cmd("Trouble lsp_references"), { silent = true })
 
 --------------------------
 -- telescope
@@ -164,20 +146,42 @@ local function callTelescopeBuiltin(builtin)
 	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
 end
 
-map("n", "<C-p>", callTelescopeBuiltin("git_files()"))
-map("i", "<C-p>", callTelescopeBuiltin("git_files()"))
-map("n", "<leader>b", callTelescopeBuiltin("buffers()"))
-map("n", "<leader>?", callTelescopeBuiltin("live_grep()"))
-map("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find()"))
-map("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
-map("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
-map("n", "<leader><esc>", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
-map("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
+-- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
+setKeymap({ "n", "i" }, "<C-p>", "<CMD>lua require'plugins.telescope'.project_files()<CR>", { silent = true })
+setKeymap("n", "<leader>b", callTelescopeBuiltin("buffers()"))
+setKeymap("n", "<leader>?", callTelescopeBuiltin("live_grep()"))
+setKeymap("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find()"))
+setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
+setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
+setKeymap("n", "<leader><esc>", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
+setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
+
+--------------------------
+-- gitsigns
+--------------------------
+setKeymap("n", "[c", function()
+	require("gitsigns").prev_hunk()
+end)
+setKeymap("n", "]c", function()
+	require("gitsigns").next_hunk()
+end)
+setKeymap("n", "<leader>hr", function()
+	require("gitsigns").reset_hunk()
+end)
+setKeymap("v", "<leader>hr", function()
+	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end)
+setKeymap("n", "<leader>hp", function()
+	require("gitsigns").preview_hunk()
+end)
+setKeymap("n", "<leader>hb", function()
+	require("gitsigns").blame_line()
+end)
 
 --------------------------
 -- neoformat
 --------------------------
-map("n", "<leader>f", cmd([[ :Neoformat ]]))
+setKeymap("n", "<leader>f", cmd(":Neoformat"))
 g.neoformat_only_msg_on_error = 1
 g.neoformat_try_node_exe = 1 -- node projects with a `prettier` dependency will use the bin in `$PROJECT/node_modules/.bin`
 g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
@@ -185,10 +189,9 @@ g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
 --------------------------
 -- LSP
 --------------------------
-
 local borderStyle = { border = "double" }
 
-map("n", "<leader>o", cmd([[ :OrganizeImports ]]))
+setKeymap("n", "<leader>o", cmd(":OrganizeImports"))
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
@@ -197,22 +200,21 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	{ virtual_text = false }
 )
 
-map("n", "K", cmd([[ :lua vim.lsp.buf.hover() ]]))
-map("n", "<C-k>", cmd([[ :lua vim.lsp.buf.signature_help() ]]))
-map("i", "<C-k>", cmd([[ :lua vim.lsp.buf.signature_help() ]]))
+setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()"))
+setKeymap({ "n", "i" }, "<C-k>", cmd(":lua vim.lsp.buf.signature_help()"))
 -- diagnostics
-map("n", "<leader>ld", cmd([[ lua vim.diagnostic.open_float({ border = "rounded" }) ]]))
-map("n", "[e", cmd([[ lua vim.diagnostic.goto_prev({ float = { border = "rounded" }}) ]]))
-map("n", "]e", cmd([[ lua vim.diagnostic.goto_next({ float = { border = "rounded" }}) ]]))
+setKeymap("n", "<leader>ld", cmd('lua vim.diagnostic.open_float({ border = "rounded" })'))
+setKeymap("n", "[e", cmd('lua vim.diagnostic.goto_prev({ float = { border = "rounded" }})'))
+setKeymap("n", "]e", cmd('lua vim.diagnostic.goto_next({ float = { border = "rounded" }})'))
 
 -- additional lsp mappings using regular lsp api
-map("n", "<leader>ca", cmd([[ lua vim.lsp.buf.code_action() ]]))
-map("v", "<leader>ca", cmd([[ lua vim.lsp.buf.range_code_action() ]]))
-map("n", "<leader>d", cmd([[ lua vim.lsp.buf.definition() ]]))
+setKeymap("n", "<leader>ca", cmd("lua vim.lsp.buf.code_action()"))
+setKeymap("v", "<leader>ca", cmd("lua vim.lsp.buf.range_code_action()"))
+setKeymap("n", "<leader>d", cmd("lua vim.lsp.buf.definition()"))
 -- TODO: open the definition in a floating window (plenary.window)
-map("n", "<leader>D", cmd([[ tab split | lua vim.lsp.buf.definition() ]]))
+setKeymap("n", "<leader>D", cmd("tab split | lua vim.lsp.buf.definition()"))
 
-map("n", "<leader>r", cmd([[ lua vim.lsp.buf.rename() ]])) -- rename symbol under cursor
+setKeymap("n", "<leader>r", cmd("lua vim.lsp.buf.rename()")) -- rename symbol under cursor
 
 -- vimwiki
 vim.api.nvim_command("set nocompatible")
@@ -220,13 +222,15 @@ vim.api.nvim_command("filetype plugin on")
 vim.api.nvim_command("syntax on")
 g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part of a wiki
 
-map("n", "<leader><leader>", cmd([[ Broot %:h ]])) -- open broot in the directory of the current buffer
+setKeymap("n", "<leader><leader>", cmd("Broot %:h")) -- open broot in the directory of the current buffer
 
--- symbols_outline
-g.symbols_outline = {
-	highlight_hovered_item = false,
-	width = 100,
-	position = "left",
-	auto_preview = false,
+-- startify
+vim.g.startify_change_to_vcs_root = 1
+vim.g.startify_custom_header = "startify#center(startify#fortune#cowsay())"
+vim.g.startify_lists = {
+	{ type = "sessions", header = { " Sessions" } },
+	{ type = "dir", header = { " Directory Files" } },
+	{ type = "files", header = { " Recent Files" } },
 }
-map("n", "<C-s>", cmd([[ SymbolsOutline ]]))
+
+require("plugins")
