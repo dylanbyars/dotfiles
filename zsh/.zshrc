@@ -15,6 +15,9 @@ source $HOME/.config/broot/launcher/bash/br
 alias z='br'
 alias Z='br -h' # include hidden files
 
+# go edit my dotfiles
+alias dot="cd ~/dotfiles && vim"
+
 # customize the style of fzf and accept an optional header
 fzfancy() {
   fzf --reverse --height=20 --border=rounded --header=$1
