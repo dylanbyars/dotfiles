@@ -74,7 +74,7 @@ require("packer").startup({
 		use("vimwiki/vimwiki")
 		use("is0n/fm-nvim")
 		-- writing
-		-- use("junegunn/goyo.vim")
+		use("junegunn/goyo.vim")
 	end,
 	config = {
 		-- show packer outputs in a floating window
