@@ -16,12 +16,11 @@ require("lualine").setup({
 				fmt = function(str)
 					return str:sub(1, 1)
 				end,
-				separator = { left = "" },
+				separator = { left = "", right = ""  },
 			},
-			{ "filename", path = 1 }, -- 0 = just filename, 1 = relative path, 2 = absolute path
 		},
-		lualine_b = {},
-		lualine_c = { { gps.get_location, condition = gps.is_available, padding = 2 } },
+		lualine_b = { { gps.get_location, condition = gps.is_available, padding = 2 } },
+		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {
 			{ "diff", diff_color = { removed = { fg = "red" } } },
