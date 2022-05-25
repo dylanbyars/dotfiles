@@ -17,8 +17,6 @@ require("packer").startup({
 		-- status line
 		use("hoob3rt/lualine.nvim")
 		use({ "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" })
-		-- tabline
-		use("nanozuki/tabby.nvim")
 		-- git
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
 		-- commenting
