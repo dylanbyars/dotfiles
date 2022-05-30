@@ -6,26 +6,15 @@ require("lualine").setup({
 		icons_enabled = true,
 		theme = "tokyonight",
 		component_separators = "",
-		section_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "TelescopePrompt" },
 	},
 	sections = {
-		lualine_a = {
-			{
-				"mode",
-				fmt = function(str)
-					return str:sub(1, 1)
-				end,
-				separator = { left = "", right = ""  },
-			},
-		},
-		lualine_b = { { gps.get_location, condition = gps.is_available, padding = 2 } },
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {
-			{ "diff", diff_color = { removed = { fg = "red" } } },
-			{ "branch", separator = { right = "" } },
-		},
+		lualine_a = { "progress" },
+		lualine_b = {},
+		lualine_c = { { gps.get_location, condition = gps.is_available, padding = 2 } },
+		lualine_x = { "diff" },
+		lualine_y = { "branch" },
 		lualine_z = {},
 	},
 	inactive_sections = {
@@ -46,4 +35,3 @@ require("lualine").setup({
 	-- },
 	extensions = {},
 })
-
