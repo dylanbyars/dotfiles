@@ -5,15 +5,14 @@ export EDITOR=/usr/local/bin/nvim
 alias vim='nvim'
 
 nukeswap() {
-  rm -rf ~/.local/share/nvim/swap
+  rm -rf ~/.local/state/nvim/swap/
 }
 
 alias zz='exec zsh'
 
 # source broot
 source $HOME/.config/broot/launcher/bash/br
-alias z='br'
-alias Z='br -h' # include hidden files
+alias /='br'
 
 # go edit my dotfiles
 alias dot="cd ~/dotfiles && vim"
@@ -128,7 +127,7 @@ function() {
     mkdir ~/.zsh/ 
   fi
 
-  local PLUGINS=('lukechilds/zsh-nvm' 'Aloxaf/fzf-tab' 'zsh-users/zsh-autosuggestions')
+  local PLUGINS=('lukechilds/zsh-nvm' 'Aloxaf/fzf-tab' 'zsh-users/zsh-autosuggestions' 'agkozak/zsh-z')
 
   for p in "${PLUGINS[@]}"; do
     :
