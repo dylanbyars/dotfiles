@@ -1,5 +1,11 @@
-local gps = require("nvim-gps")
-gps.setup()
+-- winbar stuff
+_G.gps_location = function()
+	local gps = require("nvim-gps")
+	gps.setup()
+	return gps.is_available() and gps.get_location() or ""
+end
+
+vim.opt.winbar = " %{%v:lua.gps_location()%}"
 
 require("lualine").setup({
 	options = {
@@ -11,8 +17,8 @@ require("lualine").setup({
 	},
 	sections = {
 		lualine_a = { "progress" },
-		lualine_b = {},
-		lualine_c = { { gps.get_location, condition = gps.is_available, padding = 2 } },
+		lualine_b = { { "filename", path = 1 } },
+		lualine_c = {},
 		lualine_x = { "diff" },
 		lualine_y = { "branch" },
 		lualine_z = {},
