@@ -73,6 +73,9 @@ local setKeymap = vim.keymap.set
 
 setKeymap("n", "<leader>w", cmd("w"))
 setKeymap("n", "<leader>q", cmd("q"))
+setKeymap("n", "<leader>so", cmd("source ~/.config/nvim/init.lua"))
+
+
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
@@ -151,11 +154,10 @@ end
 -- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
 setKeymap({ "n", "i" }, "<C-p>", "<CMD>lua require'plugins.telescope'.project_files()<CR>", { silent = true })
 setKeymap("n", "<leader>b", callTelescopeBuiltin("buffers()"))
-setKeymap("n", "<leader>?", callTelescopeBuiltin("live_grep()"))
-setKeymap("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find()"))
+setKeymap("n", "<leader>/", callTelescopeBuiltin("live_grep()"))
 setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
 setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
-setKeymap("n", "<leader><esc>", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
+setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
 setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
 
 --------------------------
@@ -215,10 +217,8 @@ setKeymap("n", "]e", cmd('lua vim.diagnostic.goto_next({ float = { border = "rou
 -- additional lsp mappings using regular lsp api
 setKeymap("n", "<leader>ca", cmd("lua vim.lsp.buf.code_action()"))
 setKeymap("v", "<leader>ca", cmd("lua vim.lsp.buf.range_code_action()"))
-setKeymap("n", "<leader>d", cmd("lua vim.lsp.buf.definition()"))
--- TODO: open the definition in a floating window (plenary.window)
-setKeymap("n", "<leader>D", cmd("tab split | lua vim.lsp.buf.definition()"))
-
+setKeymap("n", "<leader>d", cmd("split | lua vim.lsp.buf.definition()")) -- go to definition in split
+setKeymap("n", "<leader>D", cmd("lua vim.lsp.buf.definition()")) -- go to definition in current buffer
 setKeymap("n", "<leader>r", cmd("lua vim.lsp.buf.rename()")) -- rename symbol under cursor
 
 -- vimwiki
