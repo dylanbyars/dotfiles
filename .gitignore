@@ -7,3 +7,4 @@ config/.config/gh-dash/config.yml
 config/.config/qtile/__pycache__
 config/.config/lazygit/state.yml
 __pycache__
+config/.config/broot/launcher
