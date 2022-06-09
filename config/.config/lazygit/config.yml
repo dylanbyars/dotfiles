@@ -5,7 +5,7 @@ gui:
   commandLogSize: 4
   scrollPastBottom: false
 notARepository: "skip"
-git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+# git:
+#   paging:
+#     colorArg: always
+#     pager: delta --dark --paging=never
