@@ -4,3 +4,6 @@ nvim/.config/nvim/plugin/packer_compiled.lua
 
 config/.config/nvim/plugin/packer_compiled.lua
 config/.config/gh-dash/config.yml
+config/.config/qtile/__pycache__
+config/.config/lazygit/state.yml
+__pycache__
