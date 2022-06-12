@@ -146,11 +146,9 @@ vim.api.nvim_create_autocmd("BufWrite", {
 --------------------------
 -- trouble
 --------------------------
-setKeymap("n", "<leader>xx", cmd("Trouble"), { silent = true })
+setKeymap("n", "<leader>xx", cmd("TroubleToggle quickfix"), { silent = true })
 setKeymap("n", "<leader>xw", cmd("Trouble lsp_workspace_diagnostics"), { silent = true })
 setKeymap("n", "<leader>xd", cmd("Trouble lsp_document_diagnostics"), { silent = true })
-setKeymap("n", "<leader>xl", cmd("Trouble loclist"), { silent = true })
-setKeymap("n", "<leader>xq", cmd("Trouble quickfix"), { silent = true })
 setKeymap("n", "gR", cmd("Trouble lsp_references"), { silent = true })
 
 --------------------------
