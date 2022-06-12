@@ -1,7 +1,7 @@
 #!/bin/bash
 # ^ because I don't get good highlighting for zsh
 
-PACKAGES=(jq yarn broot fzf ripgrep fd htop lazygit starship stow tmux zoxide tldr glow shfmt)
+PACKAGES=(jq yarn broot fzf ripgrep fd htop lazygit starship stow tmux zoxide tldr glow shfmt exa)
 BIN_DIR=~/bin
 APP_DIR=~/Applications
 COMPLETIONS_DIR=~/.zsh
@@ -160,8 +160,8 @@ install_fonts() {
   fi
 
   version=2.1.0
-  zip=FiraCode.zip
-  curl --fail --location --show-error https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip} --output ${zip}
+  zip=Hasklig.zip
+  # curl --fail --location --show-error https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip} --output ${zip}
   unzip -o -q -d ${fonts_dir} ${zip}
 
   echo "fc-cache -f"
