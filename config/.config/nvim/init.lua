@@ -43,8 +43,6 @@ o.linebreak = true -- break lines between words at window's width
 
 o.laststatus = 3 -- global status line
 
-o.winbar = [[ %f %m]] -- show filename and modified identifier in windowbar
-
 -- tabs are 2 spaces wide
 o.tabstop = 2
 o.softtabstop = 2
@@ -70,9 +68,45 @@ local function cmd(command)
 end
 
 local setKeymap = vim.keymap.set
+   
+local keymaps = {
+  [ "n" ] = {
+    [ "<leader>w" ] = cmd("w"),
+    [ "<leader>q" ] = cmd("q"),
+    [ "<leader>so" ] = cmd("source ~/.config/nvim/init.lua"),
+    -- make splits easier
+    [ "<leader>\\" ] = "<C-w>v",
+    [ "<leader>-" ] = "<C-w>s",
+    -- move between tabs
+    [ "[t" ] = cmd("tabprev"),
+    [ "]t" ] = cmd(" tabnext "),
+    -- move tabs
+    [ "[T" ] = cmd("-tabmove"),
+    [ "]T" ] = cmd("+tabmove"),
+    -- spell check
+    [ "<leader>s" ] = cmd("set spell!"), -- toggle spell checking mod
+    -- yank selection to system clipboard
+    [ "<leader>y" ] = '"+y',
+    -- navigate to start/end of line
+    [ "H" ] = "^",
+    [ "L" ] = "$",
+    [ "U" ] = "<C-r>" -- u = undo  U = undo undo aka red,
+  },
+  [ "v" ] = {
+    [ "<leader>y" ] = '"+y', -- yank selection to system clipboard
+    -- navigate to start/end of line
+    [ "H" ] = "^",
+    [ "L" ] = "$",
 
-setKeymap("n", "<leader>w", cmd("w"))
-setKeymap("n", "<leader>q", cmd("q"))
+  }
+}
+
+for mode, maps in pairs(keymaps) do
+  for keymap, action in pairs(maps) do
+    setKeymap(mode, keymap, action)
+  end
+end
+
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
@@ -81,51 +115,29 @@ setKeymap("n", "<leader>q", cmd("q"))
 vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
--- make splits easier
-setKeymap("n", "<leader>\\", "<C-w>v")
-setKeymap("n", "<leader>-", "<C-w>s")
-
--- yank selection to system clipboard
-setKeymap("n", "<leader>y", '"+y')
-setKeymap("v", "<leader>y", '"+y')
-
--- move between tabs
-setKeymap("n", "[t", cmd("tabprev"))
-setKeymap("n", "]t", cmd(" tabnext "))
--- move tabs
-setKeymap("n", "[T", cmd("-tabmove"))
-setKeymap("n", "]T", cmd("+tabmove"))
-
-setKeymap("n", "<leader>s", cmd("set spell!")) -- toggle spell checking mode
-
 -- highlight yanked text for a bit
 vim.api.nvim_create_autocmd("TextYankPost", {
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
-	end,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
+  end,
 })
 
 -- change the background of non-focused windows (NC means non-current)
 vim.api.nvim_set_hl(0, "NonCurrentWindow", { ctermbg = "gray" })
 vim.api.nvim_create_autocmd("WinEnter", {
-	pattern = "*",
-	callback = function()
-		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
-	end,
+  pattern = "*",
+  callback = function()
+    vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
+  end,
 })
 
 -- run some scripts when saving js/ts files
 vim.api.nvim_create_autocmd("BufWrite", {
-	pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
-	command = "Neoformat prettier | EslintFixAll",
+  pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
+  command = "Neoformat prettier | EslintFixAll",
 })
 
--- navigate to start/end of line
-setKeymap({ "n", "v" }, "H", "^")
-setKeymap({ "n", "v" }, "L", "$")
-
-setKeymap("n", "U", "<C-r>") -- u = undo  U = undo undo aka redo
 
 --------------------------
 -- plugin configs
@@ -145,42 +157,41 @@ setKeymap("n", "gR", cmd("Trouble lsp_references"), { silent = true })
 -- telescope
 --------------------------
 local function callTelescopeBuiltin(builtin)
-	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
+  return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
 end
 
 -- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
 setKeymap({ "n", "i" }, "<C-p>", "<CMD>lua require'plugins.telescope'.project_files()<CR>", { silent = true })
 setKeymap("n", "<leader>b", callTelescopeBuiltin("buffers()"))
-setKeymap("n", "<leader>?", callTelescopeBuiltin("live_grep()"))
-setKeymap("n", "<leader>/", callTelescopeBuiltin("current_buffer_fuzzy_find()"))
+setKeymap("n", "<leader>/", callTelescopeBuiltin("live_grep()"))
 setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
 setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
-setKeymap("n", "<leader><esc>", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
+setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
 setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
 
 --------------------------
 -- gitsigns
 --------------------------
 setKeymap("n", "[c", function()
-	require("gitsigns").prev_hunk()
+  require("gitsigns").prev_hunk()
 end)
 setKeymap("n", "]c", function()
-	require("gitsigns").next_hunk()
+  require("gitsigns").next_hunk()
 end)
 setKeymap("n", "<leader>hr", function()
-	require("gitsigns").reset_hunk()
+  require("gitsigns").reset_hunk()
 end)
 setKeymap("v", "<leader>hr", function()
-	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end)
 setKeymap("n", "<leader>hp", function()
-	require("gitsigns").preview_hunk()
+  require("gitsigns").preview_hunk()
 end)
 setKeymap("n", "<leader>hb", function()
-	require("gitsigns").blame_line()
+  require("gitsigns").blame_line()
 end)
 setKeymap("n", "<leader>dt", function()
-	require("gitsigns").diffthis()
+  require("gitsigns").diffthis()
 end)
 
 --------------------------
@@ -215,10 +226,8 @@ setKeymap("n", "]e", cmd('lua vim.diagnostic.goto_next({ float = { border = "rou
 -- additional lsp mappings using regular lsp api
 setKeymap("n", "<leader>ca", cmd("lua vim.lsp.buf.code_action()"))
 setKeymap("v", "<leader>ca", cmd("lua vim.lsp.buf.range_code_action()"))
-setKeymap("n", "<leader>d", cmd("lua vim.lsp.buf.definition()"))
--- TODO: open the definition in a floating window (plenary.window)
-setKeymap("n", "<leader>D", cmd("tab split | lua vim.lsp.buf.definition()"))
-
+setKeymap("n", "<leader>d", cmd("split | lua vim.lsp.buf.definition()")) -- go to definition in split
+setKeymap("n", "<leader>D", cmd("lua vim.lsp.buf.definition()")) -- go to definition in current buffer
 setKeymap("n", "<leader>r", cmd("lua vim.lsp.buf.rename()")) -- rename symbol under cursor
 
 -- vimwiki
