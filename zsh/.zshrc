@@ -2,6 +2,8 @@ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/lo
 
 export EDITOR=/usr/local/bin/nvim
 
+export DELTA_PAGER="less -r"
+
 alias vim='nvim'
 
 nukeswap() {
