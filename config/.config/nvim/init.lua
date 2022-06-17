@@ -190,9 +190,6 @@ end)
 setKeymap("n", "<leader>hb", function()
   require("gitsigns").blame_line()
 end)
-setKeymap("n", "<leader>dt", function()
-  require("gitsigns").diffthis()
-end)
 
 --------------------------
 -- neoformat
