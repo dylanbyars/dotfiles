@@ -12,7 +12,13 @@
           "typescript",
           "typescriptreact"
         ],
-        "path": "./snippets.json"
+        "path": "./js.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./python.json"
       }
     ]
   }
