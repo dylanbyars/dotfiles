@@ -212,7 +212,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	{ virtual_text = false }
 )
 
-setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()"))
+setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()")) -- go to floating window by pressing `K` again 
 setKeymap({ "n", "i" }, "<C-k>", cmd(":lua vim.lsp.buf.signature_help()"))
 -- diagnostics
 setKeymap("n", "<leader>ld", cmd('lua vim.diagnostic.open_float({ border = "rounded" })'))
