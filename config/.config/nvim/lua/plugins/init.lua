@@ -139,3 +139,6 @@ require("fm-nvim").setup({
 
 	broot_conf = "~/.config/broot/nvim_broot_conf.hjson",
 })
+
+
+require("luasnip.loaders.from_vscode").lazy_load({ paths = {"~/.config/nvim/lua/plugins/snippets" }})

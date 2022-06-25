@@ -93,21 +93,6 @@
     ],
     "description": "a with statement"
   },
-  "self": {
-    "prefix": ".",
-    "body": "self.$0",
-    "description": "Shortend snippet to reference the self property in an object."
-  },
-  "__magic__": {
-    "prefix": "__",
-    "body": "__${1:init}__$0",
-    "description": "Code snippet to create magic methods."
-  },
-  "if __name__ == \"__main__\"": {
-    "prefix": "ifmain",
-    "body": "if __name__ == \"__main__\":\n\t${1:main()}$0",
-    "description": "Create implicitly all the code at the top level using the __name__ special variable."
-  },
   "List comprehension": {
     "prefix": "lc",
     "body": "[${1:value} for ${2:value} in ${3:iterable}]$0",
