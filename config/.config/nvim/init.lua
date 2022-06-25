@@ -97,7 +97,6 @@ local keymaps = {
     -- navigate to start/end of line
     [ "H" ] = "^",
     [ "L" ] = "$",
-
   }
 }
 
@@ -166,6 +165,8 @@ setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
 setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
 setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
 setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
+setKeymap("n", "<leader>*", callTelescopeBuiltin("grep_string()")) -- search entire project for string under cursor
+setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last Telescope window
 
 --------------------------
 -- gitsigns
