@@ -201,8 +201,7 @@ g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
 --------------------------
 -- LSP
 --------------------------
-local borderStyle = { border = "double" }
-
+local borderStyle = { border = "double" , max_width = 90 }
 setKeymap("n", "<leader>o", cmd(":OrganizeImports"))
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
