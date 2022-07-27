@@ -1,5 +1,5 @@
 os:
-  openCommand: "vim {{filename}}"
+  editCommand: "nvim"
 gui:
   sidePanelWidth: 0.2
   commandLogSize: 4
