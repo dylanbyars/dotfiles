@@ -88,15 +88,20 @@ telescope.setup({
 			layout_config = { width = 24 },
 		},
 		git_status = {
-      theme = "dropdown",
-      layout_config = { width = 0.8 },
+			layout_strategy = "vertical",
+			layout_config = {
+				height = 0.99,
+				width = 0.99,
+				preview_cutoff = 0,
+				preview_height = 0.6,
+			},
 			initial_mode = "normal",
 		},
 		live_grep = {
 			additional_args = function()
-				return { "--hidden",  }
+				return { "--hidden" }
 			end,
-      disable_coordinates = true
+			disable_coordinates = true,
 		},
 	},
 })
@@ -107,9 +112,11 @@ telescope.load_extension("fzf")
 local M = {}
 
 M.project_files = function()
-  local opts = {} -- define here if you want to define something
-  local ok = pcall(require"telescope.builtin".git_files, opts)
-  if not ok then require"telescope.builtin".find_files(opts) end
+	local opts = {} -- define here if you want to define something
+	local ok = pcall(require("telescope.builtin").git_files, opts)
+	if not ok then
+		require("telescope.builtin").find_files(opts)
+	end
 end
 
 return M
