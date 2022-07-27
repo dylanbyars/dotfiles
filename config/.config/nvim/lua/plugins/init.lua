@@ -132,7 +132,7 @@ require("fm-nvim").setup({
 			blend = 0,
 			-- Num from 0 - 1 for measurements
 			height = 1,
-			width = 0.85,
+			width = 1,
 			-- X and Y Axis of Window
 			x = 0,
 			y = 0,
@@ -142,5 +142,4 @@ require("fm-nvim").setup({
 	broot_conf = "~/.config/broot/nvim_broot_conf.hjson",
 })
 
-
-require("luasnip.loaders.from_vscode").lazy_load({ paths = {"~/.config/nvim/lua/plugins/snippets" }})
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/plugins/snippets" } })
