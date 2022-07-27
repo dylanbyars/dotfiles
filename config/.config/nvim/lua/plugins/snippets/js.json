@@ -162,5 +162,10 @@
       "}, [${3:dependencies}])$0"
     ],
     "description": "React useEffect() hook with return statement"
+  },
+  "debugger": {
+    "prefix": "debug",
+    "body": ["\/\/ eslint-disable-next-line", "debugger"],
+    "description": "debug"
   }
 }
