@@ -1,4 +1,13 @@
 {
+  "prism-api logger": {
+    "prefix": "log",
+    "body": [
+      "from flask import current_app as app",
+      "\n",
+      "app.logger.info($1)"
+    ],
+    "description": "flask logger import + statement"
+  },
   "New function": {
     "prefix": "def",
     "body": "def ${1:fname}(${2:arg}):\n\t${3:pass}$0",
