@@ -18,6 +18,17 @@ require("packer").startup({
 		use("hoob3rt/lualine.nvim")
 		use({ "~/code/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" })
 		-- git
+		use({
+			"pwntester/octo.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-telescope/telescope.nvim",
+				"kyazdani42/nvim-web-devicons",
+			},
+			config = function()
+				require("octo").setup()
+			end,
+		})
 		use("tpope/vim-fugitive")
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
 		-- commenting
@@ -50,6 +61,12 @@ require("packer").startup({
 		use("p00f/nvim-ts-rainbow") -- prettier () [] {}
 		-- formatting
 		use("sbdchd/neoformat")
+		use({
+			"johmsalas/text-case.nvim",
+			config = function()
+				require("textcase").setup({})
+			end,
+		})
 		-- search improvements
 		use({
 			"folke/trouble.nvim",
@@ -71,8 +88,22 @@ require("packer").startup({
 			},
 		})
 		-- idk
+		use({
+			"kyazdani42/nvim-tree.lua",
+			requires = {
+				"kyazdani42/nvim-web-devicons", -- optional, for file icons
+			},
+			tag = "nightly", -- optional, updated every week. (see issue #1193)
+		})
 		use("tpope/vim-surround")
 		use("vimwiki/vimwiki")
+		use({ "nvim-treesitter/nvim-treesitter" })
+		-- use({
+		-- 	"nvim-orgmode/orgmode",
+		-- 	config = function()
+		-- 		require("orgmode").setup({})
+		-- 	end,
+		-- })
 		use("is0n/fm-nvim")
 		-- writing
 		use("junegunn/goyo.vim")
@@ -143,3 +174,24 @@ require("fm-nvim").setup({
 })
 
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/plugins/snippets" } })
+
+-- Tree-sitter configuration
+require("nvim-treesitter.configs").setup({
+	-- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = { "org" }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+	},
+	ensure_installed = { "org" }, -- Or run :TSUpdate org
+})
+
+require("nvim-tree").setup({
+	view = {
+		adaptive_size = true,
+		centralize_selection = true,
+		side = "right",
+	},
+	update_focused_file = {
+		enable = true,
+	},
+})

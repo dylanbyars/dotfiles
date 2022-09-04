@@ -80,14 +80,6 @@ telescope.setup({
 					["<bs>"] = "delete_buffer",
 				},
 			},
-			initial_mode = "normal",
-		},
-		spell_suggest = {
-			theme = "cursor",
-			initial_mode = "normal",
-			layout_config = { width = 24 },
-		},
-		git_status = {
 			layout_strategy = "vertical",
 			layout_config = {
 				height = 0.99,
@@ -95,6 +87,32 @@ telescope.setup({
 				preview_cutoff = 0,
 				preview_height = 0.6,
 			},
+			initial_mode = "normal",
+		},
+		spell_suggest = {
+			theme = "cursor",
+			initial_mode = "normal",
+			layout_config = { width = 24 },
+		},
+		octo = {
+			layout_strategy = "vertical",
+			layout_config = {
+				height = 0.99,
+				width = 0.99,
+				preview_cutoff = 0,
+				preview_height = 0.7,
+			},
+			initial_mode = "normal",
+		},
+		git_status = {
+			layout_strategy = "vertical",
+			layout_config = {
+				height = 0.99,
+				width = 0.99,
+				preview_cutoff = 0,
+				preview_height = 0.66,
+			},
+      scroll_strategy = "limit",
 			initial_mode = "normal",
 		},
 		live_grep = {

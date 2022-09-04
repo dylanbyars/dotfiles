@@ -68,44 +68,75 @@ local function cmd(command)
 end
 
 local setKeymap = vim.keymap.set
-   
+
+local lspRename = require("textcase").lsp_rename
+-- local CurrentWord = require("textcase").current_word
+local function cycleCase()
+  -- TODO: I don't need 2 tables. join them somehow. 
+	-- TODO: these could be more robust
+	local patterns = {
+		camel = "^%l+%u%l", -- fooBar
+		snake = "^%l+%_%l", -- foo_bar
+		constant = "^%u+%_%u", -- FOO_BAR
+		pascal = "^%u%l+%u", -- FooBar
+	}
+
+	local transformations = {
+		snake = "camel",
+		camel = "pascal",
+		pascal = "constant",
+		constant = "snake",
+	}
+
+	for name, pattern in pairs(patterns) do
+		if string.find(vim.fn.expand("<cword>"), pattern) then
+			local command = "to_" .. transformations[name] .. "_case"
+			lspRename(command)
+		end
+	end
+end
+
 local keymaps = {
-  [ "n" ] = {
-    [ "<leader>w" ] = cmd("w"),
-    [ "<leader>q" ] = cmd("q"),
-    [ "<leader>so" ] = cmd("source ~/.config/nvim/init.lua"),
-    -- make splits easier
-    [ "<leader>\\" ] = "<C-w>v",
-    [ "<leader>-" ] = "<C-w>s",
-    -- move between tabs
-    [ "[t" ] = cmd("tabprev"),
-    [ "]t" ] = cmd(" tabnext "),
-    -- move tabs
-    [ "[T" ] = cmd("-tabmove"),
-    [ "]T" ] = cmd("+tabmove"),
-    -- spell check
-    [ "<leader>s" ] = cmd("set spell!"), -- toggle spell checking mod
-    -- yank selection to system clipboard
-    [ "<leader>y" ] = '"+y',
-    -- navigate to start/end of line
-    [ "H" ] = "^",
-    [ "L" ] = "$",
-    [ "U" ] = "<C-r>" -- u = undo  U = undo undo aka red,
-  },
-  [ "v" ] = {
-    [ "<leader>y" ] = '"+y', -- yank selection to system clipboard
-    -- navigate to start/end of line
-    [ "H" ] = "^",
-    [ "L" ] = "$",
-  }
+	["n"] = {
+		["<leader>t"] = cmd("NvimTreeToggle"),
+		["<leader>w"] = cmd("w"),
+		["<leader>q"] = cmd("q"),
+		["<leader>so"] = cmd("source ~/.config/nvim/init.lua"),
+		-- make splits easier
+		["<leader>\\"] = "<C-w>v",
+		["<leader>-"] = "<C-w>s",
+		-- move between tabs
+		["[t"] = cmd("tabprev"),
+		["]t"] = cmd(" tabnext "),
+		-- move tabs
+		["[T"] = cmd("-tabmove"),
+		["]T"] = cmd("+tabmove"),
+		-- spell check
+		["<leader>s"] = cmd("set spell!"), -- toggle spell checking mod
+		-- yank selection to system clipboard
+		["<leader>y"] = '"+y',
+		-- navigate to start/end of line
+		["H"] = "^",
+		["L"] = "$",
+		["U"] = "<C-r>", -- u = undo  U = undo undo aka red,
+		["<leader>lz"] = cmd("Lazygit"),
+		-- ["<leader>!"] = cmd("lua print(vim.fn.expand('<cword>'))")
+		["_"] = cycleCase,
+		-- ["_"] = cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
+	},
+	["v"] = {
+		["<leader>y"] = '"+y', -- yank selection to system clipboard
+		-- navigate to start/end of line
+		["H"] = "^",
+		["L"] = "$",
+	},
 }
 
 for mode, maps in pairs(keymaps) do
-  for keymap, action in pairs(maps) do
-    setKeymap(mode, keymap, action)
-  end
+	for keymap, action in pairs(maps) do
+		setKeymap(mode, keymap, action)
+	end
 end
-
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is
 -- pressed but move from real line to real line when jumping some number of
@@ -116,27 +147,26 @@ vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
 -- highlight yanked text for a bit
 vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
-  end,
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 750 })
+	end,
 })
 
 -- change the background of non-focused windows (NC means non-current)
 vim.api.nvim_set_hl(0, "NonCurrentWindow", { ctermbg = "gray" })
 vim.api.nvim_create_autocmd("WinEnter", {
-  pattern = "*",
-  callback = function()
-    vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
-  end,
+	pattern = "*",
+	callback = function()
+		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
+	end,
 })
 
 -- run some scripts when saving js/ts files
-vim.api.nvim_create_autocmd("BufWrite", {
-  pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
-  command = "Neoformat prettier | EslintFixAll",
-})
-
+-- vim.api.nvim_create_autocmd("BufWrite", {
+-- 	pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
+-- 	command = "Neoformat prettier | EslintFixAll",
+-- })
 
 --------------------------
 -- plugin configs
@@ -154,7 +184,7 @@ setKeymap("n", "gR", cmd("Trouble lsp_references"), { silent = true })
 -- telescope
 --------------------------
 local function callTelescopeBuiltin(builtin)
-  return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
+	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
 end
 
 -- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
@@ -172,22 +202,22 @@ setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last
 -- gitsigns
 --------------------------
 setKeymap("n", "[c", function()
-  require("gitsigns").prev_hunk()
+	require("gitsigns").prev_hunk()
 end)
 setKeymap("n", "]c", function()
-  require("gitsigns").next_hunk()
+	require("gitsigns").next_hunk()
 end)
 setKeymap("n", "<leader>hr", function()
-  require("gitsigns").reset_hunk()
+	require("gitsigns").reset_hunk()
 end)
 setKeymap("v", "<leader>hr", function()
-  require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end)
 setKeymap("n", "<leader>hp", function()
-  require("gitsigns").preview_hunk()
+	require("gitsigns").preview_hunk()
 end)
 setKeymap("n", "<leader>hb", function()
-  require("gitsigns").blame_line()
+	require("gitsigns").blame_line()
 end)
 
 --------------------------
@@ -201,7 +231,7 @@ g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
 --------------------------
 -- LSP
 --------------------------
-local borderStyle = { border = "double" , max_width = 90 }
+local borderStyle = { border = "double", max_width = 90 }
 setKeymap("n", "<leader>o", cmd(":OrganizeImports"))
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
@@ -211,7 +241,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	{ virtual_text = false }
 )
 
-setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()")) -- go to floating window by pressing `K` again 
+setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()")) -- go to floating window by pressing `K` again
 setKeymap({ "n", "i" }, "<C-k>", cmd(":lua vim.lsp.buf.signature_help()"))
 -- diagnostics
 setKeymap("n", "<leader>ld", cmd('lua vim.diagnostic.open_float({ border = "rounded" })'))
@@ -230,6 +260,7 @@ vim.api.nvim_command("set nocompatible")
 vim.api.nvim_command("filetype plugin on")
 vim.api.nvim_command("syntax on")
 g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part of a wiki
+-- g.vimwiki_list = vim.api.nvim_eval("[{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]") -- TODO: makes the syntax markdown but the links look horrible
 
 setKeymap("n", "<leader><leader>", cmd("Broot %:h")) -- open broot in the directory of the current buffer
 
