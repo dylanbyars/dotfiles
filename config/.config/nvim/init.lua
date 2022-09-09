@@ -8,8 +8,6 @@ local g = vim.g
 local o = vim.o
 local bo = vim.bo
 
-g.tokyonight_style = "night"
-vim.cmd("colorscheme tokyonight")
 -- change the color of the line between vertical splits
 vim.cmd("highlight VertSplit guifg=white")
 vim.cmd("highlight VertSplit guifg=white")
