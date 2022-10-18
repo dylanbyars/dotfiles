@@ -16,9 +16,27 @@ local lsp_installer = require("nvim-lsp-installer")
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
-	local opts = { }
+	local opts = {}
 
 	if server.name == "tsserver" then
+		local function organize_imports()
+			vim.lsp.buf.execute_command({
+				command = "_typescript.organizeImports",
+				arguments = { vim.api.nvim_buf_get_name(0) },
+			})
+		end
+
+		opts = {
+			commands = {
+				OrganizeImports = {
+					organize_imports,
+					description = "Organize Imports",
+				},
+			},
+		}
+	end
+
+	if server.name == "pyright" then
 		local function organize_imports()
 			vim.lsp.buf.execute_command({
 				command = "_typescript.organizeImports",

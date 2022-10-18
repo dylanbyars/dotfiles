@@ -153,5 +153,15 @@
       "lambda ${1:parameter_list}: ${2:expression}"
     ],
     "description": "lambda statement"
+  },
+
+  "pretty print object": {
+    "prefix": "pp",
+    "body": [
+      "from flask import json",
+      "\n",
+      "json.dumps($1, indent=2)"
+    ],
+    "description": "pretty print an object"
   }
 }
