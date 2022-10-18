@@ -20,7 +20,13 @@ require("lualine").setup({
 		lualine_b = { { "filename", path = 1 } },
 		lualine_c = {},
 		lualine_x = { "diff" },
-		lualine_y = { "branch" },
+		lualine_y = { {
+			"branch",
+			fmt = function(str)
+        -- TODO: show a `...` or something when the string is trimmed
+				return str:sub(1, 20)
+			end,
+		} },
 		lualine_z = {},
 	},
 	inactive_sections = {
