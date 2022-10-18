@@ -8,10 +8,6 @@ local g = vim.g
 local o = vim.o
 local bo = vim.bo
 
--- change the color of the line between vertical splits
-vim.cmd("highlight VertSplit guifg=white")
-vim.cmd("highlight VertSplit guifg=white")
-
 -- make the mouse work
 o.mouse = "a"
 
@@ -47,7 +43,7 @@ o.softtabstop = 2
 o.shiftwidth = 2
 o.expandtab = true
 
-o.scrolloff = 8 -- keep 8 rows of text visible at the top and bottom of screen (if possible)
+o.scrolloff = 1 -- keep 1 rows of text visible at the top and bottom of screen (if possible)
 
 -- persistent undo
 o.undofile = true
@@ -68,9 +64,10 @@ end
 local setKeymap = vim.keymap.set
 
 local lspRename = require("textcase").lsp_rename
--- local CurrentWord = require("textcase").current_word
+local currentWord = require("textcase").current_word
+-- TODO: this fails when the word is against something e.g. fooBar(baz) -> can't cycle fooBar
 local function cycleCase()
-  -- TODO: I don't need 2 tables. join them somehow. 
+	-- TODO: I don't need 2 tables. join them somehow.
 	-- TODO: these could be more robust
 	local patterns = {
 		camel = "^%l+%u%l", -- fooBar
@@ -90,6 +87,7 @@ local function cycleCase()
 		if string.find(vim.fn.expand("<cword>"), pattern) then
 			local command = "to_" .. transformations[name] .. "_case"
 			lspRename(command)
+			currentWord(command)
 		end
 	end
 end
@@ -97,6 +95,7 @@ end
 local keymaps = {
 	["n"] = {
 		["<leader>t"] = cmd("NvimTreeToggle"),
+		["<leader>hh"] = cmd("set cursorline!"),
 		["<leader>w"] = cmd("w"),
 		["<leader>q"] = cmd("q"),
 		["<leader>so"] = cmd("source ~/.config/nvim/init.lua"),
@@ -106,7 +105,7 @@ local keymaps = {
 		-- move between tabs
 		["[t"] = cmd("tabprev"),
 		["]t"] = cmd(" tabnext "),
-		-- move tabs
+		-- rearrange tabs
 		["[T"] = cmd("-tabmove"),
 		["]T"] = cmd("+tabmove"),
 		-- spell check
@@ -116,11 +115,18 @@ local keymaps = {
 		-- navigate to start/end of line
 		["H"] = "^",
 		["L"] = "$",
-		["U"] = "<C-r>", -- u = undo  U = undo undo aka red,
+		["U"] = "<C-r>", -- u = undo  U = undo undo aka redo,
 		["<leader>lz"] = cmd("Lazygit"),
 		-- ["<leader>!"] = cmd("lua print(vim.fn.expand('<cword>'))")
 		["_"] = cycleCase,
 		-- ["_"] = cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
+		["<leader>j"] = cmd("Telescope"),
+		["<leader>o"] = cmd("SymbolsOutline"),
+		-- jump a half page then center the screen on the cursor's line
+		["<C-u>"] = "<C-u>zz",
+		["<C-d>"] = "<C-d>zz",
+    ["<leader>x"] = cmd('lua vim.diagnostic.disable()'),
+    ["<leader>X"] = cmd('lua vim.diagnostic.enable()'),
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard
@@ -151,6 +157,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- change the color of the line between splits
+-- set it after the ColorScheme event happens to add to the theme
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		vim.cmd("highlight WinSeparator guifg=White")
+	end,
+})
+
 -- change the background of non-focused windows (NC means non-current)
 vim.api.nvim_set_hl(0, "NonCurrentWindow", { ctermbg = "gray" })
 vim.api.nvim_create_autocmd("WinEnter", {
@@ -159,6 +174,29 @@ vim.api.nvim_create_autocmd("WinEnter", {
 		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
 	end,
 })
+
+-- set cursorline in normal mode but turn it off in insert mode
+vim.opt.cursorline = true
+vim.api.nvim_create_autocmd("InsertEnter", {
+	pattern = "*",
+	callback = function()
+		vim.opt.cursorline = false
+	end,
+})
+vim.api.nvim_create_autocmd("InsertLeave", {
+	pattern = "*",
+	callback = function()
+		vim.opt.cursorline = true
+	end,
+})
+
+-- show the cursorline in the nvim-tree buffer
+-- vim.api.nvim_create_autocmd("WinEnter", { -- TODO: nvim-tree exposes events that I can subscribe to. check that out.
+-- 	pattern = "NvimTree",
+-- 	callback = function()
+-- 		-- vim.wo.cursorline = true -- this is definitely the command I want to call
+-- 	end,
+-- })
 
 -- run some scripts when saving js/ts files
 -- vim.api.nvim_create_autocmd("BufWrite", {
@@ -174,8 +212,8 @@ vim.api.nvim_create_autocmd("WinEnter", {
 -- trouble
 --------------------------
 setKeymap("n", "<leader>xx", cmd("TroubleToggle quickfix"), { silent = true })
-setKeymap("n", "<leader>xw", cmd("Trouble lsp_workspace_diagnostics"), { silent = true })
-setKeymap("n", "<leader>xd", cmd("Trouble lsp_document_diagnostics"), { silent = true })
+setKeymap("n", "<leader>xw", cmd("Trouble workspace_diagnostics"), { silent = true })
+setKeymap("n", "<leader>xd", cmd("Trouble document_diagnostics"), { silent = true })
 setKeymap("n", "gR", cmd("Trouble lsp_references"), { silent = true })
 
 --------------------------
@@ -195,6 +233,7 @@ setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vi
 setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
 setKeymap("n", "<leader>*", callTelescopeBuiltin("grep_string()")) -- search entire project for string under cursor
 setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last Telescope window
+setKeymap("n", "<leader>j", callTelescopeBuiltin("jumplist()")) -- reopen the last Telescope window
 
 --------------------------
 -- gitsigns
@@ -230,21 +269,21 @@ g.shfmt_opt = "-ci" -- make `shfmt` work nicely with neovim
 -- LSP
 --------------------------
 local borderStyle = { border = "double", max_width = 90 }
-setKeymap("n", "<leader>o", cmd(":OrganizeImports"))
+setKeymap("n", "<leader>O", cmd(":OrganizeImports"))
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	vim.lsp.diagnostic.on_publish_diagnostics,
-	{ virtual_text = false }
+	{ underline = false }
 )
 
 setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()")) -- go to floating window by pressing `K` again
 setKeymap({ "n", "i" }, "<C-k>", cmd(":lua vim.lsp.buf.signature_help()"))
 -- diagnostics
 setKeymap("n", "<leader>ld", cmd('lua vim.diagnostic.open_float({ border = "rounded" })'))
-setKeymap("n", "[e", cmd('lua vim.diagnostic.goto_prev({ float = { border = "rounded" }})'))
-setKeymap("n", "]e", cmd('lua vim.diagnostic.goto_next({ float = { border = "rounded" }})'))
+setKeymap("n", "[e", cmd("lua vim.diagnostic.goto_prev({ float = false })"))
+setKeymap("n", "]e", cmd("lua vim.diagnostic.goto_next({ float = false })"))
 
 -- additional lsp mappings using regular lsp api
 setKeymap("n", "<leader>ca", cmd("lua vim.lsp.buf.code_action()"))
@@ -267,8 +306,8 @@ vim.g.startify_change_to_vcs_root = 1
 vim.g.startify_custom_header = "startify#center(startify#fortune#cowsay())"
 vim.g.startify_lists = {
 	{ type = "sessions", header = { " Sessions" } },
-	{ type = "files", header = { " Recent Files" } },
 	{ type = "dir", header = { " Directory Files" } },
+	{ type = "files", header = { " Recent Files" } },
 }
 
 require("plugins")
