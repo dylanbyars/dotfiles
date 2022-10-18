@@ -18,17 +18,17 @@ require("packer").startup({
 		use("hoob3rt/lualine.nvim")
 		use({ "~/code/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" })
 		-- git
-		use({
-			"pwntester/octo.nvim",
-			requires = {
-				"nvim-lua/plenary.nvim",
-				"nvim-telescope/telescope.nvim",
-				"kyazdani42/nvim-web-devicons",
-			},
-			config = function()
-				require("octo").setup()
-			end,
-		})
+		-- use({
+		-- 	"pwntester/octo.nvim",
+		-- 	requires = {
+		-- 		"nvim-lua/plenary.nvim",
+		-- 		"nvim-telescope/telescope.nvim",
+		-- 		"kyazdani42/nvim-web-devicons",
+		-- 	},
+		-- 	config = function()
+		-- 		require("octo").setup()
+		-- 	end,
+		-- })
 		use("tpope/vim-fugitive")
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
 		-- commenting
@@ -97,11 +97,16 @@ require("packer").startup({
 		})
 		use("tpope/vim-surround")
 		use("vimwiki/vimwiki")
-		use({ "nvim-treesitter/nvim-treesitter" })
+		use({
+			"simrat39/symbols-outline.nvim",
+			config = function() end,
+		})
 		-- use({
 		-- 	"nvim-orgmode/orgmode",
 		-- 	config = function()
-		-- 		require("orgmode").setup({})
+		-- 		require("orgmode").setup({
+		-- 			org_default_notes_file = "~/org/refile.org",
+		-- 		})
 		-- 	end,
 		-- })
 		use("is0n/fm-nvim")
@@ -182,7 +187,7 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		additional_vim_regex_highlighting = { "org" }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
 	},
-	ensure_installed = { "org" }, -- Or run :TSUpdate org
+	-- ensure_installed = { "org" }, -- Or run :TSUpdate org
 })
 
 require("nvim-tree").setup({
@@ -200,4 +205,10 @@ require("tokyonight").setup({
 	-- use the night style
 	style = "night",
 })
+
 vim.cmd("colorscheme tokyonight")
+
+require("symbols-outline").setup({
+	highlight_hovered_item = true,
+	auto_preview = true,
+})
