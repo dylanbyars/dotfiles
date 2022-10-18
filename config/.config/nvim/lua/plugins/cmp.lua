@@ -21,6 +21,18 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
+	-- mapping = {
+	-- 	["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+	-- 	["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+	-- 	["<esc>"] = cmp.mapping.abort(),
+	-- 	["<cr>"] = cmp.mapping(
+	-- 		cmp.mapping.confirm({
+	-- 			behavior = cmp.ConfirmBehavior.Insert,
+	-- 			select = true,
+	-- 		}),
+	-- 		{ "i", "c" }
+	-- 	),
+	-- },
 	mapping = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -55,10 +67,9 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "buffer", keyword_length = 5 },
-    -- { name = 'orgmode' }
+		-- { name = 'orgmode' }
 	},
 	experimental = {
 		ghost_text = true,
 	},
 })
-
