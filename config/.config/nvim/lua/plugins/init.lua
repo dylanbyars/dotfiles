@@ -55,6 +55,7 @@ require("packer").startup({
 		use("L3MON4D3/LuaSnip") -- snippet engine
 		use("windwp/nvim-autopairs") -- finsh the starting tag/symbol/thing
 		-- treesitter
+		use({ "RRethy/nvim-treesitter-textsubjects" })
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use({ "nvim-treesitter/playground", run = ":TSInstall query" })
 		use("windwp/nvim-ts-autotag") -- auto close and auto update closing tags
