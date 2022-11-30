@@ -127,6 +127,7 @@ local keymaps = {
 		["<C-d>"] = "<C-d>zz",
     ["<leader>x"] = cmd('lua vim.diagnostic.disable()'),
     ["<leader>X"] = cmd('lua vim.diagnostic.enable()'),
+    ["<leader>n"] = cmd(':noh') -- clear current search highlight
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard
