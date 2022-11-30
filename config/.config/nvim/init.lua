@@ -118,7 +118,7 @@ local keymaps = {
 		["U"] = "<C-r>", -- u = undo  U = undo undo aka redo,
 		["<leader>lz"] = cmd("Lazygit"),
 		-- ["<leader>!"] = cmd("lua print(vim.fn.expand('<cword>'))")
-		["_"] = cycleCase,
+		["<leader>_"] = cycleCase,
 		-- ["_"] = cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
 		["<leader>j"] = cmd("Telescope"),
 		["<leader>o"] = cmd("SymbolsOutline"),
