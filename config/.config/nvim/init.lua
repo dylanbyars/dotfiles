@@ -31,7 +31,7 @@ vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 o.number = true
 o.relativenumber = true
 
-o.ignorecase = true -- default to case insensitive search
+o.smartcase = true
 
 o.linebreak = true -- break lines between words at window's width
 
@@ -125,9 +125,9 @@ local keymaps = {
 		-- jump a half page then center the screen on the cursor's line
 		["<C-u>"] = "<C-u>zz",
 		["<C-d>"] = "<C-d>zz",
-    ["<leader>x"] = cmd('lua vim.diagnostic.disable()'),
-    ["<leader>X"] = cmd('lua vim.diagnostic.enable()'),
-    ["<leader>n"] = cmd(':noh') -- clear current search highlight
+		["<leader>x"] = cmd("lua vim.diagnostic.disable()"),
+		["<leader>X"] = cmd("lua vim.diagnostic.enable()"),
+		["<leader>n"] = cmd(":noh"), -- clear current search highlight
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard

@@ -78,7 +78,6 @@ require("packer").startup({
 				})
 			end,
 		})
-		use("wincent/loupe") -- search highlight improved. TODO: feels like I can do this myself
 		-- telescope
 		use({
 			"nvim-telescope/telescope.nvim",
