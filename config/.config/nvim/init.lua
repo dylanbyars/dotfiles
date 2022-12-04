@@ -97,7 +97,8 @@ local function open_scratch_buffer(filetype)
 	local win = vim.api.nvim_get_current_win()
 	local buf = vim.api.nvim_create_buf(true, true)
 	vim.api.nvim_win_set_buf(win, buf)
-	vim.api.nvim_buf_set_name(buf, "SCRATCH (" .. filetype .. ")")
+	-- NOTE: looks like buffer names need to be unique
+	vim.api.nvim_buf_set_name(buf, "SCRATCH [" .. filetype .. "]" .. " -- " .. buf)
 	vim.cmd("set filetype=" .. filetype)
 end
 
