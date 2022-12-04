@@ -40,6 +40,10 @@ require("packer").startup({
 		-- 		require("octo").setup()
 		-- 	end,
 		-- })
+		use({
+			"ruifm/gitlinker.nvim",
+			requires = "nvim-lua/plenary.nvim",
+		})
 		use("tpope/vim-fugitive")
 		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
 		-- commenting
@@ -154,6 +158,8 @@ require("orgmode").setup({
 })
 
 require("colorizer").setup() -- must be called after plugin definitions
+
+require"gitlinker".setup()
 
 require("gitsigns").setup()
 
