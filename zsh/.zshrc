@@ -19,6 +19,9 @@ alias /='br'
 # go edit my dotfiles
 alias dot="cd ~/dotfiles && vim"
 
+# go to 
+alias org="cd ~/org && vim index.org"
+
 # customize the style of fzf and accept an optional header
 fzfancy() {
   fzf --reverse --height=20 --border=rounded --header=$1

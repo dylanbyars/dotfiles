@@ -109,14 +109,7 @@ require("packer").startup({
 			"simrat39/symbols-outline.nvim",
 			config = function() end,
 		})
-		-- use({
-		-- 	"nvim-orgmode/orgmode",
-		-- 	config = function()
-		-- 		require("orgmode").setup({
-		-- 			org_default_notes_file = "~/org/refile.org",
-		-- 		})
-		-- 	end,
-		-- })
+		use("nvim-orgmode/orgmode")
 		use("is0n/fm-nvim")
 		-- writing
 		use("junegunn/goyo.vim")
@@ -138,6 +131,16 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 require("plugins.treesitter")
+
+require("orgmode").setup({
+	org_agenda_files = { "~/org/*" },
+	org_default_notes_file = "~/org/notes.org",
+	mappings = {
+		org = {
+			org_toggle_checkbox = "<M-Space>",
+		},
+	},
+})
 
 require("colorizer").setup() -- must be called after plugin definitions
 

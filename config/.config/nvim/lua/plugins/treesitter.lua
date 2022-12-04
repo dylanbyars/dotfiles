@@ -1,3 +1,6 @@
+-- I think this needs to happen before the `nvim-treesitter.configs` call
+require("orgmode").setup_ts_grammar()
+
 require("nvim-treesitter.configs").setup({
 	-- one of "all", "maintained" (parsers with maintainers), or a list of languages
 	ensure_installed = {
@@ -17,7 +20,7 @@ require("nvim-treesitter.configs").setup({
 		"typescript",
 		"yaml",
 	},
-  -- highlight adds treesitter highlighting to the words in the buffer
+	-- highlight adds treesitter highlighting to the words in the buffer
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		-- disable = { "c", "rust" },  -- list of language that will be disabled
@@ -25,7 +28,8 @@ require("nvim-treesitter.configs").setup({
 		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 		-- Using this option may slow down your editor, and you may see some duplicate highlights.
 		-- Instead of true it can also be a list of languages
-		additional_vim_regex_highlighting = false,
+		additional_vim_regex_highlighting = { "org" },
+		ensure_installed = { "org" }, -- Or run :TSUpdate org
 	},
 	rainbow = {
 		enable = true,
