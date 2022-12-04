@@ -149,17 +149,29 @@ require("plugins.treesitter")
 
 require("orgmode").setup({
 	org_agenda_files = { "~/org/*" },
-	org_default_notes_file = "~/org/notes.org",
+	org_default_notes_file = "~/org/refile.org",
 	mappings = {
 		org = {
 			org_toggle_checkbox = "<M-Space>",
+		},
+	},
+	org_capture_templates = {
+		t = {
+			description = "TODO",
+			template = "* TODO %?\n  %U",
+			target = "~/org/todo.org",
+		},
+		j = {
+			description = "Journal",
+			template = "* %U\n\n%?",
+			target = "~/org/journal.org",
 		},
 	},
 })
 
 require("colorizer").setup() -- must be called after plugin definitions
 
-require"gitlinker".setup()
+require("gitlinker").setup()
 
 require("gitsigns").setup()
 
