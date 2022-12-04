@@ -12,6 +12,17 @@ require("packer").startup({
 		use("wbthomason/packer.nvim") -- Packer can manage itself
 		-- colors
 		use("folke/tokyonight.nvim") -- colorscheme
+		use({
+			"folke/todo-comments.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("todo-comments").setup({
+					-- your configuration comes here
+					-- or leave it empty to use the default settings
+					-- refer to the configuration section below
+				})
+			end,
+		})
 		use("norcalli/nvim-colorizer.lua") -- highlight hex strings with their color
 		use("mhinz/vim-startify") -- session manager and fancy start screen
 		-- status line
