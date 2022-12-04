@@ -92,6 +92,14 @@ local function cycleCase()
 	end
 end
 
+local function open_scratch_buffer(filetype)
+	vim.cmd("split")
+	local win = vim.api.nvim_get_current_win()
+	local buf = vim.api.nvim_create_buf(true, true)
+	vim.api.nvim_win_set_buf(win, buf)
+	vim.api.nvim_buf_set_name(buf, "SCRATCH (" .. filetype .. ")")
+	vim.cmd("set filetype=" .. filetype)
+end
 local keymaps = {
 	["n"] = {
 		["<leader>t"] = cmd("NvimTreeToggle"),
@@ -120,7 +128,6 @@ local keymaps = {
 		-- ["<leader>!"] = cmd("lua print(vim.fn.expand('<cword>'))")
 		["<leader>_"] = cycleCase,
 		-- ["_"] = cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
-		["<leader>j"] = cmd("Telescope"),
 		["<leader>o"] = cmd("SymbolsOutline"),
 		-- jump a half page then center the screen on the cursor's line
 		["<C-u>"] = "<C-u>zz",
@@ -128,6 +135,9 @@ local keymaps = {
 		["<leader>x"] = cmd("lua vim.diagnostic.disable()"),
 		["<leader>X"] = cmd("lua vim.diagnostic.enable()"),
 		["<leader>n"] = cmd(":noh"), -- clear current search highlight
+		["<leader>js"] = function()
+			open_scratch_buffer("json")
+		end,
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard
