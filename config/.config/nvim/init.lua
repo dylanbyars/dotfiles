@@ -100,6 +100,7 @@ local function open_scratch_buffer(filetype)
 	vim.api.nvim_buf_set_name(buf, "SCRATCH (" .. filetype .. ")")
 	vim.cmd("set filetype=" .. filetype)
 end
+
 local keymaps = {
 	["n"] = {
 		["<leader>t"] = cmd("NvimTreeToggle"),
@@ -135,6 +136,12 @@ local keymaps = {
 		["<leader>x"] = cmd("lua vim.diagnostic.disable()"),
 		["<leader>X"] = cmd("lua vim.diagnostic.enable()"),
 		["<leader>n"] = cmd(":noh"), -- clear current search highlight
+		-- <trouble>
+		["<leader>xx"] = cmd("TroubleToggle quickfix"),
+		["<leader>xw"] = cmd("Trouble workspace_diagnostics"),
+		["<leader>xd"] = cmd("Trouble document_diagnostics"),
+		["gR"] = cmd("Trouble lsp_references"),
+		-- </trouble>
 		["<leader>js"] = function()
 			open_scratch_buffer("json")
 		end,
@@ -153,9 +160,7 @@ for mode, maps in pairs(keymaps) do
 	end
 end
 
--- map j and k to gj and gk so that they move from visual line to visual line when j or k is
--- pressed but move from real line to real line when jumping some number of
--- lines across visually wrapped lines
+-- map j and k to gj and gk so that they move from visual line to visual line when j or k is pressed but move from real line to real line when jumping some number of lines across visually wrapped lines
 -- TODO: convert to lua
 vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
@@ -201,31 +206,9 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 	end,
 })
 
--- show the cursorline in the nvim-tree buffer
--- vim.api.nvim_create_autocmd("WinEnter", { -- TODO: nvim-tree exposes events that I can subscribe to. check that out.
--- 	pattern = "NvimTree",
--- 	callback = function()
--- 		-- vim.wo.cursorline = true -- this is definitely the command I want to call
--- 	end,
--- })
-
--- run some scripts when saving js/ts files
--- vim.api.nvim_create_autocmd("BufWrite", {
--- 	pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
--- 	command = "Neoformat prettier | EslintFixAll",
--- })
-
 --------------------------
 -- plugin configs
 --------------------------
-
---------------------------
--- trouble
---------------------------
-setKeymap("n", "<leader>xx", cmd("TroubleToggle quickfix"), { silent = true })
-setKeymap("n", "<leader>xw", cmd("Trouble workspace_diagnostics"), { silent = true })
-setKeymap("n", "<leader>xd", cmd("Trouble document_diagnostics"), { silent = true })
-setKeymap("n", "gR", cmd("Trouble lsp_references"), { silent = true })
 
 --------------------------
 -- telescope
