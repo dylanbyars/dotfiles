@@ -102,7 +102,7 @@ local function open_scratch_buffer(filetype)
 	vim.cmd("set filetype=" .. filetype)
 end
 
-local keymaps = {
+local KEYMAPS = {
 	["n"] = {
 		["<leader>t"] = cmd("NvimTreeToggle"),
 		["<leader>hh"] = cmd("set cursorline!"),
@@ -146,6 +146,7 @@ local keymaps = {
 		["<leader>js"] = function()
 			open_scratch_buffer("json")
 		end,
+		["<leader>br"] = cmd("Broot %:h"), -- open broot in the directory of the current buffer
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard
@@ -155,7 +156,7 @@ local keymaps = {
 	},
 }
 
-for mode, maps in pairs(keymaps) do
+for mode, maps in pairs(KEYMAPS) do
 	for keymap, action in pairs(maps) do
 		setKeymap(mode, keymap, action)
 	end
@@ -282,9 +283,6 @@ setKeymap("v", "<leader>ca", cmd("lua vim.lsp.buf.range_code_action()"))
 setKeymap("n", "<leader>d", cmd("split | lua vim.lsp.buf.definition()")) -- go to definition in split
 setKeymap("n", "<leader>D", cmd("lua vim.lsp.buf.definition()")) -- go to definition in current buffer
 setKeymap("n", "<leader>r", cmd("lua vim.lsp.buf.rename()")) -- rename symbol under cursor
-
-
-setKeymap("n", "<leader><leader>", cmd("Broot %:h")) -- open broot in the directory of the current buffer
 
 -- startify
 vim.g.startify_change_to_vcs_root = 1
