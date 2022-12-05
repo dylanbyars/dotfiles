@@ -166,6 +166,17 @@ end
 vim.api.nvim_exec("nnoremap <expr> j v:count ? 'j' : 'gj'", false)
 vim.api.nvim_exec("nnoremap <expr> k v:count ? 'k' : 'gk'", false)
 
+-- set `cursorline` in the `NvimTree` buffer
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	callback = function()
+		local filetype = vim.opt.filetype._value -- WARN: this feels icky
+		if filetype == "NvimTree" then
+			vim.opt.cursorline = true
+		end
+	end,
+})
+
 -- highlight yanked text for a bit
 vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
@@ -189,21 +200,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	pattern = "*",
 	callback = function()
 		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
-	end,
-})
-
--- set cursorline in normal mode but turn it off in insert mode
-vim.opt.cursorline = true
-vim.api.nvim_create_autocmd("InsertEnter", {
-	pattern = "*",
-	callback = function()
-		vim.opt.cursorline = false
-	end,
-})
-vim.api.nvim_create_autocmd("InsertLeave", {
-	pattern = "*",
-	callback = function()
-		vim.opt.cursorline = true
 	end,
 })
 
