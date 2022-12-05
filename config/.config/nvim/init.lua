@@ -287,12 +287,6 @@ setKeymap("n", "<leader>d", cmd("split | lua vim.lsp.buf.definition()")) -- go t
 setKeymap("n", "<leader>D", cmd("lua vim.lsp.buf.definition()")) -- go to definition in current buffer
 setKeymap("n", "<leader>r", cmd("lua vim.lsp.buf.rename()")) -- rename symbol under cursor
 
--- vimwiki
-vim.api.nvim_command("set nocompatible")
-vim.api.nvim_command("filetype plugin on")
-vim.api.nvim_command("syntax on")
-g.vimwiki_global_ext = 0 -- prevents vimwiki from treating all .md files as part of a wiki
--- g.vimwiki_list = vim.api.nvim_eval("[{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]") -- TODO: makes the syntax markdown but the links look horrible
 
 setKeymap("n", "<leader><leader>", cmd("Broot %:h")) -- open broot in the directory of the current buffer
 

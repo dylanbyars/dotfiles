@@ -119,7 +119,6 @@ require("packer").startup({
 				})
 			end,
 		})
-		use("vimwiki/vimwiki")
 		use({
 			"simrat39/symbols-outline.nvim",
 			config = function() end,
