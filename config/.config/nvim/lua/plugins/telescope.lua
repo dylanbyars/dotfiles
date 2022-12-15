@@ -112,7 +112,7 @@ telescope.setup({
 				preview_cutoff = 0,
 				preview_height = 0.66,
 			},
-      scroll_strategy = "limit",
+			scroll_strategy = "limit",
 			initial_mode = "normal",
 		},
 		live_grep = {
@@ -120,6 +120,17 @@ telescope.setup({
 				return { "--hidden" }
 			end,
 			disable_coordinates = true,
+		},
+		current_buffer_fuzzy_find = {
+			sorting_strategy = "ascending",
+			layout_strategy = "vertical",
+			layout_config = {
+				height = 0.99,
+				width = 0.99,
+				preview_cutoff = 0,
+				preview_height = 0.6,
+			},
+			scroll_strategy = "limit",
 		},
 	},
 })

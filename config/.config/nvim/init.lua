@@ -226,6 +226,7 @@ setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spe
 setKeymap("n", "<leader>*", callTelescopeBuiltin("grep_string()")) -- search entire project for string under cursor
 setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last Telescope window
 setKeymap("n", "<leader>j", callTelescopeBuiltin("jumplist()")) -- reopen the last Telescope window
+setKeymap("n", "?", callTelescopeBuiltin("current_buffer_fuzzy_find()")) -- replace the default search fuzzy find in the current buffer
 
 --------------------------
 -- gitsigns
