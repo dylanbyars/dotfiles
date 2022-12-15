@@ -20,7 +20,7 @@ alias /='br'
 alias dot="cd ~/dotfiles && vim"
 
 # go to 
-alias org="cd ~/org && vim index.org"
+alias org="cd ~/org"
 
 # customize the style of fzf and accept an optional header
 fzfancy() {
