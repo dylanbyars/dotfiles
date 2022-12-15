@@ -165,6 +165,11 @@ require("orgmode").setup({
 			template = "* %U\n\n%?",
 			target = "~/org/journal.org",
 		},
+		d = {
+			description = "Dump",
+			template = "* %?",
+			target = "~/org/dump.org",
+		},
 	},
 })
 
