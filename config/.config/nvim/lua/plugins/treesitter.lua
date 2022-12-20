@@ -45,7 +45,7 @@ require("nvim-treesitter.configs").setup({
 	--   node_decremental = "i", -- in
 	-- }
 	-- },
-	textsubjects = {
+	textsubjects = { -- TODO: may have removed this plugin for `textobjects`
 		enable = true,
 		prev_selection = "<M-CR>", -- alt-return -- (Optional) keymap to select the previous selection
 		keymaps = {

@@ -1,6 +1,7 @@
 --------------------------
 -- telescope
 --------------------------
+
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
 local actions = require("telescope.actions")
@@ -121,37 +122,37 @@ telescope.setup({
 			end,
 			disable_coordinates = true,
 		},
-		current_buffer_fuzzy_find = {
-			sorting_strategy = "ascending",
-			layout_strategy = "vertical",
-			layout_config = {
-				height = 0.99,
-				width = 0.99,
-				preview_cutoff = 0,
-				preview_height = 0.6,
-			},
-			scroll_strategy = "limit",
-		},
 	},
 })
 
 telescope.load_extension("fzf")
 
--- fallback to find_files if not in a git repo
-local M = {}
+local builtin = require("telescope.builtin")
 
-M.project_files = function()
+local function project_files()
 	local opts = {} -- define here if you want to define something
-	local ok = pcall(require("telescope.builtin").git_files, opts)
+	local ok = pcall(builtin.git_files, opts)
 	if not ok then
 		require("telescope.builtin").find_files(opts)
 	end
 end
 
-return M
-
--- call via:
--- :lua require"telescope-config".project_files()
-
--- example keymap:
--- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
+vim.keymap.set({ "n", "i" }, "<C-p>", project_files, { silent = true })
+vim.keymap.set("n", "<leader>b", builtin.buffers)
+vim.keymap.set("n", "<leader>?", builtin.live_grep)
+vim.keymap.set("n", "<leader>c", builtin.git_bcommits)
+vim.keymap.set("n", "<leader>gs", builtin.git_status)
+vim.keymap.set("n", "<leader>H", builtin.help_tags)
+vim.keymap.set("n", "<leader>S", builtin.spell_suggest)
+vim.keymap.set("n", "<leader>*", builtin.grep_string)
+vim.keymap.set("n", "<leader>T", builtin.resume)
+vim.keymap.set("n", "<leader>/", function()
+	-- You can pass additional configuration to telescope to change theme, layout, etc.
+	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+		winblend = 10,
+		previewer = false,
+		layout_config = {
+			width = 0.7,
+		},
+	}))
+end, { desc = "[/] Fuzzily search in current buffer]" })

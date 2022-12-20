@@ -1,6 +1,7 @@
 --------------------------
 -- general key bindings
 --------------------------
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 local function cmd(command)
 	return "<cmd>" .. command .. "<cr>"
@@ -116,44 +117,26 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --------------------------
 -- telescope
 --------------------------
-local function callTelescopeBuiltin(builtin)
-	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
-end
+-- local function callTelescopeBuiltin(builtin)
+-- 	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
+-- end
 
 -- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
-setKeymap({ "n", "i" }, "<C-p>", "<CMD>lua require'plugins.telescope'.project_files()<CR>", { silent = true })
-setKeymap("n", "<leader>b", callTelescopeBuiltin("buffers()"))
-setKeymap("n", "<leader>/", callTelescopeBuiltin("live_grep()"))
-setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
-setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
-setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
-setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
-setKeymap("n", "<leader>*", callTelescopeBuiltin("grep_string()")) -- search entire project for string under cursor
-setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last Telescope window
-setKeymap("n", "<leader>j", callTelescopeBuiltin("jumplist()")) -- reopen the last Telescope window
-setKeymap("n", "?", callTelescopeBuiltin("current_buffer_fuzzy_find()")) -- replace the default search fuzzy find in the current buffer
+-- setKeymap({ "n", "i" }, "<C-p>", "<CMD>lua require'plugins.telescope'.project_files()<CR>", { silent = true })
+-- setKeymap("n", "<leader>b", callTelescopeBuiltin("buffers()"))
+-- setKeymap("n", "<leader>/", callTelescopeBuiltin("live_grep()"))
+-- setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
+-- setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
+-- setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
+-- setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
+-- setKeymap("n", "<leader>*", callTelescopeBuiltin("grep_string()")) -- search entire project for string under cursor
+-- setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last Telescope window
+-- setKeymap("n", "<leader>j", callTelescopeBuiltin("jumplist()")) -- reopen the last Telescope window
+-- setKeymap("n", "?", callTelescopeBuiltin("current_buffer_fuzzy_find()")) -- replace the default search fuzzy find in the current buffer
 
 --------------------------
 -- gitsigns
 --------------------------
-setKeymap("n", "[c", function()
-	require("gitsigns").prev_hunk()
-end)
-setKeymap("n", "]c", function()
-	require("gitsigns").next_hunk()
-end)
-setKeymap("n", "<leader>hr", function()
-	require("gitsigns").reset_hunk()
-end)
-setKeymap("v", "<leader>hr", function()
-	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-end)
-setKeymap("n", "<leader>hp", function()
-	require("gitsigns").preview_hunk()
-end)
-setKeymap("n", "<leader>hb", function()
-	require("gitsigns").blame_line()
-end)
 
 --------------------------
 -- neoformat

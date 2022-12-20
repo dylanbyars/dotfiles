@@ -1,12 +1,11 @@
 -- Install packer
-local execute = vim.api.nvim_command
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
+local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+	vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+	vim.cmd([[packadd packer.nvim]])
 end
 
-vim.cmd([[packadd packer.nvim]]) -- see this line in a lot of setup packer automatically snippets. why?
 require("packer").startup({
 	function(use)
 		use("wbthomason/packer.nvim") -- Packer can manage itself
@@ -16,18 +15,21 @@ require("packer").startup({
 			"folke/todo-comments.nvim",
 			requires = "nvim-lua/plenary.nvim",
 			config = function()
-				require("todo-comments").setup({
-					-- your configuration comes here
-					-- or leave it empty to use the default settings
-					-- refer to the configuration section below
-				})
+				require("todo-comments").setup({})
 			end,
 		})
+
+		use("lukas-reineke/indent-blankline.nvim") -- Add indentation guides even on blank lines
+
 		use("norcalli/nvim-colorizer.lua") -- highlight hex strings with their color
+
 		use("mhinz/vim-startify") -- session manager and fancy start screen
+
 		-- status line
-		use("hoob3rt/lualine.nvim")
+		use("nvim-lualine/lualine.nvim")
+
 		use({ "~/code/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" })
+
 		-- git
 		use({
 			"pwntester/octo.nvim",
@@ -40,12 +42,19 @@ require("packer").startup({
 				require("octo").setup()
 			end,
 		})
+
 		use({
 			"ruifm/gitlinker.nvim",
 			requires = "nvim-lua/plenary.nvim",
 		})
+
 		use("tpope/vim-fugitive")
-		use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- git info in the signs column + status line
+
+		use({ -- git info in the signs column + status line
+			"lewis6991/gitsigns.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+		})
+
 		-- commenting
 		use({
 			"numToStr/Comment.nvim",
@@ -53,12 +62,26 @@ require("packer").startup({
 				require("Comment").setup()
 			end,
 		})
+
 		-- completion
-		use("neovim/nvim-lspconfig") -- configure lsp
+		use({ -- LSP Configuration & Plugins
+			"neovim/nvim-lspconfig",
+			requires = {
+				-- Automatically install LSPs to stdpath for neovim
+				"williamboman/mason.nvim",
+				"williamboman/mason-lspconfig.nvim",
+
+				-- Useful status updates for LSP
+				"j-hui/fidget.nvim",
+			},
+		})
+
 		use("williamboman/nvim-lsp-installer") -- for installing language servers
+
 		use({
 			"hrsh7th/nvim-cmp",
 			requires = {
+				"L3MON4D3/LuaSnip", -- snippet engine
 				-- completion sources
 				"saadparwaiz1/cmp_luasnip",
 				"hrsh7th/cmp-buffer",
@@ -67,22 +90,38 @@ require("packer").startup({
 				"hrsh7th/cmp-nvim-lsp",
 			},
 		})
-		use("L3MON4D3/LuaSnip") -- snippet engine
+
 		use("windwp/nvim-autopairs") -- finsh the starting tag/symbol/thing
+
 		-- treesitter
-		use({ "RRethy/nvim-treesitter-textsubjects" })
-		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+		use({ -- Additional text objects via treesitter
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			after = "nvim-treesitter",
+		})
+
+		use({ -- Highlight, edit, and navigate code
+			"nvim-treesitter/nvim-treesitter",
+			run = function()
+				pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+			end,
+		})
+
 		use({ "nvim-treesitter/playground", run = ":TSInstall query" })
+
 		use("windwp/nvim-ts-autotag") -- auto close and auto update closing tags
+
 		use("p00f/nvim-ts-rainbow") -- prettier () [] {}
+
 		-- formatting
 		use("sbdchd/neoformat")
+
 		use({
 			"johmsalas/text-case.nvim",
 			config = function()
 				require("textcase").setup({})
 			end,
 		})
+
 		-- search improvements
 		use({
 			"folke/trouble.nvim",
@@ -93,16 +132,22 @@ require("packer").startup({
 				})
 			end,
 		})
+
 		-- telescope
 		use({
 			"nvim-telescope/telescope.nvim",
 			requires = {
-				{ "nvim-lua/popup.nvim" },
 				{ "nvim-lua/plenary.nvim" },
 				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 			},
 		})
+
 		-- idk
+		use({ -- Additional text objects via treesitter
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			after = "nvim-treesitter",
+		})
+
 		use({
 			"kyazdani42/nvim-tree.lua",
 			requires = {
@@ -110,6 +155,7 @@ require("packer").startup({
 			},
 			tag = "nightly", -- optional, updated every week. (see issue #1193)
 		})
+
 		use({
 			"kylechui/nvim-surround",
 			tag = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -119,12 +165,16 @@ require("packer").startup({
 				})
 			end,
 		})
+
 		use({
 			"simrat39/symbols-outline.nvim",
 			config = function() end,
 		})
+
 		use("nvim-orgmode/orgmode")
+
 		use("is0n/fm-nvim")
+
 		-- writing
 		use({
 			"folke/zen-mode.nvim",
@@ -136,6 +186,10 @@ require("packer").startup({
 				})
 			end,
 		})
+
+		if is_bootstrap then
+			require("packer").sync()
+		end
 	end,
 	config = {
 		-- show packer outputs in a floating window
@@ -147,113 +201,40 @@ require("packer").startup({
 	},
 })
 
--- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
--- 	pattern = { "*/plugins/init.lua" },
---   callback = function ()
---     vim.cmd('source %')
---     vim.cmd('PackerCompile')
---   end
--- })
+-- Automatically source and re-compile packer whenever you save this init.lua
+local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+	command = "source <afile> | PackerCompile",
+	group = packer_group,
+	pattern = vim.fn.expand("$MYVIMRC"),
+})
 
 require("plugins.treesitter")
-
-require("orgmode").setup({
-	org_agenda_files = { "~/org/*" },
-	org_default_notes_file = "~/org/refile.org",
-	mappings = {
-		org = {
-			org_toggle_checkbox = "<M-Space>",
-		},
-	},
-	org_capture_templates = {
-		t = {
-			description = "TODO",
-			template = "* TODO %?\n  %U",
-			target = "~/org/todo.org",
-		},
-		j = {
-			description = "Journal",
-			template = "* %U\n\n%?",
-			target = "~/org/journal.org",
-		},
-		d = {
-			description = "Dump",
-			template = "* %?",
-			target = "~/org/dump.org",
-		},
-	},
-})
 
 require("colorizer").setup() -- must be called after plugin definitions
 
 require("gitlinker").setup()
 
-require("gitsigns").setup()
-
-require("plugins.telescope")
-
 require("plugins.lsp")
 
 require("plugins.cmp")
 
--- nvim-autopairs stuff has to go after cmp setup
+-- NOTE: nvim-autopairs stuff has to go after cmp setup
 require("nvim-autopairs").setup({})
 
-require("plugins.statusline")
-
-require("fm-nvim").setup({
-	-- (Vim) Command used to open files
-	edit_cmd = "edit",
-	-- See `Q&A` for more info
-	on_close = {},
-	on_open = {},
-	-- Commands
-	cmds = { broot_cmd = "broot -h" },
-	-- UI Options
-	ui = {
-		-- Default UI (can be "split" or "float")
-		default = "float",
-		float = {
-			-- Floating window border (see ':h nvim_open_win')
-			border = "rounded",
-			-- Highlight group for floating window/border (see ':h winhl')
-			float_hl = "Normal",
-			border_hl = "FloatBorder",
-			-- Floating Window Transparency (see ':h winblend')
-			blend = 0,
-			-- Num from 0 - 1 for measurements
-			height = 1,
-			width = 1,
-			-- X and Y Axis of Window
-			x = 0,
-			y = 0,
-		},
-	},
-
-	broot_conf = "~/.config/broot/nvim_broot_conf.hjson",
+require("indent_blankline").setup({
+	char = "┊",
+	show_trailing_blankline_indent = false,
 })
 
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/plugins/snippets" } })
-
-require("nvim-tree").setup({
-	view = {
-		adaptive_size = true,
-		centralize_selection = true,
-		side = "right",
-	},
-	update_focused_file = {
-		enable = true,
-	},
-})
 
 require("tokyonight").setup({
 	-- use the night style
 	style = "night",
 })
 
-vim.cmd("colorscheme tokyonight")
+-- Turn on lsp status information
+require("fidget").setup()
 
-require("symbols-outline").setup({
-	highlight_hovered_item = true,
-	auto_preview = true,
-})
+vim.cmd("colorscheme tokyonight")
