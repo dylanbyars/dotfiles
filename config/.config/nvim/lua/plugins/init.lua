@@ -29,17 +29,17 @@ require("packer").startup({
 		use("hoob3rt/lualine.nvim")
 		use({ "~/code/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" })
 		-- git
-		-- use({
-		-- 	"pwntester/octo.nvim",
-		-- 	requires = {
-		-- 		"nvim-lua/plenary.nvim",
-		-- 		"nvim-telescope/telescope.nvim",
-		-- 		"kyazdani42/nvim-web-devicons",
-		-- 	},
-		-- 	config = function()
-		-- 		require("octo").setup()
-		-- 	end,
-		-- })
+		use({
+			"pwntester/octo.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-telescope/telescope.nvim",
+				"kyazdani42/nvim-web-devicons",
+			},
+			config = function()
+				require("octo").setup()
+			end,
+		})
 		use({
 			"ruifm/gitlinker.nvim",
 			requires = "nvim-lua/plenary.nvim",
@@ -147,11 +147,13 @@ require("packer").startup({
 	},
 })
 
--- still not sure if this works...
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	pattern = { "*/plugins/init.lua" },
-	command = "PackerCompile",
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+-- 	pattern = { "*/plugins/init.lua" },
+--   callback = function ()
+--     vim.cmd('source %')
+--     vim.cmd('PackerCompile')
+--   end
+-- })
 
 require("plugins.treesitter")
 
