@@ -1,20 +1,14 @@
 --------------------------
 -- general key bindings
 --------------------------
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
-local function cmd(command)
-	return "<cmd>" .. command .. "<cr>"
-end
-
-local setKeymap = vim.keymap.set
-
-local lspRename = require("textcase").lsp_rename
-local currentWord = require("textcase").current_word
 -- TODO: this fails when the word is against something e.g. fooBar(baz) -> can't cycle fooBar
 local function cycleCase()
-	-- TODO: I don't need 2 tables. join them somehow.
-	-- TODO: these could be more robust
+	local lspRename = require("textcase").lsp_rename
+	local currentWord = require("textcase").current_word
+
+	-- TODO: I don't need 2 tables. join them somehow. and these patterns could be more robust
 	local patterns = {
 		camel = "^%l+%u%l", -- fooBar
 		snake = "^%l+%_%l", -- foo_bar
@@ -50,49 +44,84 @@ end
 
 local KEYMAPS = {
 	["n"] = {
-		["<leader>t"] = cmd("NvimTreeToggle"),
-		["<leader>hh"] = cmd("set cursorline!"),
-		["<leader>w"] = cmd("w"),
-		["<leader>q"] = cmd("q"),
-		["<leader>so"] = cmd("source ~/.config/nvim/init.lua"),
+		["<leader>t"] = function()
+			vim.cmd("NvimTreeToggle")
+		end,
+		["<leader>hh"] = function()
+			vim.cmd("set cursorline!")
+		end,
+		["<leader>w"] = function()
+			vim.cmd("w")
+		end,
+		["<leader>q"] = function()
+			vim.cmd("q")
+		end,
+		["<leader>so"] = function()
+			vim.cmd("source ~/.config/nvim/init.lua")
+		end,
 		-- make splits easier
 		["<leader>\\"] = "<C-w>v",
 		["<leader>-"] = "<C-w>s",
 		-- move between tabs
-		["[t"] = cmd("tabprev"),
-		["]t"] = cmd(" tabnext "),
+		["[t"] = function()
+			vim.cmd("tabprev")
+		end,
+		["]t"] = function()
+			vim.cmd("tabnext")
+		end,
 		-- rearrange tabs
-		["[T"] = cmd("-tabmove"),
-		["]T"] = cmd("+tabmove"),
+		["[T"] = function()
+			vim.cmd("-tabmove")
+		end,
+		["]T"] = function()
+			vim.cmd("+tabmove")
+		end,
 		-- spell check
-		["<leader>s"] = cmd("set spell!"), -- toggle spell checking mod
+		["<leader>s"] = function()
+			vim.cmd("set spell!")
+		end, -- toggle spell checking moendd
 		-- yank selection to system clipboard
 		["<leader>y"] = '"+y',
 		-- navigate to start/end of line
 		["H"] = "^",
 		["L"] = "$",
 		["U"] = "<C-r>", -- u = undo  U = undo undo aka redo,
-		["<leader>lz"] = cmd("Lazygit"),
-		-- ["<leader>!"] = cmd("lua print(vim.fn.expand('<cword>'))")
+		["<leader>lz"] = function()
+			vim.cmd("Lazygit")
+		end,
+		-- ["<leader>!"] = vim.cmd("lua print(vim.fn.expand('<cword>'))")
 		["<leader>_"] = cycleCase,
-		-- ["_"] = cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
-		["<leader>o"] = cmd("SymbolsOutline"),
+		-- ["_"] = vim.cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
 		-- jump a half page then center the screen on the cursor's line
 		["<C-u>"] = "<C-u>zz",
 		["<C-d>"] = "<C-d>zz",
-		["<leader>x"] = cmd("lua vim.diagnostic.disable()"),
-		["<leader>X"] = cmd("lua vim.diagnostic.enable()"),
-		["<leader>n"] = cmd(":noh"), -- clear current search highlight
+		["<leader>x"] = vim.diagnostic.disable,
+		["<leader>X"] = function()
+			vim.cmd("lua vim.diagnostic.enable()")
+		end,
+		["<leader>n"] = function()
+			vim.cmd(":noh")
+		end, -- clear current search highlighendt
 		-- <trouble>
-		["<leader>xx"] = cmd("TroubleToggle quickfix"),
-		["<leader>xw"] = cmd("Trouble workspace_diagnostics"),
-		["<leader>xd"] = cmd("Trouble document_diagnostics"),
-		["gR"] = cmd("Trouble lsp_references"),
+		["<leader>xx"] = function()
+			vim.cmd("TroubleToggle quickfix")
+		end,
+		["<leader>xw"] = function()
+			vim.cmd("Trouble workspace_diagnostics")
+		end,
+		["<leader>xd"] = function()
+			vim.cmd("Trouble document_diagnostics")
+		end,
+		["gR"] = function()
+			vim.cmd("Trouble lsp_references")
+		end,
 		-- </trouble>
 		["<leader>js"] = function()
 			open_scratch_buffer("json")
 		end,
-		["<leader>br"] = cmd("Broot %:h"), -- open broot in the directory of the current buffer
+		["<leader>br"] = function()
+			vim.cmd("Broot %:h")
+		end, -- open broot in the directory of the current buffeendr
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard
@@ -104,61 +133,10 @@ local KEYMAPS = {
 
 for mode, maps in pairs(KEYMAPS) do
 	for keymap, action in pairs(maps) do
-		setKeymap(mode, keymap, action)
+		vim.keymap.set(mode, keymap, action)
 	end
 end
 
-
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is pressed but move from real line to real line when jumping some number of lines across visually wrapped lines
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
-
---------------------------
--- telescope
---------------------------
--- local function callTelescopeBuiltin(builtin)
--- 	return "<cmd>lua require('telescope.builtin')." .. builtin .. "<cr>"
--- end
-
--- vim.api.nvim_set_keymap("n", "<Leader><Space>", "<CMD>lua require'telescope-config'.project_files()<CR>", {noremap = true, silent = true})
--- setKeymap({ "n", "i" }, "<C-p>", "<CMD>lua require'plugins.telescope'.project_files()<CR>", { silent = true })
--- setKeymap("n", "<leader>b", callTelescopeBuiltin("buffers()"))
--- setKeymap("n", "<leader>/", callTelescopeBuiltin("live_grep()"))
--- setKeymap("n", "<leader>c", callTelescopeBuiltin("git_bcommits()"))
--- setKeymap("n", "<leader>gs", callTelescopeBuiltin("git_status()")) -- show files with a git status
--- setKeymap("n", "<leader>?", callTelescopeBuiltin("help_tags()")) -- for quick vim `help`
--- setKeymap("n", "<leader>S", callTelescopeBuiltin("spell_suggest()")) -- show spelling suggestions for word under cursor when `spell` is set
--- setKeymap("n", "<leader>*", callTelescopeBuiltin("grep_string()")) -- search entire project for string under cursor
--- setKeymap("n", "<leader>T", callTelescopeBuiltin("resume()")) -- reopen the last Telescope window
--- setKeymap("n", "<leader>j", callTelescopeBuiltin("jumplist()")) -- reopen the last Telescope window
--- setKeymap("n", "?", callTelescopeBuiltin("current_buffer_fuzzy_find()")) -- replace the default search fuzzy find in the current buffer
-
---------------------------
--- gitsigns
---------------------------
-
---------------------------
--- neoformat
---------------------------
-setKeymap("n", "<leader>f", cmd(":Neoformat"))
-
---------------------------
--- LSP
---------------------------
-local borderStyle = { border = "double", max_width = 90 }
-setKeymap("n", "<leader>O", cmd(":OrganizeImports"))
-
-setKeymap("n", "K", cmd(":lua vim.lsp.buf.hover()")) -- go to floating window by pressing `K` again
-setKeymap({ "n", "i" }, "<C-k>", cmd(":lua vim.lsp.buf.signature_help()"))
--- diagnostics
-setKeymap("n", "<leader>ld", cmd('lua vim.diagnostic.open_float({ border = "rounded" })'))
-setKeymap("n", "[e", cmd("lua vim.diagnostic.goto_prev({ float = false })"))
-setKeymap("n", "]e", cmd("lua vim.diagnostic.goto_next({ float = false })"))
-
--- additional lsp mappings using regular lsp api
-setKeymap("n", "<leader>ca", cmd("lua vim.lsp.buf.code_action()"))
-setKeymap("v", "<leader>ca", cmd("lua vim.lsp.buf.range_code_action()"))
-setKeymap("n", "<leader>d", cmd("split | lua vim.lsp.buf.definition()")) -- go to definition in split
-setKeymap("n", "<leader>D", cmd("lua vim.lsp.buf.definition()")) -- go to definition in current buffer
-setKeymap("n", "<leader>r", cmd("lua vim.lsp.buf.rename()")) -- rename symbol under cursor
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

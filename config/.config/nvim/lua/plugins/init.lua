@@ -12,7 +12,7 @@ require("packer").startup({
 		-- colors
 		use("folke/tokyonight.nvim") -- colorscheme
 		use({
-			"folke/todo-comments.nvim",
+			"folke/todo-comments.nvim"   ,
 			requires = "nvim-lua/plenary.nvim",
 			config = function()
 				require("todo-comments").setup({})
@@ -76,7 +76,7 @@ require("packer").startup({
 			},
 		})
 
-		use("williamboman/nvim-lsp-installer") -- for installing language servers
+		-- use("williamboman/nvim-lsp-installer") -- for installing language servers
 
 		use({
 			"hrsh7th/nvim-cmp",
@@ -143,11 +143,6 @@ require("packer").startup({
 		})
 
 		-- idk
-		use({ -- Additional text objects via treesitter
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			after = "nvim-treesitter",
-		})
-
 		use({
 			"kyazdani42/nvim-tree.lua",
 			requires = {
@@ -209,17 +204,11 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = vim.fn.expand("$MYVIMRC"),
 })
 
-require("plugins.treesitter")
 
 require("colorizer").setup() -- must be called after plugin definitions
 
 require("gitlinker").setup()
 
-require("plugins.lsp")
-
-require("plugins.cmp")
-
--- NOTE: nvim-autopairs stuff has to go after cmp setup
 require("nvim-autopairs").setup({})
 
 require("indent_blankline").setup({
@@ -234,7 +223,5 @@ require("tokyonight").setup({
 	style = "night",
 })
 
--- Turn on lsp status information
-require("fidget").setup()
-
 vim.cmd("colorscheme tokyonight")
+

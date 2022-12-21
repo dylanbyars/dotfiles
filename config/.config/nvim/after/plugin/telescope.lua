@@ -147,7 +147,6 @@ vim.keymap.set("n", "<leader>S", builtin.spell_suggest)
 vim.keymap.set("n", "<leader>*", builtin.grep_string)
 vim.keymap.set("n", "<leader>T", builtin.resume)
 vim.keymap.set("n", "<leader>/", function()
-	-- You can pass additional configuration to telescope to change theme, layout, etc.
 	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
 		previewer = false,
