@@ -1,16 +1,13 @@
 --------------------------
 -- SETTINGS
 --------------------------
-vim.o.termguicolors = true 
+vim.o.termguicolors = true
 
 -- make the mouse work
 vim.o.mouse = "a"
 
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -89,18 +86,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	end,
 })
 
---------------------------
--- plugin configs
---------------------------
-
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics,
-	{ underline = false }
-)
-
-require('custom.keymaps')
-require('custom.plugins')
+require("custom.keymaps")
+require("custom.plugins")
 require("custom.lsp")

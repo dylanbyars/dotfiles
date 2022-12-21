@@ -81,6 +81,7 @@
 -- end)
 
 -- LSP settings.
+
 -- This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
 	local nmap = function(keys, func, desc)
@@ -113,10 +114,21 @@ local on_attach = function(_, bufnr)
 		vim.diagnostic.goto_next({ float = false })
 	end, "Next [e]rror")
 
-	-- See `:help K` for why this keymap
-	nmap("K", function() vim.lsp.buf.hover() end, "Hover Documentation")
-	vim.keymap.set({'n', 'i'}, "<C-k>", vim.lsp.buf.signature_help, {desc = "Signature Documentation"})
-
+	-- style the floating windows
+	local borderStyle = { border = "double", max_width = 90 }
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
+	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+		vim.lsp.diagnostic.on_publish_diagnostics,
+		{ underline = false }
+	)
+	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+	vim.keymap.set(
+		{ "n", "i" },
+		"<C-k>",
+		vim.lsp.buf.signature_help,
+		{ buffer = bufnr, desc = "Signature Documentation" }
+	)
 
 	-- Create a command `:Format` local to the LSP buffer
 	-- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -133,7 +145,7 @@ require("mason").setup()
 
 -- Enable the following language servers
 -- what are these? -> "css", "dockerfile", "bash", "yaml", "vim"
-local servers = { "pyright", "tsserver", "sumneko_lua", "html", }
+local servers = { "pyright", "tsserver", "sumneko_lua", "html" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup({

@@ -4,6 +4,7 @@ require("orgmode").setup_ts_grammar()
 require("nvim-treesitter.configs").setup({
 	-- one of "all", "maintained" (parsers with maintainers), or a list of languages
 	ensure_installed = {
+		"org",
 		"bash",
 		"comment", -- highlight TODO and FIXME comments
 		"css",
@@ -62,7 +63,7 @@ require("nvim-treesitter.configs").setup({
 			show_help = "?",
 		},
 	},
-  textobjects = {
+	textobjects = {
 		select = {
 			enable = true,
 			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
@@ -105,6 +106,5 @@ require("nvim-treesitter.configs").setup({
 				["<leader>A"] = "@parameter.inner",
 			},
 		},
-	}
+	},
 })
-
