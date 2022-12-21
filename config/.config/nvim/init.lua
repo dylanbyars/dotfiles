@@ -102,4 +102,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 require('custom.keymaps')
-require("plugins")
+require('custom.plugins')
+require("custom.lsp")

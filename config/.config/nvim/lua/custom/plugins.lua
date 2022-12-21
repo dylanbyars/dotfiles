@@ -12,7 +12,7 @@ require("packer").startup({
 		-- colors
 		use("folke/tokyonight.nvim") -- colorscheme
 		use({
-			"folke/todo-comments.nvim"   ,
+			"folke/todo-comments.nvim",
 			requires = "nvim-lua/plenary.nvim",
 			config = function()
 				require("todo-comments").setup({})
@@ -75,8 +75,6 @@ require("packer").startup({
 				"j-hui/fidget.nvim",
 			},
 		})
-
-		-- use("williamboman/nvim-lsp-installer") -- for installing language servers
 
 		use({
 			"hrsh7th/nvim-cmp",
@@ -174,11 +172,7 @@ require("packer").startup({
 		use({
 			"folke/zen-mode.nvim",
 			config = function()
-				require("zen-mode").setup({
-					-- your configuration comes here
-					-- or leave it empty to use the default settings
-					-- refer to the configuration section below
-				})
+				require("zen-mode").setup({})
 			end,
 		})
 
@@ -204,7 +198,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = vim.fn.expand("$MYVIMRC"),
 })
 
-
 require("colorizer").setup() -- must be called after plugin definitions
 
 require("gitlinker").setup()
@@ -216,7 +209,7 @@ require("indent_blankline").setup({
 	show_trailing_blankline_indent = false,
 })
 
-require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/plugins/snippets" } })
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/snippets" } })
 
 require("tokyonight").setup({
 	-- use the night style
@@ -224,4 +217,3 @@ require("tokyonight").setup({
 })
 
 vim.cmd("colorscheme tokyonight")
-
