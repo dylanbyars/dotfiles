@@ -70,6 +70,8 @@ require("packer").startup({
 				-- Automatically install LSPs to stdpath for neovim
 				"williamboman/mason.nvim",
 				"williamboman/mason-lspconfig.nvim",
+				"jose-elias-alvarez/null-ls.nvim",
+				"jayp0521/mason-null-ls.nvim",
 
 				-- Useful status updates for LSP
 				"j-hui/fidget.nvim",
@@ -109,9 +111,6 @@ require("packer").startup({
 		use("windwp/nvim-ts-autotag") -- auto close and auto update closing tags
 
 		use("p00f/nvim-ts-rainbow") -- prettier () [] {}
-
-		-- formatting
-		use("sbdchd/neoformat")
 
 		use({
 			"johmsalas/text-case.nvim",
@@ -195,7 +194,7 @@ local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
 	command = "source <afile> | PackerCompile",
 	group = packer_group,
-	pattern = vim.fn.expand("$MYVIMRC"),
+	pattern = vim.fn.expand("$MYVIMRC"), -- TODO: update this pattern. it points to the main `init.lua`, not this
 })
 
 require("colorizer").setup() -- must be called after plugin definitions
