@@ -46,6 +46,18 @@ local on_attach = function(server, bufnr)
 		{ buffer = bufnr, desc = "Signature Documentation" }
 	)
 
+	if server.name == "eslint" then
+		nmap("<leader>o", function()
+			vim.cmd("EslintFixAll")
+		end, "[o]rganize imports and auto fix linty problems")
+	end
+
+	if server.name == "pyright" then
+		nmap("<leader>o", function()
+			vim.cmd("PyrightOrganizeImports")
+		end, "[o]rganize imports and auto fix linty problems")
+	end
+
 	-- Create a command `:Format` local to the LSP buffer
 	-- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 	-- 	if vim.lsp.buf.format then
@@ -77,21 +89,21 @@ local function make_server_setup(server_name)
 		capabilities = capabilities,
 	}
 
-	if server_name == "tsserver" then
-		local function organize_imports()
-			vim.lsp.buf.execute_command({
-				command = "_typescript.organizeImports",
-				arguments = { vim.api.nvim_buf_get_name(0) }, -- BUG: maybe use `bufnr` instead?
-			})
-		end
-
-		setup.commands = {
-			OrganizeImports = {
-				organize_imports,
-				description = "Organize Imports",
-			},
-		}
-	end
+	-- if server_name == "tsserver" then
+	-- 	local function organize_imports()
+	-- 		vim.lsp.buf.execute_command({
+	-- 			command = "_typescript.organizeImports",
+	-- 			arguments = { vim.api.nvim_buf_get_name(0) }, -- BUG: maybe use `bufnr` instead?
+	-- 		})
+	-- 	end
+	--
+	-- 	setup.commands = {
+	-- 		OrganizeImports = {
+	-- 			organize_imports,
+	-- 			description = "Organize Imports",
+	-- 		},
+	-- 	}
+	-- end
 
 	-- Make runtime files discoverable to the server
 	local runtime_path = vim.split(package.path, ";")
