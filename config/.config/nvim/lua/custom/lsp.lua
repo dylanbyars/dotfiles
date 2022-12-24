@@ -46,16 +46,18 @@ local on_attach = function(server, bufnr)
 		{ buffer = bufnr, desc = "Signature Documentation" }
 	)
 
-	if server.name == "eslint" then
+	local function organize_imports(command)
 		nmap("<leader>o", function()
-			vim.cmd("EslintFixAll")
+			vim.cmd(command)
 		end, "[o]rganize imports and auto fix linty problems")
 	end
 
+	if server.name == "eslint" then
+		organize_imports("EslintFixAll")
+	end
+
 	if server.name == "pyright" then
-		nmap("<leader>o", function()
-			vim.cmd("PyrightOrganizeImports")
-		end, "[o]rganize imports and auto fix linty problems")
+		organize_imports("PyrightOrganizeImports")
 	end
 
 	-- Create a command `:Format` local to the LSP buffer
@@ -72,7 +74,7 @@ end
 require("mason").setup()
 
 -- Enable the following language servers
-local servers = { "pyright", "tsserver", "sumneko_lua", "html", "eslint" }
+local servers = { "pyright", "tsserver", "sumneko_lua", "html", "eslint", "bashls" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup({
@@ -89,28 +91,28 @@ local function make_server_setup(server_name)
 		capabilities = capabilities,
 	}
 
-	-- if server_name == "tsserver" then
-	-- 	local function organize_imports()
-	-- 		vim.lsp.buf.execute_command({
-	-- 			command = "_typescript.organizeImports",
-	-- 			arguments = { vim.api.nvim_buf_get_name(0) }, -- BUG: maybe use `bufnr` instead?
-	-- 		})
-	-- 	end
-	--
-	-- 	setup.commands = {
-	-- 		OrganizeImports = {
-	-- 			organize_imports,
-	-- 			description = "Organize Imports",
-	-- 		},
-	-- 	}
-	-- end
+	if server_name == "tsserver" then
+		local function organize_imports()
+			vim.lsp.buf.execute_command({
+				command = "_typescript.organizeImports",
+				arguments = { vim.api.nvim_buf_get_name(0) },
+			})
+		end
 
-	-- Make runtime files discoverable to the server
-	local runtime_path = vim.split(package.path, ";")
-	table.insert(runtime_path, "lua/?.lua")
-	table.insert(runtime_path, "lua/?/init.lua")
+		setup.commands = {
+			OrganizeImports = {
+				organize_imports,
+				description = "Organize Imports using `tsserver`",
+			},
+		}
+	end
 
 	if server_name == "sumneko_lua" then
+		-- Make runtime files discoverable to the server
+		local runtime_path = vim.split(package.path, ";")
+		table.insert(runtime_path, "lua/?.lua")
+		table.insert(runtime_path, "lua/?/init.lua")
+
 		setup.settings = {
 			Lua = {
 				runtime = {
