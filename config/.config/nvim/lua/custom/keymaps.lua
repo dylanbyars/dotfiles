@@ -122,6 +122,11 @@ local KEYMAPS = {
 		["<leader>br"] = function()
 			vim.cmd("Broot %:h")
 		end, -- open broot in the directory of the current buffeendr
+		-- open closed folds at the top of the fold
+		["za"] = "za[z",
+		["zA"] = "zA[z",
+		["zo"] = "zo[z",
+		["zO"] = "zO[z",
 	},
 	["v"] = {
 		["<leader>y"] = '"+y', -- yank selection to system clipboard
