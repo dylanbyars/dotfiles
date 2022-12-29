@@ -143,5 +143,18 @@ for mode, maps in pairs(KEYMAPS) do
 end
 
 -- map j and k to gj and gk so that they move from visual line to visual line when j or k is pressed but move from real line to real line when jumping some number of lines across visually wrapped lines
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+local function move_line(j_or_k)
+	if vim.v.count == 0 then
+		return "g" .. j_or_k
+	else
+		return j_or_k
+	end
+end
+
+vim.keymap.set("n", "j", function()
+	return move_line("j")
+end, { expr = true, silent = true })
+vim.keymap.set("n", "k", function()
+	return move_line("k")
+end, { expr = true, silent = true })
+
