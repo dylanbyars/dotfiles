@@ -1,9 +1,9 @@
 require("orgmode").setup({
+	org_indent_mode = "noindent",
 	org_agenda_files = { "~/org/*" },
-	org_default_notes_file = "~/org/refile.org",
 	mappings = {
 		org = {
-			org_toggle_checkbox = "<M-Space>",
+			org_toggle_checkbox = "<leader><leader>",
 		},
 	},
 	org_capture_templates = {
