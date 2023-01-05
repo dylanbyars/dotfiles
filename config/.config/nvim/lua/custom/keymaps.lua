@@ -122,10 +122,10 @@ local KEYMAPS = {
     end, -- open broot in the directory of the current buffeendr
     -- open closed folds at the top of the fold
     -- TODO: make this smarter when there are multiple fold levels on the cursor line
-    ["za"] = "za[z",
-    ["zA"] = "zA[z",
-    ["zo"] = "zo[z",
-    ["zO"] = "zO[z",
+    -- ["za"] = "za[z",
+    -- ["zA"] = "zA[z",
+    -- ["zo"] = "zo[z",
+    -- ["zO"] = "zO[z",
   },
   ["v"] = {
     ["<leader>y"] = '"+y', -- yank selection to system clipboard
