@@ -97,6 +97,14 @@ function() {
   done
 }
 
+# convert an org file into markdown with no line wrapping
+# TODO: pandoc escapes a lot of symbols that don't need to be escaped. mainly <, >, and '
+to-md() {
+  file=$1
+  filename=$(basename $file .org)
+  pandoc $file -o $filename.md --wrap none
+}
+
 # use <C-z> to toggle current process between foreground and background
 fancy-ctrl-z() {
   if [[ $#BUFFER -eq 0 ]]; then
