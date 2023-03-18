@@ -6,6 +6,7 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 		"org",
 		"bash",
+    "terraform",
 		"comment", -- highlight TODO and FIXME comments
 		"css",
 		"html",
