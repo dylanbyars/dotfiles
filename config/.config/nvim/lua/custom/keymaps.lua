@@ -117,7 +117,7 @@ local KEYMAPS = {
     ["<leader>js"] = function()
       open_scratch_buffer("json")
     end,
-    ["<leader>br"] = function()
+    ["<leader>B"] = function()
       vim.cmd("Broot %:h")
     end, -- open broot in the directory of the current buffeendr
     -- open closed folds at the top of the fold
