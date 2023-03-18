@@ -175,6 +175,14 @@ require("packer").startup({
 			end,
 		})
 
+    -- embed a nvim client in the browser
+		-- use({
+		-- 	"glacambre/firenvim",
+		-- 	run = function()
+		-- 		vim.fn["firenvim#install"](0)
+		-- 	end,
+		-- })
+
 		if is_bootstrap then
 			require("packer").sync()
 		end
