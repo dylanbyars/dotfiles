@@ -141,11 +141,14 @@ end
 
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
+-- TODO: write a function that sets this up dynamically based on the project vim is opened in. Sometimes I want prettier, other times dprint
 null_ls.setup({
   sources = {
-    formatting.prettierd,
+    formatting.dprint,
+    -- formatting.prettierd,
     formatting.black,
     formatting.stylua,
+
   },
 })
 require("mason-null-ls").setup({
