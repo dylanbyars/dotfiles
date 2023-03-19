@@ -1,37 +1,48 @@
 --------------------------
 -- SETTINGS
 --------------------------
+
+-- Set <space> as the leader key
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 vim.o.termguicolors = true
 
 -- make the mouse work
 vim.o.mouse = "a"
 
--- Set <space> as the leader key
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- don't show mode since it's in the statusline
+vim.o.showmode = false -- TODO: make this a part of the statusline config
 
-vim.o.showmode = false -- don't show mode since it's in the statusline
+-- always show the sign column
+vim.o.signcolumn = "yes"
 
-vim.o.signcolumn = "yes" -- always show the sign column
+-- do not show the fold column (too busy)
+vim.o.foldcolumn = "0"
 
-vim.o.foldcolumn = "0" -- do not show the fold column (too busy)
+-- start file completely unfolded
+vim.o.foldlevelstart = 99
 
-vim.o.foldlevelstart = 99 -- start file completely unfolded
-
-vim.wo.foldmethod = "expr" -- use treesitter to define foldable areas
+-- use treesitter to define foldable areas
+vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- show the current line number on the current line and the relative line number on all other lines
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.o.incsearch = true
+-- Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.o.linebreak = true -- break lines between words at window's width
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = "menuone,noselect"
 
-vim.o.laststatus = 3 -- global status line
+-- break lines between words at window's width
+vim.o.linebreak = true
+
+-- global status line
+vim.o.laststatus = 3
 
 -- tabs are 2 spaces wide
 vim.o.tabstop = 2
@@ -39,7 +50,8 @@ vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
-vim.o.scrolloff = 1 -- keep 1 rows of text visible at the top and bottom of screen (if possible)
+-- keep 1 rows of text visible at the top and bottom of screen (if possible)
+vim.o.scrolloff = 1
 
 -- persistent undo
 vim.o.undofile = true
