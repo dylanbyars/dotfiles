@@ -74,7 +74,7 @@ end
 require("mason").setup()
 
 -- Enable the following language servers
-local servers = { "pyright", "tsserver", "sumneko_lua", "html", "eslint", "bashls" , "jsonls", "terraformls"}
+local servers = { "pyright", "tsserver", "lua_ls", "html", "eslint", "bashls" , "jsonls", "terraformls"}
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup({
@@ -107,7 +107,7 @@ local function make_server_setup(server_name)
     }
   end
 
-  if server_name == "sumneko_lua" then
+  if server_name == "lua_ls" then
     -- Make runtime files discoverable to the server
     local runtime_path = vim.split(package.path, ";")
     table.insert(runtime_path, "lua/?.lua")
