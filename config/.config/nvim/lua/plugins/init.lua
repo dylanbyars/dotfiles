@@ -2,7 +2,7 @@ return {
 	-- colorscheme
 	{ "folke/tokyonight.nvim", opts = { style = "night" } },
 
-	--
+	-- prettier TODO NOTE BUG comments
 	{ "folke/todo-comments.nvim", dependencies = "nvim-lua/plenary.nvim", opts = {} },
 
 	-- Add indentation guides even on blank lines
@@ -16,9 +16,6 @@ return {
 
 	-- highlight hex strings with their color
 	{ "norcalli/nvim-colorizer.lua", opts = {} },
-
-	-- status line
-	"nvim-lualine/lualine.nvim",
 
 	-- breadcrumbs
 	{ name = "nvim-gps", dir = "~/code/nvim-gps", dependencies = "nvim-treesitter/nvim-treesitter" },
@@ -36,9 +33,6 @@ return {
 	{ "ruifm/gitlinker.nvim", dependencies = "nvim-lua/plenary.nvim", opts = {} },
 
 	"tpope/vim-fugitive",
-
-	-- git info in the signs column + status line
-	{ "lewis6991/gitsigns.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
 	-- commenting
 	{ "numToStr/Comment.nvim", opts = {} },
@@ -71,39 +65,24 @@ return {
 		},
 	},
 
-	{ "windwp/nvim-autopairs", opts = {} }, -- finsh the starting tag/symbol/thing
-
-	-- Highlight, edit, and navigate code
-	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-		opts = function()
-			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-		end,
-	},
+	-- finsh the starting tag/symbol/thing
+	{ "windwp/nvim-autopairs", opts = {} },
 
 	{ "nvim-treesitter/playground", build = ":TSInstall query" },
 
-	"windwp/nvim-ts-autotag", -- auto close and auto update closing tags
+	-- auto close and auto update closing tags
+	"windwp/nvim-ts-autotag",
 
-	"p00f/nvim-ts-rainbow", -- prettier () [] {}
+	-- prettier () [] {}
+	"p00f/nvim-ts-rainbow",
 
 	{ "johmsalas/text-case.nvim", opts = {} },
 
 	-- search improvements
 	{ "folke/trouble.nvim", dependencies = "kyazdani42/nvim-web-devicons", opts = { auto_fold = true } },
 
-	-- filetree
-	{ "kyazdani42/nvim-tree.lua", dependencies = { "kyazdani42/nvim-web-devicons" } },
-
 	{ "kylechui/nvim-surround", opts = {} },
 
-	"nvim-orgmode/orgmode",
-
-	"is0n/fm-nvim",
-
 	-- writing
-	{ "folke/zen-mode.nvim", opts = {} },
+	"folke/zen-mode.nvim",
 }
