@@ -1,8 +1,10 @@
 return {
 	-- colorscheme
 	{ "folke/tokyonight.nvim", opts = { style = "night" } },
+
 	--
 	{ "folke/todo-comments.nvim", dependencies = "nvim-lua/plenary.nvim", opts = {} },
+
 	-- Add indentation guides even on blank lines
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -15,13 +17,12 @@ return {
 	-- highlight hex strings with their color
 	{ "norcalli/nvim-colorizer.lua", opts = {} },
 
-
 	-- status line
 	"nvim-lualine/lualine.nvim",
 
+	-- breadcrumbs
 	{ name = "nvim-gps", dir = "~/code/nvim-gps", dependencies = "nvim-treesitter/nvim-treesitter" },
 
-	-- git
 	-- {
 	-- 	"pwntester/octo.nvim",
 	-- 	dependencies = {
@@ -42,8 +43,8 @@ return {
 	-- commenting
 	{ "numToStr/Comment.nvim", opts = {} },
 
-	-- completion
-	{ -- LSP Configuration & Plugins
+	-- LSP Configuration & Plugins
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- Automatically install LSPs to stdpath for neovim
@@ -53,7 +54,7 @@ return {
 			"jayp0521/mason-null-ls.nvim",
 
 			-- Useful status updates for LSP
-			"j-hui/fidget.nvim",
+			{ "j-hui/fidget.nvim", opts = {} },
 		},
 	},
 
@@ -72,13 +73,12 @@ return {
 
 	{ "windwp/nvim-autopairs", opts = {} }, -- finsh the starting tag/symbol/thing
 
-	-- treesitter
-	-- Additional text objects via treesitter
-	{ "nvim-treesitter/nvim-treesitter-textobjects", dependencies = "nvim-treesitter" },
-
 	-- Highlight, edit, and navigate code
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 		opts = function()
 			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 		end,
@@ -93,36 +93,12 @@ return {
 	{ "johmsalas/text-case.nvim", opts = {} },
 
 	-- search improvements
-	{
-		"folke/trouble.nvim",
-		dependencies = "kyazdani42/nvim-web-devicons",
-		opts = { auto_fold = true },
-	},
+	{ "folke/trouble.nvim", dependencies = "kyazdani42/nvim-web-devicons", opts = { auto_fold = true } },
 
-	-- telescope
-	-- {
-	-- 	"nvim-telescope/telescope.nvim",
-	-- 	dependencies = {
-	-- 		{ "nvim-lua/plenary.nvim" },
-	-- 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-	-- 	},
-	-- },
-
-	-- idk
-	{
-		"kyazdani42/nvim-tree.lua",
-		dependencies = {
-			"kyazdani42/nvim-web-devicons", -- optional, for file icons
-		},
-		-- tag = "nightly", -- optional, updated every week. (see issue #1193)
-	},
+	-- filetree
+	{ "kyazdani42/nvim-tree.lua", dependencies = { "kyazdani42/nvim-web-devicons" } },
 
 	{ "kylechui/nvim-surround", opts = {} },
-
-	-- {
-	-- 	"simrat39/symbols-outline.nvim",
-	-- 	opts = function() end,
-	-- },
 
 	"nvim-orgmode/orgmode",
 
@@ -130,14 +106,4 @@ return {
 
 	-- writing
 	{ "folke/zen-mode.nvim", opts = {} },
-
-	-- embed a nvim client in the browser
-	-- {
-	-- 	"glacambre/firenvim",
-	-- 	build = function()
-	-- 		vim.fn["firenvim#install"](0)
-	-- 	end,
-	-- })
-	--
-	--
 }
