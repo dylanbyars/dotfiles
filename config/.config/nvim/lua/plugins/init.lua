@@ -15,8 +15,6 @@ return {
 	-- highlight hex strings with their color
 	{ "norcalli/nvim-colorizer.lua", opts = {} },
 
-	-- session manager and fancy start screen
-	"mhinz/vim-startify",
 
 	-- status line
 	"nvim-lualine/lualine.nvim",
