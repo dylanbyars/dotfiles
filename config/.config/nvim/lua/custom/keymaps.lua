@@ -128,6 +128,9 @@ local KEYMAPS = {
 		-- ["zA"] = "zA[z",
 		-- ["zo"] = "zo[z",
 		-- ["zO"] = "zO[z",
+		["<leader>#"] = function()
+			vim.cmd("set relativenumber!")
+		end,
 	},
 	["v"] = {
 		-- yank selection to system clipboard

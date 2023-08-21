@@ -98,6 +98,9 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	end,
 })
 
+require("custom.functions")
 require("custom.keymaps")
 require("custom.plugins")
 require("custom.lsp")
+
+vim.cmd([[ command! GitDiffTabs lua require'git_diff_tabs'.git_diff_tabs() ]])

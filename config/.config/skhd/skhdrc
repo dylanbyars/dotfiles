@@ -18,7 +18,7 @@ ctrl + cmd - up : yabai -m window --focus north
 # rebalance windows in a space
 ctrl + cmd - b : yabai -m space --balance
 
-# rotate windows around space
+# rotate windows around space with `[` and `]`
 ctrl + cmd - 0x21 : yabai -m space --rotate 90
 ctrl + cmd - 0x1E : yabai -m space --rotate 270
 

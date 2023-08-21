@@ -1,5 +1,5 @@
 os:
-  editCommand: "nvim"
+  edit: "nvim"
 gui:
   sidePanelWidth: 0.2
   commandLogSize: 4

@@ -1,4 +1,4 @@
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$PATH
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$HOME/.local/bin:$PATH
 
 export EDITOR=/usr/local/bin/nvim
 
@@ -120,6 +120,10 @@ bindkey '^Z' fancy-ctrl-z
 
 # Enable vi mode
 bindkey -v
+
+# NOTE: for when I forget what these are. use when yabaii is messing up
+# yabai --restart-service
+# skhd --restart-service
 
 # start fancy prompt
 eval "$(starship init zsh)"

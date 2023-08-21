@@ -14,6 +14,7 @@ return {
 			},
 		})
 
+		-- TODO: center the focused line too
 		vim.keymap.set("n", "[c", gitsigns.prev_hunk)
 		vim.keymap.set("n", "]c", gitsigns.next_hunk)
 		vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk)

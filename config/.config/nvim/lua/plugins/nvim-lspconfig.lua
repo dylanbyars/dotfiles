@@ -8,6 +8,6 @@ return {
 		"jayp0521/mason-null-ls.nvim",
 
 		-- Useful status updates for LSP
-		{ "j-hui/fidget.nvim", opts = {} },
+		{ "j-hui/fidget.nvim", opts = {}, tag = "legacy" },
 	},
 }
