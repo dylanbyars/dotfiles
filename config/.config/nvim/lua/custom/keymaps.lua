@@ -131,6 +131,9 @@ local KEYMAPS = {
 		["<leader>#"] = function()
 			vim.cmd("set relativenumber!")
 		end,
+		["<leader>Q"] = function()
+			vim.cmd("tabclose")
+		end,
 	},
 	["v"] = {
 		-- yank selection to system clipboard

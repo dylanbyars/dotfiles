@@ -5,7 +5,7 @@ return {
 		view = {
 			adaptive_size = true,
 			centralize_selection = true,
-			side = "right",
+			-- side = "right",
 		},
 		update_focused_file = {
 			enable = true,

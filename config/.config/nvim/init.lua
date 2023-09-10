@@ -98,9 +98,19 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	end,
 })
 
+-- vim.api.nvim_create_autocmd("BufEnter", {
+-- 	pattern = "git",
+-- 	callback = function()
+-- 		vim.cmd("set foldmethod=syntax")
+-- 		-- collapse all folds
+-- 		vim.cmd("normal! zM")
+-- 	end,
+-- })
+
 require("custom.functions")
 require("custom.keymaps")
 require("custom.plugins")
 require("custom.lsp")
 
-vim.cmd([[ command! GitDiffTabs lua require'git_diff_tabs'.git_diff_tabs() ]])
+vim.cmd([[ command! GitDiffCommit lua require'custom.functions'.git_diff_commit() ]])
+vim.cmd([[ command! GitDiffTabs lua require'custom.functions'.git_diff_tabs() ]])

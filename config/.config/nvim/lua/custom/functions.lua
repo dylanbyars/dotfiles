@@ -14,8 +14,15 @@ M.git_diff_tabs = function()
 	-- Open each changed file in a new tab and run :Gdiff
 	for _, file in ipairs(changed_files) do
 		vim.cmd("tabedit " .. file)
-		vim.cmd("Gdiff " .. previous_commit)
+		vim.cmd("Gdiffsplit " .. previous_commit)
 	end
+end
+
+M.git_diff_commit = function()
+	-- open the abbreviated log
+	vim.cmd("Git lo")
+	-- change the fold method so each file is folded
+	vim.cmd("set foldmethod=syntax")
 end
 
 return M

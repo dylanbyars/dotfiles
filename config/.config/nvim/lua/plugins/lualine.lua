@@ -1,3 +1,5 @@
+-- local navic = require("nvim-navic")
+
 return {
 	"nvim-lualine/lualine.nvim",
 	-- dependencies = { "nvim-gps" },
@@ -38,6 +40,15 @@ return {
 			lualine_x = { "location" },
 			lualine_y = {},
 			lualine_z = {},
+		},
+		winbar = {
+			lualine_c = {
+				{
+					"navic",
+					color_correction = nil,
+					navic_opts = nil,
+				},
+			},
 		},
 		-- tabline = {
 		-- 	lualine_a = { {'tabs', mode = 1, max_length = vim.o.columns} },

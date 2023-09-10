@@ -1,3 +1,6 @@
+local navic = require("nvim-navic")
+local navbuddy = require("nvim-navbuddy")
+
 -- This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(server, bufnr)
 	local nmap = function(keys, func, desc)
@@ -59,6 +62,12 @@ local on_attach = function(server, bufnr)
 	if server.name == "pyright" then
 		organize_imports("PyrightOrganizeImports")
 	end
+
+	if server.server_capabilities.documentSymbolProvider then
+		navic.attach(server, bufnr)
+	end
+
+	navbuddy.attach(server, bufnr)
 
 	-- Create a command `:Format` local to the LSP buffer
 	-- vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
