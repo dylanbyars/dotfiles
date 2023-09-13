@@ -150,24 +150,7 @@ install_lazygit() {
 }
 
 install_fonts() {
-  fonts_dir="${HOME}/.local/share/fonts"
-
-  if [ ! -d "${fonts_dir}" ]; then
-    echo "mkdir -p $fonts_dir"
-    mkdir -p "${fonts_dir}"
-  else
-    echo "Found fonts dir $fonts_dir"
-  fi
-
-  version=2.1.0
-  zip=Hasklig.zip
-  # curl --fail --location --show-error https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip} --output ${zip}
-  unzip -o -q -d ${fonts_dir} ${zip}
-
-  echo "fc-cache -f"
-  fc-cache -f
-
-  echo "restart the terminal to see the font in action"
+  brew tap homebrew/cask-fonts && brew install --cask font-hasklug-nerd-font
 }
 
 set_default_terminal() {
