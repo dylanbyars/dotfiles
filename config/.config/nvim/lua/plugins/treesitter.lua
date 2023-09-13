@@ -30,7 +30,7 @@ return {
 				"tsx",
 				"typescript",
 				"yaml",
-				"help",
+				-- "help",
 			},
 			-- highlight adds treesitter highlighting to the words in the buffer
 			highlight = {
