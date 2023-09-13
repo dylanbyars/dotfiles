@@ -17,3 +17,7 @@ brew "koekeishiya/formulae/yabai"
 brew "koekeishiya/formulae/skhd"
 cask "kitty"
 cask "maccy"
+cask "spotify"
+cask "brave-browser"
+cask "font-hasklug-nerd-font"
+
