@@ -143,3 +143,5 @@ source ~/bin/work_scripts
 
 # caps <-> escape
 # eval `$(setxkbmap -option "caps:escape")`
+
+source /Users/dylan.byars/.config/broot/launcher/bash/br
