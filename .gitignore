@@ -7,3 +7,7 @@ config/.config/gh-dash/config.yml
 config/.config/qtile/__pycache__
 config/.config/lazygit/state.yml
 __pycache__
+config/.config/broot/launcher/installed-v4
+config/.config/broot/launcher/bash/br
+config/.config/github-copilot/hosts.json
+config/.config/github-copilot/versions.json
