@@ -15,6 +15,10 @@ ctrl + cmd - right : yabai -m window --focus east
 ctrl + cmd - down : yabai -m window --focus south
 ctrl + cmd - up : yabai -m window --focus north
 
+# move focus between monitors
+ctrl + cmd - 0x18 : yabai -m window --display 2 # +
+ctrl + cmd - 0x1B : yabai -m window --display 1 # -
+
 # rebalance windows in a space
 ctrl + cmd - b : yabai -m space --balance
 
