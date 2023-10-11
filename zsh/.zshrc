@@ -39,7 +39,6 @@ to-md() { file=$1; filename=$(basename $file .org); pandoc $file -o $filename.md
 is_poetry_project() { [[ -f "pyproject.toml" ]] && grep -q '\[build-system\]' "pyproject.toml"; }
 activate_poetry_env() { echo "Activating Poetry virtual environment..."; VENV_PATH=$(poetry env info --path); source $VENV_PATH/bin/activate; }
 activate_node_lts() { echo "Activating Node.js LTS version..."; nvm use --lts; }
-auto_activate() { if is_poetry_project; then activate_poetry_env; activate_node_lts; fi; }
 is_nvm_project() { [[ -f ".nvmrc" ]]; }
 activate_nvm_env() { echo "Activating Node.js version specified in .nvmrc..."; nvm use; }
 
@@ -48,7 +47,7 @@ auto_activate() {
   # Check if the current directory is under ~/code
   if [[ "$PWD" == "$HOME/code"* ]]; then
     if is_poetry_project; then
-      activate_poetry_env
+      activate_poetry_env && activate_node_lts
     fi
     if is_nvm_project; then
       activate_nvm_env
@@ -86,6 +85,18 @@ done
 # -----------------------
 # Keybindings
 # -----------------------
+
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+zle -N fancy-ctrl-z
+
 bindkey -v
 bindkey '^Z' fancy-ctrl-z
 
