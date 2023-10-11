@@ -61,6 +61,37 @@ mktouch() {
 # view all globally installed npm packages
 alias globalPackages="npm ls -g --depth=0"
 
+# Function to check if the current directory is a Poetry project
+is_poetry_project() {
+  [[ -f "pyproject.toml" ]] && grep -q '\[build-system\]' "pyproject.toml"
+}
+
+# Function to activate Poetry virtual environment
+activate_poetry_env() {
+  echo "Activating Poetry virtual environment..."
+  VENV_PATH=$(poetry env info --path)
+  source $VENV_PATH/bin/activate
+}
+
+# Function to activate Node.js LTS version
+activate_node_lts() {
+  echo "Activating Node.js LTS version..."
+  nvm use --lts
+}
+
+# Main function that gets called whenever you navigate to a new directory
+auto_activate() {
+  if is_poetry_project; then
+    activate_poetry_env
+    activate_node_lts
+  fi
+}
+
+# Hook the function to the 'chpwd' event, which triggers whenever you change directory
+autoload -U add-zsh-hook
+add-zsh-hook chpwd auto_activate
+
+
 # I'll put completion files in ~/.zsh
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit
