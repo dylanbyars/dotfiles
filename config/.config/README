@@ -1,8 +1,0 @@
-After initial install of `yabai` and `skhd`, run their respecitve startup commands:
-
-```sh
-yabai --start-service
-skhd --start-service
-```
-
-and then make sure they start at login and have whatever other accessibility permissions they require.

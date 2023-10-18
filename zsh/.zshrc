@@ -120,3 +120,5 @@ source ~/bin/work_scripts
 
 # zprof > profile.txt
 
+
+source /Users/dylan.byars/.config/broot/launcher/bash/br
