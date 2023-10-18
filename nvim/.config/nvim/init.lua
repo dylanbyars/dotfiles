@@ -23,9 +23,11 @@ vim.o.foldcolumn = "0"
 -- start file completely unfolded
 vim.o.foldlevelstart = 99
 
--- use treesitter to define foldable areas
+-- use treesitter to define foldable areas...
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- ...except for markdown. Those are folded a different way
+vim.g.markdown_folding = 1
 
 -- show the current line number on the current line and the relative line number on all other lines
 vim.o.number = true
