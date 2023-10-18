@@ -5,7 +5,7 @@
 # Environment Variables
 # -----------------------
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$HOME/.local/bin:$PATH
-export EDITOR=/usr/local/bin/nvim
+export EDITOR=nvim
 export DELTA_PAGER="less -r"
 export STARSHIP_CONFIG=~/.config/starship/config.toml
 
