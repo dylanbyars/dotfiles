@@ -106,6 +106,27 @@ vim.api.nvim_create_autocmd("WinEnter", {
 -- 		vim.cmd("normal! zM")
 -- 	end,
 -- })
+--
+vim.g.sync_scroll = 0
+
+function sync_scroll_toggle()
+	if vim.g.sync_scroll == 0 then
+		vim.g.sync_scroll = 1
+		print("Synchronized scrolling enabled")
+	else
+		vim.g.sync_scroll = 0
+		print("Synchronized scrolling disabled")
+	end
+end
+
+vim.cmd("command! SyncScrollToggle lua sync_scroll_toggle()")
+
+vim.cmd([[
+augroup sync_scroll
+    autocmd!
+    autocmd CursorMoved * if g:sync_scroll == 1 | windo exe "normal! " . line(".") . "G" | endif
+augroup END
+]])
 
 require("custom.functions")
 require("custom.keymaps")

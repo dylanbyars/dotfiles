@@ -83,7 +83,7 @@ end
 require("mason").setup()
 
 -- Enable the following language servers
-local servers = { "pyright", "tsserver", "lua_ls", "html", "eslint", "bashls", "jsonls", "terraformls" }
+local servers = { "pyright", "tsserver", "lua_ls", "html", "eslint", "bashls", "jsonls", "terraformls", "omnisharp" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup({

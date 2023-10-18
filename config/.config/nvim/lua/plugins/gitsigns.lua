@@ -14,9 +14,15 @@ return {
 			},
 		})
 
-		-- TODO: center the focused line too
-		vim.keymap.set("n", "[c", gitsigns.prev_hunk)
-		vim.keymap.set("n", "]c", gitsigns.next_hunk)
+    -- TODO: this doesn't work either
+		vim.keymap.set("n", "[c", function()
+			gitsigns.prev_hunk()
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("zz", true, true, true), "n", false)
+		end)
+		vim.keymap.set("n", "]c", function()
+			gitsigns.next_hunk()
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("zz", true, true, true), "n", false)
+		end)
 		vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk)
 		vim.keymap.set("v", "<leader>hr", function()
 			gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
