@@ -32,6 +32,7 @@ ufx() { echo 'removing xcode-select tools'; sudo rm -rf $(xcode-select --print-p
 mktouch() { mkdir -p "$(dirname "$1")" && touch "$1"; }
 fzfancy() { fzf --reverse --height=20 --border=rounded --header=$1; }
 to-md() { file=$1; filename=$(basename $file .org); pandoc $file -o $filename.md --wrap none; }
+source ~/.zsh/today.sh
 
 # -----------------------
 # Project Environment Functions
