@@ -12,6 +12,9 @@ function today() {
         yesterday=$(date -v-1d "+%Y-%m-%d")
         # Move today.md to <day-before-today>.md
         mv ~/today/today.md ~/today/${yesterday}.md
+        # commit <yesterday>.md
+        git add ~/today/${yesterday}.md
+        git commit -m "${yesterday}"
     fi
 
     # Create and open a new today.md
