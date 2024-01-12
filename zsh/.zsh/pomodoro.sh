@@ -1,5 +1,11 @@
 #!/bin/zsh
 
+# TODO:
+# - reset the terminal title when quit even if it's a hard kill
+# - add a function to quit the pomodoro when `q` is pressed
+# - add a function to pause the pomodoro when `space` is pressed
+# - show the cycle number in the terminal output
+
 # Default durations in minutes
 WORK_DURATION=${1:-25}
 SHORT_BREAK_DURATION=${2:-5}
