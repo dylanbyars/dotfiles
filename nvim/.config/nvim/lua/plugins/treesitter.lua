@@ -7,13 +7,9 @@ return {
 		pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 	end,
 	config = function()
-		-- NOTE: I think this needs to happen before the `nvim-treesitter.configs` call
-		require("orgmode").setup_ts_grammar()
-
 		require("nvim-treesitter.configs").setup({
 			-- one of "all", "maintained" (parsers with maintainers), or a list of languages
 			ensure_installed = {
-				"org",
 				"bash",
 				"terraform",
 				"comment", -- highlight TODO and FIXME comments
@@ -35,8 +31,6 @@ return {
 			-- highlight adds treesitter highlighting to the words in the buffer
 			highlight = {
 				enable = true, -- false will disable the whole extension
-				additional_vim_regex_highlighting = { "org" },
-				ensure_installed = { "org" }, -- Or run :TSUpdate org
 			},
 			indent = { enable = true },
 			rainbow = {
