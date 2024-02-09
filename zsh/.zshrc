@@ -4,7 +4,7 @@
 # -----------------------
 # Environment Variables
 # -----------------------
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$HOME/.local/bin:$PATH
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/share/zsh/site-functions:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$HOME/.local/bin:$PATH
 export EDITOR=nvim
 export DELTA_PAGER="less -r"
 export STARSHIP_CONFIG=~/.config/starship/config.toml
@@ -64,7 +64,7 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd auto_activate
 
 # Completion
-fpath=(~/.zsh $fpath)
+fpath=(~/.zsh /opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 compinit -u
 
