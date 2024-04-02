@@ -1,3 +1,6 @@
+# git:
+#   paging:
+#     externalDiffCommand: difft --color=always
 os:
   edit: "nvim"
 gui:
