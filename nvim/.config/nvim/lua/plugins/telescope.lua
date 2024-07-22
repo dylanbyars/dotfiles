@@ -6,7 +6,7 @@ return {
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 	config = function()
-		local trouble = require("trouble.providers.telescope")
+		local trouble = require("trouble.sources.telescope")
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 
@@ -23,7 +23,7 @@ return {
 						["<C-j>"] = actions.preview_scrolling_down,
 						["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
 						["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-						["<C-q>"] = trouble.open_with_trouble,
+						["<C-q>"] = trouble.open,
 						["<C-l>"] = actions.send_to_qflist,
 						["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
 						["<C-n>"] = false,
@@ -41,7 +41,7 @@ return {
 						["<C-t>"] = actions.select_tab,
 						["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
 						["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-						["<C-q>"] = trouble.open_with_trouble,
+						["<C-q>"] = trouble.open,
 						["<C-l>"] = actions.send_to_qflist,
 						["j"] = actions.move_selection_next,
 						["k"] = actions.move_selection_previous,

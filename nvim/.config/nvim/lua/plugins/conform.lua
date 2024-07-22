@@ -21,11 +21,12 @@ return {
 			python = { "isort", "black" },
 			javascript = { { "prettierd", "prettier" } },
 			typescript = { { "prettierd", "prettier" } },
+			typescriptreact = { { "dprint", "prettierd", "prettier" } },
 			sh = { "shfmt" },
 			graphql = { "prettier" },
 		},
 		-- Set up format-on-save
-		format_on_save = { timeout_ms = 500, lsp_fallback = true },
+		-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
 		-- Customize formatters
 		formatters = {
 			shfmt = {
