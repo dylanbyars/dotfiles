@@ -1,5 +1,5 @@
 local navic = require("nvim-navic")
-local navbuddy = require("nvim-navbuddy")
+-- local navbuddy = require("nvim-navbuddy")
 
 -- This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(server, bufnr)
@@ -34,12 +34,11 @@ local on_attach = function(server, bufnr)
 	end, "Next [e]rror")
 
 	-- style the floating windows
-	local borderStyle = { border = "double", max_width = 90 }
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
-	vim.lsp.handlers["textDocument/publishDiagnostics"] =
-		vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { underline = false })
-	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+	-- local borderStyle = { border = "double", max_width = 90 }
+	-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, borderStyle)
+	-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, borderStyle)
+	-- vim.lsp.handlers["textDocument/publishDiagnostics"] =
+	-- 	vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { underline = false })
 	vim.keymap.set(
 		{ "n", "i" },
 		"<C-k>",
@@ -65,7 +64,7 @@ local on_attach = function(server, bufnr)
 		navic.attach(server, bufnr)
 	end
 
-	navbuddy.attach(server, bufnr)
+	-- navbuddy.attach(server, bufnr)
 end
 
 -- Setup mason so it can manage external tooling
@@ -109,6 +108,10 @@ local function make_server_setup(server_name)
 			})
 		end
 
+    -- NOTE: thought I needed this to improve `app-suite` lsp perf but I didn't
+		-- setup.root_dir =
+		-- 	require("lspconfig").util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
+
 		setup.commands = {
 			OrganizeImports = {
 				organize_imports,
@@ -134,7 +137,7 @@ local function make_server_setup(server_name)
 				diagnostics = {
 					globals = { "vim" },
 				},
-				workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+				workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
 				-- Do not send telemetry data containing a randomized but unique identifier
 				telemetry = { enable = false },
 			},
@@ -169,4 +172,4 @@ for _, server in ipairs(servers) do
 end
 
 -- Turn on lsp status information
-require("fidget").setup()
+-- require("fidget").setup()
