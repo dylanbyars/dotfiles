@@ -19,9 +19,9 @@ alias dot="cd ~/dotfiles && vim"
 alias org="cd ~/org"
 alias lz='lazygit -ucf ~/.config/lazygit/config.yml'
 alias ld='lazydocker'
-alias f="exa --long --header"
-alias ff="exa --long --header --all"
-alias F="exa --tree --level 2"
+alias f="eza --long --header"
+alias ff="eza --long --header --all"
+alias F="eza --tree --level 2"
 alias globalPackages="npm ls -g --depth=0"
 
 # -----------------------
@@ -125,3 +125,5 @@ source ~/bin/work_scripts
 
 
 source /Users/dylan.byars/.config/broot/launcher/bash/br
+export PATH=$PATH:$(go env GOPATH)/bin
+export PATH=$PATH:$(go env GOPATH)/bin
