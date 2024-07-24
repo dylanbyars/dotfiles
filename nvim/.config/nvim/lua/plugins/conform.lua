@@ -19,8 +19,8 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "isort", "black" },
-			javascript = { { "prettierd", "prettier" } },
-			typescript = { { "prettierd", "prettier" } },
+			javascript = { { "dprint", "prettierd", "prettier" } },
+			typescript = { { "dprint", "prettierd", "prettier" } },
 			typescriptreact = { { "dprint", "prettierd", "prettier" } },
 			sh = { "shfmt" },
 			graphql = { "prettier" },
