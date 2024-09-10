@@ -5,5 +5,6 @@ yabai -m config window_gap 06
 
 # yabai -m rule --add app="^Spotify$" manage=off
 # yabai -m rule --add app="^zoom.us$" manage=off
+yabai -m rule --add app="^Stickies$" manage=off
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
 
