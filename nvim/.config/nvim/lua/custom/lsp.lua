@@ -83,6 +83,7 @@ local servers = {
 	"omnisharp",
 	"gopls",
 	"yamlls",
+  "graphql"
 }
 
 -- Ensure the servers above are installed

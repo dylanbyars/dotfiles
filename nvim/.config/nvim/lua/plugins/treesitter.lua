@@ -26,6 +26,7 @@ return {
 				"tsx",
 				"typescript",
 				"yaml",
+        "graphql"
 				-- "help",
 			},
 			-- highlight adds treesitter highlighting to the words in the buffer

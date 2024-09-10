@@ -27,9 +27,6 @@ return {
 			lsp_doc_border = true, -- add a border to hover docs and signature help
 		},
 	},
-	messages = {
-		view_search = false,
-	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
