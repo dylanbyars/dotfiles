@@ -19,11 +19,12 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "isort", "black" },
-			javascript = { { "dprint", "prettierd", "prettier" } },
-			typescript = { { "dprint", "prettierd", "prettier" } },
-			typescriptreact = { { "dprint", "prettierd", "prettier" } },
+			javascript = { "dprint" },
+			typescript = { "dprint" },
+			typescriptreact = { "dprint" },
 			sh = { "shfmt" },
 			graphql = { "prettier" },
+			css = { "dprint" },
 		},
 		-- Set up format-on-save
 		-- format_on_save = { timeout_ms = 500, lsp_fallback = true },
@@ -34,8 +35,8 @@ return {
 			},
 		},
 	},
-	init = function()
-		-- If you want the formatexpr, here is the place to set it
-		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-	end,
+	-- init = function()
+	-- 	-- If you want the formatexpr, here is the place to set it
+	-- 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	-- end,
 }
