@@ -39,8 +39,8 @@ source ~/.zsh/pomodoro.sh
 # -----------------------
 # Project Environment Functions
 # -----------------------
-is_poetry_project() { [[ -f "pyproject.toml" ]] && grep -q '\[build-system\]' "pyproject.toml"; }
-activate_poetry_env() { echo "Activating Poetry virtual environment..."; VENV_PATH=$(poetry env info --path); source $VENV_PATH/bin/activate; }
+# is_poetry_project() { [[ -f "pyproject.toml" ]] && grep -q '\[build-system\]' "pyproject.toml"; }
+# activate_poetry_env() { echo "Activating Poetry virtual environment..."; VENV_PATH=$(poetry env info --path); source $VENV_PATH/bin/activate; }
 activate_node_lts() { echo "Activating Node.js LTS version..."; nvm use --lts; }
 is_nvm_project() { [[ -f ".nvmrc" ]]; }
 activate_nvm_env() { echo "Activating Node.js version specified in .nvmrc..."; nvm use; }
@@ -49,9 +49,9 @@ activate_nvm_env() { echo "Activating Node.js version specified in .nvmrc..."; n
 auto_activate() {
   # Check if the current directory is under ~/code
   if [[ "$PWD" == "$HOME/code"* ]]; then
-    if is_poetry_project; then
-      activate_poetry_env && activate_node_lts
-    fi
+    # if is_poetry_project; then
+    #   activate_poetry_env && activate_node_lts
+    # fi
     if is_nvm_project; then
       activate_nvm_env
     fi
@@ -65,7 +65,7 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd auto_activate
 
 # Completion
-fpath=(~/.zsh /opt/homebrew/share/zsh/site-functions $fpath)
+fpath=(~/.zsh ~/.zsh/completions /opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 compinit -u
 
@@ -123,7 +123,23 @@ source ~/bin/work_scripts
 
 # zprof > profile.txt
 
+preview() {
+  if ! type browser-sync >/dev/null 2>&1; then
+    echo 'Need to install browser-sync.'
+    echo 'try: `nvm use stable && npm install -g browser-sync`'
+    # exit 1
+  fi
+
+  browser-sync start \
+    --no-notify --no-ui \
+    --ignore '**/.*' \
+    -sw
+}
+
 
 source /Users/dylan.byars/.config/broot/launcher/bash/br
 export PATH=$PATH:$(go env GOPATH)/bin
-export PATH=$PATH:$(go env GOPATH)/bin
+
+alias bong="afplay /System/Library/Sounds/Funk.aiff"
+
+. "$HOME/.cargo/env"
