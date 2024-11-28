@@ -22,6 +22,12 @@ config.tab_max_width = 25
 config.enable_scroll_bar = false
 config.audible_bell = "Disabled"
 config.check_for_updates = false
+-- config.window_padding = {
+-- 	left = 50,
+-- 	right = 50,
+-- 	top = 50,
+-- 	bottom = 50,
+-- }
 
 -- Pane
 local function rename_tab(window, pane)
@@ -38,11 +44,9 @@ local function rename_tab(window, pane)
 	)
 end
 
-
-
 -- Key bindings
 config.keys = {
-  -- go to tab
+	-- go to tab
 	{ key = "1", mods = "CMD", action = wezterm.action({ ActivateTab = 0 }) },
 	{ key = "2", mods = "CMD", action = wezterm.action({ ActivateTab = 1 }) },
 	{ key = "3", mods = "CMD", action = wezterm.action({ ActivateTab = 2 }) },
@@ -52,7 +56,7 @@ config.keys = {
 	{ key = "7", mods = "CMD", action = wezterm.action({ ActivateTab = 6 }) },
 	{ key = "8", mods = "CMD", action = wezterm.action({ ActivateTab = 7 }) },
 	{ key = "9", mods = "CMD", action = wezterm.action({ ActivateTab = 8 }) },
-  -- split window
+	-- split window
 	{ key = "-", mods = "CTRL", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
 	{ key = "\\", mods = "CTRL", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
 
@@ -69,8 +73,8 @@ config.keys = {
 	-- New key binding for renaming tab
 	{ key = "I", mods = "CTRL|SHIFT", action = wezterm.action_callback(rename_tab) },
 
-  { key = 'LeftArrow', mods = 'SHIFT|ALT', action = wezterm.action.MoveTabRelative(-1) },
-  { key = 'RightArrow', mods = 'SHIFT|ALT', action = wezterm.action.MoveTabRelative(1) },
+	{ key = "LeftArrow", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(-1) },
+	{ key = "RightArrow", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(1) },
 }
 
 -- Color scheme (Tokyo Night)
