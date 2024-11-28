@@ -73,7 +73,7 @@ require("mason").setup()
 -- Enable the following language servers
 local servers = {
 	"pyright",
-	"tsserver",
+	"ts_ls",
 	"lua_ls",
 	"html",
 	"eslint",
@@ -101,7 +101,7 @@ local function make_server_setup(server_name)
 		capabilities = capabilities,
 	}
 
-	if server_name == "tsserver" then
+	if server_name == "ts_ls" then
 		local function organize_imports()
 			vim.lsp.buf.execute_command({
 				command = "_typescript.organizeImports",
@@ -116,7 +116,7 @@ local function make_server_setup(server_name)
 		setup.commands = {
 			OrganizeImports = {
 				organize_imports,
-				description = "Organize Imports using `tsserver`",
+				description = "Organize Imports using `ts_ls`",
 			},
 		}
 	end
