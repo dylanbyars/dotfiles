@@ -137,6 +137,40 @@ preview() {
     -sw
 }
 
+# use nvim to write to mods
+# ai() {
+#   TEMP=$(mktemp) && nvim "$TEMP" && cat "$TEMP" | mods && rm "$TEMP"
+# }
+# TODO: update the aic to print the conversation to the buffer and also remove it before submitting
+ # aic() {
+ #      # get the latest conversation, save output to CONVERSATION
+ #      CONVERSATION=$(mods --show-last)
+ #
+ #      # write the conversation to the buffer with unique delimiter added
+ #      echo -e "$CONVERSATION\n###USERRESPONSE###" > "$TEMP"
+ #
+ #      # open file with nvim
+ #      nvim "$TEMP"
+ #
+ #      # remove the conversation part from the buffer before you pipe it to mods
+ #      sed -n '/^###USERRESPONSE###$/,$p' "$TEMP" | tail -n +2 | mods --continue-
+ #  last
+ #
+ #      # clean up
+ #      rm "$TEMP"
+ #    }
+# aic() {
+#   TEMP=$(mktemp) && nvim "$TEMP" && cat "$TEMP" | mods --continue && rm "$TEMP"
+# }
+# BUG: do the branch one
+# aib() {
+#   # list all named conversations and select one
+#   mods --list
+#   # dump the full text of the conversation so far
+#   mods --show $(pbpaste)
+#   TEMP=$(mktemp) && nvim "$TEMP" && cat "$TEMP" | mods --continue="$(pbpaste)"
+#   && rm "$TEMP"
+# }
 
 source /Users/dylan.byars/.config/broot/launcher/bash/br
 export PATH=$PATH:$(go env GOPATH)/bin
