@@ -11,9 +11,6 @@ vim.o.termguicolors = true
 -- make the mouse work
 vim.o.mouse = "a"
 
--- don't show mode since it's in the statusline
-vim.o.showmode = false
-
 -- always show the sign column
 vim.o.signcolumn = "yes"
 
@@ -77,37 +74,5 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
--- change the background of non-focused windows (NC means non-current)
-vim.api.nvim_set_hl(0, "NonCurrentWindow", { ctermbg = "gray" })
-vim.api.nvim_create_autocmd("WinEnter", {
-	pattern = "*",
-	callback = function()
-		vim.opt.winhighlight = "Normal:BufferVisible,NormalNC:NonCurrentWindow"
-	end,
-})
-
-vim.g.sync_scroll = 0
-
-function sync_scroll_toggle()
-	if vim.g.sync_scroll == 0 then
-		vim.g.sync_scroll = 1
-		print("Synchronized scrolling enabled")
-	else
-		vim.g.sync_scroll = 0
-		print("Synchronized scrolling disabled")
-	end
-end
-
-vim.cmd("command! SyncScrollToggle lua sync_scroll_toggle()")
-
-vim.cmd([[
-augroup sync_scroll
-    autocmd!
-    autocmd CursorMoved * if g:sync_scroll == 1 | windo exe "normal! " . line(".") . "G" | endif
-augroup END
-]])
-
-require("custom.functions")
 require("custom.keymaps")
 require("custom.plugins")
-require("custom.lsp")
