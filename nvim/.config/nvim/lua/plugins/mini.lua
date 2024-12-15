@@ -6,12 +6,8 @@ return {
 
 		require("mini.indentscope").setup({})
 
-
 		require("mini.pairs").setup({})
 
-		-- ai (enhanced text objects)
 		require("mini.ai").setup({})
-
-		require("mini.bufremove").setup({})
 	end,
 }
