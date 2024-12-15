@@ -127,9 +127,6 @@ local KEYMAPS = {
 		["<leader>Q"] = function()
 			vim.cmd("tabclose")
 		end,
-		["<leader>N"] = function()
-			vim.cmd("Navbuddy")
-		end,
 		['<leader>"'] = function()
 			vim.cmd("Telescope neoclip")
 		end,
