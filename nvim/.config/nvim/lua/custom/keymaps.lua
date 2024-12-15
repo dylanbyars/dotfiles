@@ -86,9 +86,6 @@ local KEYMAPS = {
 		["H"] = "^",
 		["L"] = "$",
 		["U"] = "<C-r>", -- u = undo  U = undo undo aka redo,
-		["<leader>lz"] = function()
-			vim.cmd("Lazygit")
-		end,
 		-- ["<leader>!"] = vim.cmd("lua print(vim.fn.expand('<cword>'))")
 		["<leader>_"] = cycleCase,
 		-- ["_"] = vim.cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
@@ -117,10 +114,6 @@ local KEYMAPS = {
 		-- </trouble>
 		["<leader>js"] = function()
 			open_scratch_buffer("json")
-		end,
-		-- open broot in the directory of the current buffeendr
-		["<leader>B"] = function()
-			vim.cmd("Broot %:h")
 		end,
 		-- open closed folds at the top of the fold
 		-- TODO: make this smarter when there are multiple fold levels on the cursor line
