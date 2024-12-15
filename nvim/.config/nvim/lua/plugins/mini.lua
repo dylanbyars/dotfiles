@@ -2,40 +2,27 @@ return {
 	"echasnovski/mini.nvim",
 	version = "*",
 	config = function()
-		-- statusline
-		local MiniStatusline = require("mini.statusline")
+		require("mini.comment").setup({})
 
-		local function custom_content()
-			local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-			local progress = "%p%%" -- percentage through file
-			local git_diff = MiniStatusline.section_diff({ trunc_width = 75 })
-			local git = MiniStatusline.section_git({ trunc_width = 40 })
+		require("mini.indentscope").setup({})
 
-			-- Use full path with modified/readonly flags
-			local filename = "%<%F%m%r"
-
-			if git ~= "" then
-				-- Match after the UTF-8 icon (3 bytes) and the space
-				local branch = git:match("^...%s(.+)") -- ... matches any 3 bytes, %s matches space
-				if branch and #branch > 20 then
-					git = string.sub(git, 1, 4) .. branch:sub(1, 20) .. "..." -- Preserve the icon and space
-				end
-			end
-
-			return MiniStatusline.combine_groups({
-				{ hl = mode_hl, strings = { progress, filename } },
-				"%=", -- Align right
-				{ hl = "MiniStatuslineDevinfo", strings = { git_diff, git } },
-			})
-		end
-
-		MiniStatusline.setup({
-			content = {
-				active = custom_content,
-				inactive = MiniStatusline.default_content_inactive,
+		require("mini.starter").setup({
+			evaluate_single = true,
+			items = {
+				require("mini.starter").sections.sessions(),
+				require("mini.starter").sections.recent_files(10, false),
 			},
-			use_icons = true,
-			set_vim_settings = true,
+			content_hooks = {
+				require("mini.starter").gen_hook.adding_bullet(),
+				require("mini.starter").gen_hook.aligning("center", "center"),
+			},
 		})
+
+		require("mini.pairs").setup({})
+
+		-- ai (enhanced text objects)
+		require("mini.ai").setup({})
+
+		require("mini.bufremove").setup({})
 	end,
 }
