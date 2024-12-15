@@ -12,7 +12,7 @@ vim.o.termguicolors = true
 vim.o.mouse = "a"
 
 -- don't show mode since it's in the statusline
-vim.o.showmode = false -- TODO: make this a part of the statusline config
+vim.o.showmode = false
 
 -- always show the sign column
 vim.o.signcolumn = "yes"
@@ -43,9 +43,6 @@ vim.o.completeopt = "menuone,noselect"
 -- break lines between words at window's width
 vim.o.linebreak = true
 
--- global status line
-vim.o.laststatus = 3
-
 -- tabs are 2 spaces wide
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -62,17 +59,6 @@ vim.bo.undofile = true
 -- put new splits below or to the right
 vim.o.splitbelow = true
 vim.o.splitright = true
-
--- set `cursorline` in the `NvimTree` buffer
-vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
-	callback = function()
-		local filetype = vim.opt.filetype._value -- WARN: this feels icky
-		if filetype == "NvimTree" then
-			vim.opt.cursorline = true
-		end
-	end,
-})
 
 -- highlight yanked text for a bit
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -100,15 +86,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	end,
 })
 
--- vim.api.nvim_create_autocmd("BufEnter", {
--- 	pattern = "git",
--- 	callback = function()
--- 		vim.cmd("set foldmethod=syntax")
--- 		-- collapse all folds
--- 		vim.cmd("normal! zM")
--- 	end,
--- })
---
 vim.g.sync_scroll = 0
 
 function sync_scroll_toggle()
@@ -134,6 +111,3 @@ require("custom.functions")
 require("custom.keymaps")
 require("custom.plugins")
 require("custom.lsp")
-
-vim.cmd([[ command! GitDiffCommit lua require'custom.functions'.git_diff_commit() ]])
-vim.cmd([[ command! GitDiffTabs lua require'custom.functions'.git_diff_tabs() ]])
