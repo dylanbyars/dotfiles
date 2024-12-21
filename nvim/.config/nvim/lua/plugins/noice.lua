@@ -7,16 +7,16 @@ return {
 			override = {
 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 				["vim.lsp.util.stylize_markdown"] = true,
-				["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+				-- ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 			},
-			-- signature = {
-			-- 	-- Enable signature help
-			-- 	enabled = false,
-			-- },
-			-- hover = {
-			-- 	-- Enable hover
-			-- 	enabled = false,
-			-- },
+			signature = {
+				-- Enable signature help
+				enabled = false,
+			},
+			hover = {
+				-- Enable hover
+				enabled = false,
+			},
 		},
 		-- you can enable a preset for easier configuration
 		presets = {

@@ -4,7 +4,7 @@ return {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"SmiteshP/nvim-navic",
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
 	},
 	config = function()
 		local navic = require("nvim-navic")
@@ -89,11 +89,9 @@ return {
 		-- Ensure the servers above are installed
 		require("mason-lspconfig").setup({ ensure_installed = servers })
 
-		-- nvim-cmp supports additional completion capabilities
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
 		local function make_server_setup(server_name)
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+
 			local setup = {
 				on_attach = on_attach,
 				capabilities = capabilities,
