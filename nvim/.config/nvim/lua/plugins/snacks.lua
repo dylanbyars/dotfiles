@@ -2,7 +2,6 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	---@type snacks.Config
 	opts = {
 		-- your configuration comes here
 		-- or leave it empty to use the default settings
@@ -16,31 +15,38 @@ return {
 				end,
 			},
 			sections = {
+				-- {
+				-- 	section = "terminal",
+				-- 	cmd = "fortune -s",
+				-- 	hl = "header",
+				-- 	padding = 1,
+				-- 	random = 999999,
+				-- },
 				{
-					section = "terminal",
-					cmd = "fortune -s | cowsay",
-					hl = "header",
-					padding = 1,
-					indent = 8,
-					random = 999999,
-				},
-				{
-					icon = " ",
 					title = "Recent Files",
 					section = "recent_files",
-					padding = 2,
+					padding = 1,
+					limit = 10,
+					cwd = true,
 				},
 			},
 		},
 		indent = { enabled = true },
-		input = { enabled = true },
-		-- notifier = { enabled = true },
+		notifier = { enabled = true },
 		quickfile = { enabled = true },
-		-- scroll = { enabled = true },
 		statuscolumn = { enabled = true },
-		words = { enabled = true },
 		lazygit = { enabled = true },
 		gitbrowse = { enabled = true },
+		styles = {
+			blame_line = {
+				width = 0.6,
+				height = 0.6,
+				border = "rounded",
+				title = " Git Blame ",
+				title_pos = "center",
+				ft = "git",
+			},
+		},
 	},
 	keys = {
 		{
@@ -64,6 +70,17 @@ return {
 				require("snacks").lazygit.log_file()
 			end,
 			desc = "Lazygit Current File History",
+		},
+		-- TODO:
+		-- hr (hunk reset)
+		-- hp (hunk preview)
+		-- better hunk blame
+		{
+			"<leader>hb",
+			function()
+				require("snacks.git").blame_line()
+			end,
+			desc = "Git blame current line",
 		},
 	},
 }
