@@ -26,8 +26,8 @@ return {
 				"tsx",
 				"typescript",
 				"yaml",
-        "graphql"
-				-- "help",
+				"graphql",
+				"vimdoc",
 			},
 			-- highlight adds treesitter highlighting to the words in the buffer
 			highlight = {
@@ -46,7 +46,7 @@ return {
 					init_selection = "<c-space>",
 					node_incremental = "<c-space>",
 					scope_incremental = "<c-s>",
-          -- TODO: get the decrement to work
+					-- TODO: get the decrement to work
 					node_decremental = "<c-backspace>",
 				},
 			},
