@@ -144,7 +144,6 @@ return {
 		vim.keymap.set({ "n", "i" }, "<C-p>", project_files, { silent = true })
 		vim.keymap.set("n", "<leader>b", builtin.buffers)
 		vim.keymap.set("n", "<leader>?", builtin.live_grep)
-		vim.keymap.set("n", "<leader>c", builtin.git_bcommits)
 		vim.keymap.set("n", "<leader>gs", builtin.git_status)
 		vim.keymap.set("n", "<leader>H", builtin.help_tags)
 		vim.keymap.set("n", "<leader>S", builtin.spell_suggest)
