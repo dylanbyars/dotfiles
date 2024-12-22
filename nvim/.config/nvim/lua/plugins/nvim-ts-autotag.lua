@@ -1,2 +1,2 @@
 -- auto close and auto update closing tags
-return { "windwp/nvim-ts-autotag" }
+return { "windwp/nvim-ts-autotag", opts = {} }
