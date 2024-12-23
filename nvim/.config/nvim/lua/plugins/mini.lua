@@ -32,6 +32,7 @@ return {
 			},
 		})
 
+    -- TODO: do this in the `keys` the lazy way
 		-- Center cursor after navigation
 		local goto_with_center = function(direction)
 			return function()
