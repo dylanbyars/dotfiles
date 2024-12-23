@@ -18,6 +18,8 @@ return {
 				"javascript",
 				"python",
 				"jsdoc",
+				"markdown",
+				"markdown_inline",
 				"json",
 				"lua",
 				"regex",
@@ -30,9 +32,7 @@ return {
 				"vimdoc",
 			},
 			-- highlight adds treesitter highlighting to the words in the buffer
-			highlight = {
-				enable = true, -- false will disable the whole extension
-			},
+			highlight = { enable = true },
 			indent = { enable = true },
 			incremental_selection = {
 				enable = true,
