@@ -17,7 +17,7 @@ return {
 			sections = {
 				{
 					section = "terminal",
-					cmd = "fortune computers science startrek linuxcookie riddles literature wisdom work humorists platitudes",
+					cmd = "fortune -n 400 -s computers science startrek linuxcookie riddles literature wisdom work humorists platitudes | fmt -w 999999",
 					hl = "header",
 					padding = 1,
 					random = 999999,
