@@ -15,13 +15,13 @@ return {
 				end,
 			},
 			sections = {
-				-- {
-				-- 	section = "terminal",
-				-- 	cmd = "fortune -s",
-				-- 	hl = "header",
-				-- 	padding = 1,
-				-- 	random = 999999,
-				-- },
+				{
+					section = "terminal",
+					cmd = "fortune computers science startrek linuxcookie riddles literature wisdom work humorists platitudes",
+					hl = "header",
+					padding = 1,
+					random = 999999,
+				},
 				{
 					title = "Recent Files",
 					section = "recent_files",
