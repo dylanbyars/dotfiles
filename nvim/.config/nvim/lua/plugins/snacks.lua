@@ -71,16 +71,5 @@ return {
 			end,
 			desc = "Lazygit Current File History",
 		},
-		-- TODO:
-		-- hr (hunk reset)
-		-- hp (hunk preview)
-		-- better hunk blame
-		{
-			"<leader>hb",
-			function()
-				require("snacks.git").blame_line()
-			end,
-			desc = "Git blame current line",
-		},
 	},
 }
