@@ -98,20 +98,6 @@ local KEYMAPS = {
 		["<leader>n"] = function()
 			vim.cmd(":noh")
 		end,
-		-- <trouble>
-		["<leader>xx"] = function()
-			vim.cmd("TroubleToggle quickfix")
-		end,
-		["<leader>xw"] = function()
-			vim.cmd("Trouble workspace_diagnostics")
-		end,
-		["<leader>xd"] = function()
-			vim.cmd("Trouble document_diagnostics")
-		end,
-		["gR"] = function()
-			vim.cmd("Trouble lsp_references")
-		end,
-		-- </trouble>
 		["<leader>js"] = function()
 			open_scratch_buffer("json")
 		end,
