@@ -44,9 +44,6 @@ end
 
 local KEYMAPS = {
 	["n"] = {
-		["<leader>t"] = function()
-			vim.cmd("NvimTreeToggle")
-		end,
 		["<leader>hh"] = function()
 			vim.cmd("set cursorline!")
 		end,
@@ -76,24 +73,24 @@ local KEYMAPS = {
 		["]T"] = function()
 			vim.cmd("+tabmove")
 		end,
-		-- spell check
+		-- toggle spell checking mode
 		["<leader>s"] = function()
 			vim.cmd("set spell!")
-		end, -- toggle spell checking moendd
+		end,
 		-- yank selection to system clipboard
 		["<leader>y"] = '"+y',
 		-- navigate to start/end of line
 		["H"] = "^",
 		["L"] = "$",
 		["U"] = "<C-r>", -- u = undo  U = undo undo aka redo,
-		-- ["<leader>!"] = vim.cmd("lua print(vim.fn.expand('<cword>'))")
 		["<leader>_"] = cycleCase,
-		-- ["_"] = vim.cmd("lua require('textcase').lsp_rename(to_camel_case)") -- TODO: make this cycle through severl cases and `+` cycle the other way
 		-- jump a half page then center the screen on the cursor's line
 		["<C-u>"] = "<C-u>zz",
 		["<C-d>"] = "<C-d>zz",
-		["<leader>x"] = vim.diagnostic.disable,
-		["<leader>X"] = vim.diagnostic.enable,
+		-- toggle inline diagnostics
+		["<leader>X"] = function()
+			vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+		end,
 		-- clear current search highlighendt
 		["<leader>n"] = function()
 			vim.cmd(":noh")
@@ -101,20 +98,8 @@ local KEYMAPS = {
 		["<leader>js"] = function()
 			open_scratch_buffer("json")
 		end,
-		-- open closed folds at the top of the fold
-		-- TODO: make this smarter when there are multiple fold levels on the cursor line
-		-- ["za"] = "za[z",
-		-- ["zA"] = "zA[z",
-		-- ["zo"] = "zo[z",
-		-- ["zO"] = "zO[z",
 		["<leader>#"] = function()
 			vim.cmd("set relativenumber!")
-		end,
-		["<leader>Q"] = function()
-			vim.cmd("tabclose")
-		end,
-		['<leader>"'] = function()
-			vim.cmd("Telescope neoclip")
 		end,
 	},
 	["v"] = {

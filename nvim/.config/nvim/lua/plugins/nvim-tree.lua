@@ -11,4 +11,13 @@ return {
 			enable = true,
 		},
 	},
+	keys = {
+		{
+			"<leader>t",
+			function()
+				vim.cmd("NvimTreeToggle")
+			end,
+			desc = "[t]oggle file tree",
+		},
+	},
 }

@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 		{ "folke/trouble.nvim" },
+		{ "AckslD/nvim-neoclip.lua" },
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 	config = function()
@@ -149,6 +150,7 @@ return {
 		vim.keymap.set("n", "<leader>S", builtin.spell_suggest)
 		vim.keymap.set("n", "<leader>*", builtin.grep_string)
 		vim.keymap.set("n", "<leader>T", builtin.resume)
+		vim.keymap.set("n", '<leader>"', "<Cmd>Telescope neoclip<cr>")
 		vim.keymap.set("n", "<leader>/", function()
 			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 				winblend = 10,
@@ -157,6 +159,6 @@ return {
 					width = 0.7,
 				},
 			}))
-		end, { desc = "[/] Fuzzily search in current buffer]" })
+		end, { desc = "[/] Fuzzily search in current buffer" })
 	end,
 }
