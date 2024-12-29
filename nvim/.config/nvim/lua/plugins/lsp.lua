@@ -96,6 +96,8 @@ return {
 				"gopls",
 				"yamlls",
 				"graphql",
+        -- "docker"
+				-- "docker-compose-langserver",
 			}
 
 			-- Ensure the servers above are installed
