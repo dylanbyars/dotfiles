@@ -12,13 +12,14 @@ return {
 				end,
 			},
 			sections = {
-				{
-					section = "terminal",
-					cmd = "fortune -n 400 -s computers science startrek linuxcookie riddles literature wisdom work humorists platitudes | fmt -w 999999",
-					hl = "header",
-					padding = 1,
-					random = 999999,
-				},
+        -- TODO: maybe I don't want this in neovim. maybe this is a terminal thing that I add to my prompts?
+				-- {
+				-- 	section = "terminal",
+				-- 	cmd = "fortune -n 400 -s computers science startrek linuxcookie riddles literature wisdom work humorists platitudes | fmt -w 999999",
+				-- 	hl = "header",
+				-- 	padding = 1,
+				-- 	random = 999999,
+				-- },
 				{
 					title = "Recent Files",
 					section = "recent_files",
@@ -62,7 +63,7 @@ return {
 			mode = { "n", "v" },
 		},
 		{
-			"<leader>c",
+			"<leader>gc",
 			function()
 				require("snacks").lazygit.log_file()
 			end,

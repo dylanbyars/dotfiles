@@ -9,6 +9,12 @@ return {
 			long_message_to_split = true, -- long messages will be sent to a split
 			lsp_doc_border = true,
 		},
+    -- TODO: this and blink both do signature help. I think this one is prettier. but hten I have 2 completion things.
+    lsp = {
+      signature = {
+        enabled = false,
+      }
+    }
 	},
 	dependencies = { "MunifTanjim/nui.nvim" },
 }
