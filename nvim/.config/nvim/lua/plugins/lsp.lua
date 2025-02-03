@@ -1,3 +1,11 @@
+local function find_git_root(startpath)
+	local git_dir = vim.fs.find(".git", { path = startpath, upward = true })[1]
+	if git_dir then
+		return vim.fs.dirname(git_dir)
+	end
+	return nil
+end
+
 return {
 	{
 		"folke/lazydev.nvim",
@@ -96,7 +104,7 @@ return {
 				"gopls",
 				"yamlls",
 				"graphql",
-        -- "docker"
+				-- "docker"
 				-- "docker-compose-langserver",
 			}
 
@@ -149,6 +157,11 @@ return {
 				end
 
 				if server_name == "pyright" then
+          -- TODO: this may be too restrictive. did it to fix LSP in the `platform-orchestration` project. and I think it'll be right most of the time but maybe not in standalone files or projects not in a git repo
+					setup.root_dir = function(fname)
+						return find_git_root(fname)
+					end
+
 					setup.settings = {
 						python = {
 							analysis = {
