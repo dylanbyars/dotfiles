@@ -104,6 +104,25 @@ zle -N fancy-ctrl-z
 bindkey -v
 bindkey '^Z' fancy-ctrl-z
 
+# Use fzf to search history with Ctrl+R
+fzf-history-widget() {
+  local selected=$(fc -l 1 | fzf --tac +s --no-sort)
+  if [[ -n $selected ]]; then
+    BUFFER=$(echo $selected | sed 's/^[ 0-9]*//') # Remove history numbers
+    CURSOR=${#BUFFER} # Move cursor to the end of the line
+  fi
+  zle redisplay
+}
+zle -N fzf-history-widget
+bindkey '^R' fzf-history-widget
+
+# Edit current command in Neovim with Ctrl+X Ctrl+E
+export VISUAL="nvim"
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
 # -----------------------
 # Prompt and Appearance
 # -----------------------
