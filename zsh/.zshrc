@@ -197,3 +197,5 @@ export PATH=$PATH:$(go env GOPATH)/bin
 alias bong="afplay /System/Library/Sounds/Funk.aiff"
 
 . "$HOME/.cargo/env"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
