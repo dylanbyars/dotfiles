@@ -11,15 +11,14 @@ return {
 					return { { "[", hl = "special" }, { item.key, hl = "key" }, { "]", hl = "special" } }
 				end,
 			},
+      width = 80,
 			sections = {
-        -- TODO: maybe I don't want this in neovim. maybe this is a terminal thing that I add to my prompts?
-				-- {
-				-- 	section = "terminal",
-				-- 	cmd = "fortune -n 400 -s computers science startrek linuxcookie riddles literature wisdom work humorists platitudes | fmt -w 999999",
-				-- 	hl = "header",
-				-- 	padding = 1,
-				-- 	random = 999999,
-				-- },
+				{
+					section = "terminal",
+					cmd = "fortune ~/clippings.fortune | fold -s -w 80",
+					-- hl = "header",
+          random = 99999
+				},
 				{
 					title = "Recent Files",
 					section = "recent_files",
