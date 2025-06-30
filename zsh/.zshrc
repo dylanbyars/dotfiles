@@ -1,96 +1,116 @@
-# uncomment this and the last line to profile startup time
-# zmodload zsh/zprof
+# Zsh Configuration - Optimized for speed and simplicity
+# Profile startup performance: `PROFILE=1 zsh`
+[[ "$PROFILE" == "1" ]] && zmodload zsh/zprof
 
-# -----------------------
-# Environment Variables
-# -----------------------
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/share/zsh/site-functions:/usr/local/go/bin:$HOME/bin:/usr/libexec:/home/$USER/.deno/bin:$HOME/.local/bin:$PATH
+# ==============================================
+# CORE ENVIRONMENT
+# ==============================================
 export EDITOR=nvim
-export DELTA_PAGER="less -r"
+export VISUAL=nvim
 export STARSHIP_CONFIG=~/.config/starship/config.toml
+export MANPAGER='nvim +Man!'  # Open man pages in neovim
 
-# -----------------------
-# Aliases
-# -----------------------
+# PATH: prioritize local tools over system ones
+export PATH=/opt/homebrew/bin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$PATH
+
+# ==============================================
+# ALIASES & FUNCTIONS
+# ==============================================
+# Modern replacements for standard tools
 alias vim='nvim'
-alias zz='exec zsh'
-alias /='br'
-alias dot="cd ~/dotfiles && vim"
-alias org="cd ~/org"
-alias lz='lazygit -ucf ~/.config/lazygit/config.yml'
-alias ld='lazydocker'
-alias f="eza --long --header"
-alias ff="eza --long --header --all"
-alias F="eza --tree --level 2"
-alias globalPackages="npm ls -g --depth=0"
+alias f="eza --long --header"        # Better ls
+alias ff="eza --long --header --all" # ls -la
+alias F="eza --tree --level 2"       # Tree view
 
-# -----------------------
-# Utility Functions
-# -----------------------
-nukeswap() { rm -rf ~/.local/state/nvim/swap/; }
-ufx() { echo 'removing xcode-select tools'; sudo rm -rf $(xcode-select --print-path); echo 'reinstalling xcode-select'; xcode-select --install; }
-mktouch() { mkdir -p "$(dirname "$1")" && touch "$1"; }
-fzfancy() { fzf --reverse --height=20 --border=rounded --header=$1; }
-to-md() { file=$1; filename=$(basename $file .org); pandoc $file -o $filename.md --wrap none; }
-source ~/.zsh/today.sh
-source ~/.zsh/monthly.sh
-source ~/.zsh/pomodoro.sh
+# Development tools
+alias lz='lazygit -ucf ~/.config/lazygit/config.yml'  # Git UI
+alias ld='lazydocker'                                  # Docker UI
+alias globalPackages="npm ls -g --depth=0"           # List global npm packages
 
-# -----------------------
-# Project Environment Functions
-# -----------------------
-# is_poetry_project() { [[ -f "pyproject.toml" ]] && grep -q '\[build-system\]' "pyproject.toml"; }
-is_python_project() { [[ -d ".venv" ]]; }
-activate_venv() { echo "Activating Python virtual environment..."; . .venv/bin/activate; }
-activate_node_lts() { echo "Activating node stable version..."; nvm use stable; }
-is_nvm_project() { [[ -f ".nvmrc" ]]; }
-activate_nvm_env() { echo "Activating Node.js version specified in .nvmrc..."; nvm use; }
+# Utility functions
+nukeswap() { rm -rf ~/.local/state/nvim/swap/; }  # Clear nvim swap files
+ufx() { 
+  echo 'Reinstalling Xcode command line tools...'
+  sudo rm -rf $(xcode-select --print-path)
+  xcode-select --install
+}
 
-# Main function that gets called whenever you navigate to a new directory
+# Web development server
+preview() {
+  if ! type browser-sync >/dev/null 2>&1; then
+    echo 'Need to install browser-sync: npm install -g browser-sync'
+    return 1
+  fi
+  browser-sync start --no-notify --no-ui --ignore '**/.*' -sw
+}
+
+# Load external utility scripts
+source ~/.zsh/monthly.sh  # Monthly journaling function
+source ~/bin/work_scripts # Work-specific utilities
+
+# ==============================================
+# PYTHON ENVIRONMENT AUTO-ACTIVATION
+# ==============================================
+# Automatically create and activate Python venvs using uv
 auto_activate() {
-  # Check if the current directory is under ~/code
   if [[ "$PWD" == "$HOME/code"* ]]; then
-    if is_python_project; then
-      activate_venv && activate_node_lts
-    fi
-    if is_nvm_project; then
-      activate_nvm_env
+    if [[ -f "pyproject.toml" || -f "requirements.txt" || -f ".python-version" ]]; then
+      if [[ ! -d ".venv" ]]; then
+        echo "Creating Python venv with uv..."
+        uv venv
+      fi
+      
+      if [[ "$VIRTUAL_ENV" != "$PWD/.venv" ]]; then
+        echo "Activating Python venv..."
+        source .venv/bin/activate
+      fi
     fi
   fi
 }
 
-# -----------------------
-# Hooks and Plugins
-# -----------------------
+# Run auto_activate on every directory change
 autoload -U add-zsh-hook
 add-zsh-hook chpwd auto_activate
 
-# Completion
+# ==============================================
+# ZSH PLUGINS & COMPLETIONS
+# ==============================================
+# Completion paths: local, cached, homebrew, system
 fpath=(~/.zsh ~/.zsh/completions /opt/homebrew/share/zsh/site-functions $fpath)
 autoload -Uz compinit
-compinit -u
+# -C skips security checks on completion files (saves ~350ms startup time)
+# Safe on single-user machines where you trust your package manager
+compinit -C -u
 
-# Plugin Management
-source ~/.zsh/git.sh
+# Make completion improvements
+zstyle ':completion:*:make:*' tag-order 'targets'
+zstyle ':completion:*:make:*:targets' call-command true
 
-# Zsh Plugins
-if [[ ! -d ~/.zsh ]]; then
-  mkdir ~/.zsh/
-fi
-
-local PLUGINS=('lukechilds/zsh-nvm' 'Aloxaf/fzf-tab' 'zsh-users/zsh-autosuggestions' 'agkozak/zsh-z')
+# Essential plugins for productivity
+[[ ! -d ~/.zsh ]] && mkdir ~/.zsh/
+local PLUGINS=(
+  'Aloxaf/fzf-tab'                # Better tab completion with fzf
+  'zsh-users/zsh-autosuggestions' # Fish-like autosuggestions
+  'agkozak/zsh-z'                 # Smart directory jumping
+  'zsh-users/zsh-completions'     # 400+ additional completions
+)
 
 for p in "${PLUGINS[@]}"; do
-  git -C $HOME/.zsh clone https://github.com/$p 2> /dev/null
-  local PLUGIN_NAME=`echo $p | cut -f 2 -d '/'`
-  source $HOME/.zsh/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh
+  local PLUGIN_NAME=$(echo $p | cut -f 2 -d '/')
+  local PLUGIN_DIR="$HOME/.zsh/$PLUGIN_NAME"
+  
+  # Only clone the plugin if not already present
+  [[ ! -d "$PLUGIN_DIR" ]] && git -C $HOME/.zsh clone https://github.com/$p 2>/dev/null
+  source "$PLUGIN_DIR/$PLUGIN_NAME.plugin.zsh"
 done
 
-# -----------------------
-# Keybindings
-# -----------------------
+# ==============================================
+# KEYBINDINGS & WIDGETS
+# ==============================================
+bindkey -v  # Vi mode
 
-fancy-ctrl-z () {
+# Smart Ctrl-Z: suspend/resume with one keystroke
+fancy-ctrl-z() {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
     zle accept-line -w
@@ -100,102 +120,56 @@ fancy-ctrl-z () {
   fi
 }
 zle -N fancy-ctrl-z
-
-bindkey -v
 bindkey '^Z' fancy-ctrl-z
 
-# Use fzf to search history with Ctrl+R
+# Fuzzy history search with Ctrl-R
 fzf-history-widget() {
   local selected=$(fc -l 1 | fzf --tac +s --no-sort)
   if [[ -n $selected ]]; then
-    BUFFER=$(echo $selected | sed 's/^[ 0-9]*//') # Remove history numbers
-    CURSOR=${#BUFFER} # Move cursor to the end of the line
+    BUFFER=$(echo $selected | sed 's/^[ 0-9]*//') 
+    CURSOR=${#BUFFER}
   fi
   zle redisplay
 }
 zle -N fzf-history-widget
 bindkey '^R' fzf-history-widget
 
-# Edit current command in Neovim with Ctrl+X Ctrl+E
-export VISUAL="nvim"
-
+# Edit long commands in nvim: Ctrl+X Ctrl+E
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
-# -----------------------
-# Prompt and Appearance
-# -----------------------
+# ==============================================
+# TOOL INITIALIZATION
+# ==============================================
+# Starship prompt (fast, customizable)
 eval "$(starship init zsh)"
 
-# Colorful man pages
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
-
-# Work Scripts (Loaded Last)
-source ~/bin/work_scripts
-
-
-# zprof > profile.txt
-
-preview() {
-  if ! type browser-sync >/dev/null 2>&1; then
-    echo 'Need to install browser-sync.'
-    echo 'try: `nvm use stable && npm install -g browser-sync`'
-    # exit 1
+# Cached completions for speed - only regenerate when tools update
+_load_completion() {
+  local tool=$1 cache_file="$HOME/.zsh/completions/_${tool}" tool_path=$(which $tool)
+  [[ ! -d "$HOME/.zsh/completions" ]] && mkdir -p "$HOME/.zsh/completions"
+  if [[ ! -f "$cache_file" || "$tool_path" -nt "$cache_file" ]]; then
+    $tool generate-shell-completion zsh > "$cache_file" 2>/dev/null
   fi
-
-  browser-sync start \
-    --no-notify --no-ui \
-    --ignore '**/.*' \
-    -sw
 }
+_load_completion uv
+_load_completion uvx
 
-# use nvim to write to mods
-# ai() {
-#   TEMP=$(mktemp) && nvim "$TEMP" && cat "$TEMP" | mods && rm "$TEMP"
-# }
-# TODO: update the aic to print the conversation to the buffer and also remove it before submitting
- # aic() {
- #      # get the latest conversation, save output to CONVERSATION
- #      CONVERSATION=$(mods --show-last)
- #
- #      # write the conversation to the buffer with unique delimiter added
- #      echo -e "$CONVERSATION\n###USERRESPONSE###" > "$TEMP"
- #
- #      # open file with nvim
- #      nvim "$TEMP"
- #
- #      # remove the conversation part from the buffer before you pipe it to mods
- #      sed -n '/^###USERRESPONSE###$/,$p' "$TEMP" | tail -n +2 | mods --continue-
- #  last
- #
- #      # clean up
- #      rm "$TEMP"
- #    }
-# aic() {
-#   TEMP=$(mktemp) && nvim "$TEMP" && cat "$TEMP" | mods --continue && rm "$TEMP"
-# }
-# BUG: do the branch one
-# aib() {
-#   # list all named conversations and select one
-#   mods --list
-#   # dump the full text of the conversation so far
-#   mods --show $(pbpaste)
-#   TEMP=$(mktemp) && nvim "$TEMP" && cat "$TEMP" | mods --continue="$(pbpaste)"
-#   && rm "$TEMP"
-# }
+# Mise: manage Node.js versions and other tools
+eval "$(/Users/dylan.byars/.local/bin/mise activate zsh)"
 
-source /Users/dylan.byars/.config/broot/launcher/bash/br
+# ==============================================
+# SUSPICIOUS RUNTIME PATH MANIPULATIONS
+# ==============================================
+# These commands run every shell startup and might be slow
+# Consider managing these tools through mise instead
+
+# Cargo/Rust toolchain setup
+. "$HOME/.cargo/env"
+
+# Go workspace binary path (requires Go to be available)
 export PATH=$PATH:$(go env GOPATH)/bin
 
-alias bong="afplay /System/Library/Sounds/Funk.aiff"
-
-. "$HOME/.cargo/env"
-eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
+# Show profiling results if enabled
+[[ "$PROFILE" == "1" ]] && zprof
