@@ -1,2 +1,7 @@
 broot/.config/broot/launcher
 .DS_Store
+zsh/.zsh/fzf-tab/
+zsh/.zsh/zsh-autosuggestions/
+zsh/.zsh/zsh-completions/
+zsh/.zsh/zsh-z/
+zsh/.zsh/completions/
