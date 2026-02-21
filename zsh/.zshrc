@@ -23,7 +23,7 @@ alias ff="eza --long --header --all" # ls -la
 alias F="eza --tree --level 2"       # Tree view
 
 # Development tools
-alias lz='lazygit -ucf ~/.config/lazygit/config.yml'  # Git UI
+alias lz='lazygit'  # Git UI
 alias ld='lazydocker'                                  # Docker UI
 alias globalPackages="npm ls -g --depth=0"           # List global npm packages
 
@@ -37,7 +37,7 @@ ufx() {
 
 # Load external utility scripts
 source ~/.zsh/monthly.sh  # Monthly journaling function
-source ~/bin/work_scripts # Work-specific utilities
+[[ -f ~/bin/work_scripts ]] && source ~/bin/work_scripts # Work-specific utilities
 
 # ==============================================
 # PYTHON ENVIRONMENT AUTO-ACTIVATION
@@ -148,7 +148,7 @@ _load_completion uv
 _load_completion uvx
 
 # Mise: manage Node.js versions and other tools
-eval "$(/Users/dylan.byars/.local/bin/mise activate zsh)"
+[[ -x "$HOME/.local/bin/mise" ]] && eval "$($HOME/.local/bin/mise activate zsh)"
 
 # ==============================================
 # SUSPICIOUS RUNTIME PATH MANIPULATIONS
@@ -157,10 +157,10 @@ eval "$(/Users/dylan.byars/.local/bin/mise activate zsh)"
 # Consider managing these tools through mise instead
 
 # Cargo/Rust toolchain setup
-. "$HOME/.cargo/env"
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
 # Go workspace binary path (requires Go to be available)
-export PATH=$PATH:$(go env GOPATH)/bin
+(( $+commands[go] )) && export PATH=$PATH:$(go env GOPATH)/bin
 
 # Show profiling results if enabled
 [[ "$PROFILE" == "1" ]] && zprof

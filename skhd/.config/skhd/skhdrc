@@ -13,12 +13,6 @@ ctrl + cmd - l : yabai -m window --resize right:20:0
 ctrl + cmd - left : yabai -m window --space prev
 ctrl + cmd - right : yabai -m window --space next
 
-# move focus between windows
-# ctrl + cmd - left : yabai -m window --focus west
-# ctrl + cmd - right : yabai -m window --focus east
-ctrl + cmd - down : yabai -m window --focus south
-ctrl + cmd - up : yabai -m window --focus north
-
 # move focus between monitors
 ctrl + cmd - 0x18 : yabai -m window --display 2 # +
 ctrl + cmd - 0x1B : yabai -m window --display 1 # -
@@ -29,6 +23,9 @@ ctrl + cmd - b : yabai -m space --balance
 # rotate windows around space with `[` and `]`
 ctrl + cmd - 0x21 : yabai -m space --rotate 90
 ctrl + cmd - 0x1E : yabai -m space --rotate 270
+
+# cycle focus between windows
+ctrl + cmd - space : yabai -m window --focus next || yabai -m window --focus first
 
 # open terminal
 ctrl + cmd - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
