@@ -148,7 +148,7 @@ _load_completion uv
 _load_completion uvx
 
 # Mise: manage Node.js versions and other tools
-[[ -x "$HOME/.local/bin/mise" ]] && eval "$($HOME/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 
 # ==============================================
 # SUSPICIOUS RUNTIME PATH MANIPULATIONS
