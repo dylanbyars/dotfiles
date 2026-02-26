@@ -13,6 +13,10 @@ export MANPAGER='nvim +Man!'  # Open man pages in neovim
 # PATH: prioritize local tools over system ones
 export PATH=/opt/homebrew/bin:/usr/local/bin:$HOME/bin:$HOME/.local/bin:$PATH
 
+# Optional machine-local overlay (ignored by git)
+# Keep shared defaults in this file; put machine-specific settings in this overlay.
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
 # ==============================================
 # ALIASES & FUNCTIONS
 # ==============================================
@@ -34,10 +38,6 @@ ufx() {
   sudo rm -rf $(xcode-select --print-path)
   xcode-select --install
 }
-
-# Load external utility scripts
-source ~/.zsh/monthly.sh  # Monthly journaling function
-[[ -f ~/bin/work_scripts ]] && source ~/bin/work_scripts # Work-specific utilities
 
 # ==============================================
 # PYTHON ENVIRONMENT AUTO-ACTIVATION
@@ -149,18 +149,6 @@ _load_completion uvx
 
 # Mise: manage Node.js versions and other tools
 eval "$(mise activate zsh)"
-
-# ==============================================
-# SUSPICIOUS RUNTIME PATH MANIPULATIONS
-# ==============================================
-# These commands run every shell startup and might be slow
-# Consider managing these tools through mise instead
-
-# Cargo/Rust toolchain setup
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-
-# Go workspace binary path (requires Go to be available)
-(( $+commands[go] )) && export PATH=$PATH:$(go env GOPATH)/bin
 
 # Show profiling results if enabled
 [[ "$PROFILE" == "1" ]] && zprof

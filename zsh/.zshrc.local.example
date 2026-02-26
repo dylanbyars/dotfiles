@@ -1,0 +1,38 @@
+# Machine-local zsh overlay (example)
+# Copy this file to ~/.zshrc.local on each machine.
+# This file is intentionally local-only and should never be committed.
+
+# -----------------------------
+# Machine-specific PATH/tooling
+# -----------------------------
+# Ruby + gem bin paths (example)
+# export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
+
+# -----------------------------
+# Secrets (recommended patterns)
+# -----------------------------
+# Prefer loading secrets from secure stores at runtime instead of hardcoding.
+
+# Example: fetch Linode token from macOS Keychain only when running linode-cli
+# if command -v security >/dev/null 2>&1; then
+#   alias linode-cli='LINODE_CLI_TOKEN="$(security find-generic-password -a "$USER" -s "linode_api_token" -w 2>/dev/null)" command linode-cli'
+# fi
+
+# Example: set secret env var from Keychain at shell startup
+# export OPENAI_API_KEY="$(security find-generic-password -a "$USER" -s "openai_api_key" -w 2>/dev/null)"
+
+# If you must hardcode a secret temporarily, keep it only in ~/.zshrc.local
+# and rotate it later.
+# export SOME_TEMP_TOKEN="replace-me"
+
+# -----------------------------
+# Local scripts/utilities
+# -----------------------------
+# [[ -f ~/bin/work_scripts ]] && source ~/bin/work_scripts
+# [[ -f ~/.zsh/monthly.sh ]] && source ~/.zsh/monthly.sh
+
+# Cargo/Rust toolchain setup
+# [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+# Go workspace binary path (requires Go to be available)
+# (( $+commands[go] )) && export PATH=$PATH:$(go env GOPATH)/bin
