@@ -133,6 +133,20 @@ bindkey '^X^E' edit-command-line
 # ==============================================
 # TOOL INITIALIZATION
 # ==============================================
+# Auto-install CLI tools via Homebrew if missing
+if (( $+commands[brew] )); then
+  for _tool in starship mise; do
+    (( ! $+commands[$_tool] )) && { echo "Installing $_tool..."; brew install "$_tool" }
+  done
+  unset _tool
+else
+  echo 'Homebrew not found.'
+  read -q "?Install it now? [y/N] " && {
+    echo
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  }
+fi
+
 # Starship prompt (fast, customizable)
 eval "$(starship init zsh)"
 
